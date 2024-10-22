@@ -2,9 +2,20 @@
 // Global Styles for Angular 18
 // ----------------------------
 
-// 1. CSS Reset
+// 1. Import
+
+// 1.1 CSS Reset
 // Using a modern CSS reset to ensure consistency across browsers
 @import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
+
+// 1.2 Using TailwindCSS
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+// 1.3 Import Angular Material Magenta Violet pre-built theme
+@import "@angular/material/prebuilt-themes/magenta-violet.css";
+
 
 // 2. Define Global Variables
 
@@ -267,3 +278,5 @@ button {
 @media (min-width: $breakpoint-lg) {
   .hide-lg { display: none !important; }
 }
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
