@@ -1,6 +1,20 @@
 <!-- header.component.html -->
-<nav class="navbar">
-    <!-- Your navigation structure here -->
-    <a href="/">Home</a>
-    <a href="/about">About</a>
-  </nav>
+<!-- header.component.html -->
+
+<mat-toolbar class="bg-blue-500">
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>My App</span>
+  <span class="example-spacer"></span>
+  <span class="flex-grow"></span>
+  <a mat-button routerLink="/" routerLinkActive="active">Home</a>
+  <a mat-button routerLink="/about">About</a>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+    <mat-icon>favorite</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+    <mat-icon>share</mat-icon>
+  </button>
+</mat-toolbar>
