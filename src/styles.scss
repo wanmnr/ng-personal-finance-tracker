@@ -13,6 +13,18 @@
 // 3. Import Angular Material Pre-Built Theme (Magenta Violet)
 @import '@angular/material/prebuilt-themes/magenta-violet.css';
 
+// Theme customization
+.mat-sidenav-container {
+  background-color: transparent !important;
+}
+
+// Add to styles.scss
+@layer components {
+  .focus-outline {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-900;
+  }
+}
+
 // 4. Define global variables for light and dark modes
 
 // Light Mode Colors
