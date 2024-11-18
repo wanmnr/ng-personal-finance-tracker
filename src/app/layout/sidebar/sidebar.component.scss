@@ -1,0 +1,12 @@
+// src/app/layout/sidebar/sidebar.component.scss
+:host {
+    @apply block h-full;
+  }
+
+  .mat-sidenav {
+    @apply border-none;
+  }
+
+  .mat-list-item {
+    @apply h-12;
+  }
