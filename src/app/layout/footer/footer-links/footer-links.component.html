@@ -1,0 +1,8 @@
+<!-- src/app/layout/footer/footer-links/footer-links.component.html -->
+<nav class="flex flex-wrap justify-center md:justify-end space-x-4" aria-label="Footer navigation">
+  <a *ngFor="let link of links" [href]="link.url"
+    class="text-sm text-gray-600 dark:text-gray-300 hover:text-primary hover:underline transition-colors"
+    [routerLink]="link.url">
+    {{link.label}}
+  </a>
+</nav>
