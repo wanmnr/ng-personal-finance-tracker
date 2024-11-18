@@ -1,40 +1,41 @@
-<!-- app/layout/main.component.html -->
+<!-- app/layout/main/main.component.html -->
+<div class="min-h-screen flex flex-col bg-gray-50 dark:bg-gray-900">
+  <!-- Header -->
+  <app-header class="fixed top-0 left-0 right-0 z-50" (menuClick)="toggleSidenav()">
+  </app-header>
 
-<!-- Main Layout Wrapper -->
-<!-- <div class="main-layout"> -->
+  <!-- Main content area -->
+  <div class="flex-1 flex mt-16">
+    <!-- Sidebar -->
+    <mat-sidenav-container class="flex-1 bg-transparent">
+      <mat-sidenav #sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile" class="sidebar-width"
+        role="navigation" [attr.aria-label]="'Main navigation'" fixedInViewport [fixedTopGap]="64">
+        <app-sidebar [isExpanded]="isSidenavExpanded" [menuItems]="menuItems">
+        </app-sidebar>
+      </mat-sidenav>
 
-  <!-- Header or Navbar (if any) -->
-  <!-- <app-header></app-header> -->
+      <!-- Main content -->
+      <mat-sidenav-content class="min-h-[calc(100vh-4rem)]">
+        <main class="p-6" role="main">
+          <div class="max-w-7xl mx-auto">
+            <!-- Breadcrumbs can be added here -->
 
-  <!-- Main Content Area -->
-  <!-- <div class="content">
-    <router-outlet></router-outlet>
-  </div> -->
+            <!-- Router outlet wrapper -->
+            <mat-card class="mb-6 p-6 shadow-sm">
+              <router-outlet></router-outlet>
+            </mat-card>
+          </div>
+        </main>
 
-  <!-- Footer (if any) -->
-  <!-- <app-footer></app-footer>
-
-</div> -->
-
-
-<!-- app/layout/main.component.html -->
-
-<div class="flex flex-col min-h-screen bg-gray-100">
-  <!-- Header or Navbar -->
-  <app-header></app-header>
-
-  <!-- Main Content Area -->
-  <main id="main-content" class="flex-grow p-4 md:p-6 lg:p-8">
-    <div class="max-w-7xl mx-auto">
-      <router-outlet></router-outlet>
-    </div>
-  </main>
-
-  <!-- Footer -->
-  <app-footer></app-footer>
+        <!-- Footer -->
+        <app-footer></app-footer>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
 </div>
 
 <!-- Accessibility Skip Link -->
-<a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-500 text-white p-2 rounded">
+<a href="#main-content"
+  class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-500 text-white p-2 rounded">
   Skip to main content
 </a>
