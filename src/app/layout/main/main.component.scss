@@ -1,0 +1,21 @@
+// main.component.scss
+:host {
+    @apply block h-screen;
+  }
+  
+  .mat-drawer-container {
+    @apply bg-transparent;
+  }
+  
+  .sidebar-width {
+    @apply w-64 transition-all duration-300;
+  
+    &.collapsed {
+      @apply w-20;
+    }
+  }
+  
+  // Skip to main content link for keyboard users
+  .skip-link {
+    @apply sr-only focus:not-sr-only fixed left-4 top-4 px-4 py-2 bg-primary text-white z-50;
+  }
