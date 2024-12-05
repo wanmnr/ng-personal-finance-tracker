@@ -1,3 +1,4 @@
+// app.routes.ts
 import { Routes } from '@angular/router';
 import { WelcomeComponent } from './pages/welcome/welcome.component';
 import { AboutComponent } from './pages/about/about.component';
