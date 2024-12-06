@@ -1,0 +1,32 @@
+// button.component.scss
+.button {
+  border: 0;
+  border-radius: 4px;
+  cursor: pointer;
+  padding: 8px 16px;
+
+  &--small {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  &--medium {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
+
+  &--large {
+    font-size: 16px;
+    padding: 12px 24px;
+  }
+
+  &--primary {
+    background-color: #1ea7fd;
+    color: white;
+  }
+
+  &--secondary {
+    background-color: #e9ecef;
+    color: #333;
+  }
+}
