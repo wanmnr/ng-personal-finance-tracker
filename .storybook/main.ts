@@ -1,3 +1,4 @@
+// .storybook/main.ts
 import type { StorybookConfig } from "@storybook/angular";
 
 const config: StorybookConfig = {
@@ -12,6 +13,9 @@ const config: StorybookConfig = {
   framework: {
     name: "@storybook/angular",
     options: {},
+  },
+  docs: {
+    autodocs: 'tag',
   },
 };
 export default config;
