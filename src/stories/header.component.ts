@@ -1,7 +1,8 @@
+// src/stories/header.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ButtonComponent } from './button.component';
+import { ButtonComponent } from './button2.component';
 import type { User } from './user';
 
 @Component({
