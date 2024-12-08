@@ -1,5 +1,6 @@
 // app/core/layout/main/main1.component.ts
-import { Component, inject, ViewChild } from '@angular/core';
+// Basic Integration with Responsive Layout
+import { Component, computed, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../header/header1.component';
@@ -7,6 +8,7 @@ import { SidebarComponent } from '../sidebar/sidebar1.component';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { BehaviorSubject } from 'rxjs';
 import { LayoutService } from '../../core/services/layout1.service';
+import { NavigationService } from '../../core/services/navigation.service'
 
 @Component({
   selector: 'app-main',
@@ -25,9 +27,9 @@ import { LayoutService } from '../../core/services/layout1.service';
       <mat-sidenav-container class="flex-1">
         <mat-sidenav
           #sidenav
-          [mode]="isMobile ? 'over' : 'side'"
-          [opened]="layoutService.getSidenavState()"
-          class="w-64">
+          [mode]="layoutService.getLayoutState().isMobile ? 'over' : 'side'"
+          [opened]="layoutService.getLayoutState().sidenavOpened"
+          class="w-64 bg-gray-800 text-white p-4">
           <app-sidebar></app-sidebar>
         </mat-sidenav>
 
@@ -46,14 +48,20 @@ import { LayoutService } from '../../core/services/layout1.service';
     mat-sidenav-container {
       background-color: #f5f5f5;
     }
+
+    ::ng-deep .mat-drawer {
+      border-radius: 0 !important;
+    }
   `]
 })
 export class MainComponent {
   @ViewChild('sidenav') sidenav!: MatSidenav;
 
-  private readonly isMobileSubject = new BehaviorSubject<boolean>(window.innerWidth < 768);
-  isMobile = this.isMobileSubject.value;
   layoutService = inject(LayoutService);
+  navigationService = inject(NavigationService);
+
+  breadcrumbs$ = computed(() => this.navigationService.getBreadcrumbs());
+  layoutState$ = computed(() => this.layoutService.getLayoutState());
 
   constructor() {
     this.handleResize();
@@ -61,7 +69,12 @@ export class MainComponent {
 
   private handleResize() {
     window.addEventListener('resize', () => {
-      this.isMobileSubject.next(window.innerWidth < 768);
+      const isMobile = window.innerWidth < 768;
+      this.layoutService.setMobileState(isMobile);
     });
   }
+
+  // private readonly isMobileSubject = new BehaviorSubject<boolean>(window.innerWidth < 768);
+  // isMobile = this.isMobileSubject.value;
+
 }
