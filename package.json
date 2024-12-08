@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "storybook": "ng run ng-personal-finance-tracker:storybook",
-    "build-storybook": "ng run ng-personal-finance-tracker:build-storybook"
+    "build-storybook": "ng run ng-personal-finance-tracker:build-storybook",
+    "compodoc:generate": "compodoc -p tsconfig.json",
+    "compodoc:serve": "compodoc -s"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +25,7 @@
     "@angular/platform-browser-dynamic": "^18.2.0",
     "@angular/router": "^18.2.0",
     "@fortawesome/angular-fontawesome": "^0.15.0",
+    "@fortawesome/free-solid-svg-icons": "^6.7.1",
     "date-fns": "^4.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
