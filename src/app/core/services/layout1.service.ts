@@ -17,18 +17,18 @@ export class LayoutService {
     theme: 'light'
   });
 
-  private readonly sidenavOpenedState = signal<boolean>(true);
-
-  // toggleSidenav(): void {
-  //   this.layoutState.update(state => ({
-  //     ...state,
-  //     sidenavOpened: !state.sidenavOpened
-  //   }));
-  // }
+  // private readonly sidenavOpenedState = signal<boolean>(true);
 
   toggleSidenav(): void {
-    this.sidenavOpenedState.update(state => !state);
+    this.layoutState.update(state => ({
+      ...state,
+      sidenavOpened: !state.sidenavOpened
+    }));
   }
+
+  // toggleSidenav(): void {
+  //   this.sidenavOpenedState.update(state => !state);
+  // }
 
   setMobileState(isMobile: boolean): void {
     this.layoutState.update(state => ({
@@ -45,11 +45,19 @@ export class LayoutService {
     }));
   }
 
-  // getLayoutState(): LayoutState {
-  //   return this.layoutState();
-  // }
+  getLayoutState(): LayoutState {
+    return this.layoutState();
+  }
 
   getSidenavState(): boolean {
-    return this.sidenavOpenedState();
+    return this.getLayoutState().sidenavOpened;
+  }
+
+  getMobileState(): boolean {
+    return this.getLayoutState().isMobile;
+  }
+
+  getThemeState(): string {
+    return this.getLayoutState().theme;
   }
 }
