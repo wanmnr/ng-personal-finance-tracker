@@ -1,14 +1,15 @@
 // app/core/layout/header/header1.component.ts
 // Basic Header with Angular Material and Tailwind
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
-import { NavigationService } from '../../core/services/navigation1.service';
+import { NavigationService } from '../../core/services/navigation.service';
 import { LayoutService } from '../../core/services/layout1.service';
+import { LogoComponent } from "../components/logo/logo.component";
 
 @Component({
   selector: 'app-header',
@@ -19,15 +20,16 @@ import { LayoutService } from '../../core/services/layout1.service';
     MatButtonModule,
     MatIconModule,
     MatMenuModule,
-    MatDividerModule
+    MatDividerModule,
+    LogoComponent
   ],
   template: `
     <mat-toolbar class="flex items-center justify-between bg-white shadow-md px-4">
       <div class="flex items-center gap-4">
+        <app-logo size="medium"></app-logo>
         <button mat-icon-button (click)="toggleSidenav()">
           <mat-icon>menu</mat-icon>
         </button>
-        <img src="assets/logo.svg" alt="Logo" class="h-8">
       </div>
 
       <div class="flex items-center gap-4">
@@ -66,10 +68,21 @@ import { LayoutService } from '../../core/services/layout1.service';
   `]
 })
 export class HeaderComponent {
-  private readonly layoutService = inject(LayoutService);
-  private readonly navigationService = inject(NavigationService);
+  layoutService = inject(LayoutService);
+  navigationService = inject(NavigationService);
+
+  breadcrumbs$ = computed(() => this.navigationService.getBreadcrumbs());
 
   toggleSidenav() {
     this.layoutService.toggleSidenav();
+  }
+
+  // Navigation-related methods
+  navigateWithPermissionCheck(route: string) {
+    if (this.navigationService.canNavigate(route)) {
+      // Navigate to route
+    } else {
+      // Handle unauthorized access
+    }
   }
 }
