@@ -1,1 +1,25 @@
-// logo.component.scss
+// layout/components/logo.component.scss
+.logo {
+  display: inline-block;
+
+  &.small img {
+    width: 24px;
+    height: 24px;
+  }
+
+  &.medium img {
+    width: 48px;
+    height: 48px;
+  }
+
+  &.large img {
+    width: 96px;
+    height: 96px;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+}
