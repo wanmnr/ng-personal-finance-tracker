@@ -1,4 +1,5 @@
 // app/core/layout/sidebar/sidebar1.component.ts
+// Basic Side Navigation with Angular Material
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
