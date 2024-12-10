@@ -7,7 +7,7 @@ import { HeaderComponent } from '../header/header1.component';
 import { SidebarComponent } from '../sidebar/sidebar1.component';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { BehaviorSubject } from 'rxjs';
-import { LayoutService } from '../../core/services/layout1.service';
+import { LayoutService } from '../services/layout1.service';
 import { NavigationService } from '../../core/services/navigation.service'
 
 @Component({
