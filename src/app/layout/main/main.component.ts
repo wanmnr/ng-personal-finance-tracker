@@ -9,7 +9,7 @@ import { MatCardModule } from '@angular/material/card';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { LayoutService } from '../../core/services/layout1.service';
+import { LayoutService } from '../services/layout1.service';
 import { NavigationService } from '../../core/services/navigation.service';
 
 @Component({
