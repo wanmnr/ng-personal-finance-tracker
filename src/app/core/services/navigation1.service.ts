@@ -1,4 +1,5 @@
 // app/core/services/navigation1.service.ts
+// Basic State Management Approach
 import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
