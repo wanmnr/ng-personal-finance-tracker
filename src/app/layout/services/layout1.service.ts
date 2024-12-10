@@ -1,4 +1,4 @@
-// app/core/services/layout1.service.ts
+// app/layout/services/layout1.service.ts
 import { Injectable, signal } from '@angular/core';
 
 export interface LayoutState {
