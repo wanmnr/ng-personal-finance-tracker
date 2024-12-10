@@ -8,9 +8,9 @@
   <div class="flex-1 flex mt-16">
     <!-- Sidebar -->
     <mat-sidenav-container class="flex-1 bg-transparent">
-      <mat-sidenav #sidenav [mode]="isMobile ? 'over' : 'side'" [opened]="!isMobile" class="sidebar-width"
+      <mat-sidenav #sidenav [mode]="(layoutState$ | async)?.sidenavOpened" [opened]="!isMobile" class="sidebar-width"
         role="navigation" [attr.aria-label]="'Main navigation'" fixedInViewport [fixedTopGap]="64">
-        <app-sidebar [isExpanded]="isSidenavExpanded" [menuItems]="menuItems">
+        <app-sidebar [isExpanded]="isSidenavExpanded" [navigationItems]="navigationItems">
         </app-sidebar>
       </mat-sidenav>
 
@@ -18,7 +18,24 @@
       <mat-sidenav-content class="min-h-[calc(100vh-4rem)]">
         <main class="p-6" role="main">
           <div class="max-w-7xl mx-auto">
-            <!-- Breadcrumbs can be added here -->
+            <!-- Breadcrumbs -->
+            <nav aria-label="Breadcrumb" class="mb-4">
+              <ol class="flex items-center space-x-2">
+                <ng-container *ngFor="let breadcrumb of breadcrumbs$ | async; let last = last">
+                  <li>
+                    <span *ngIf="!last">
+                      <a [routerLink]="breadcrumb.path" class="text-blue-600 hover:text-blue-800">
+                        {{ breadcrumb.label }}
+                      </a>
+                      <span class="mx-2 text-gray-500">/</span>
+                    </span>
+                    <span *ngIf="last" class="text-gray-600">
+                      {{ breadcrumb.label }}
+                    </span>
+                  </li>
+                </ng-container>
+              </ol>
+            </nav>
 
             <!-- Router outlet wrapper -->
             <mat-card class="mb-6 p-6 shadow-sm">
@@ -28,7 +45,6 @@
         </main>
 
         <!-- Footer -->
-        <app-footer></app-footer>
       </mat-sidenav-content>
     </mat-sidenav-container>
   </div>
