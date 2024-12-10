@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { NavigationService } from '../../core/services/navigation.service';
-import { LayoutService } from '../../core/services/layout1.service';
+import { LayoutService } from '../services/layout1.service';
 import { LogoComponent } from "../components/logo/logo.component";
 
 @Component({
