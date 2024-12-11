@@ -10,7 +10,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
-import { LogoComponent } from "../components/logo/logo.component";
+import { LogoComponent } from "../../../shared/components/logo/logo.component";
 
 interface NavItem {
   label: string;
@@ -34,7 +34,7 @@ interface NavItem {
     MatTooltipModule,
     MatDividerModule,
     LogoComponent
-],
+  ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
