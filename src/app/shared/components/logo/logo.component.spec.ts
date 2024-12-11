@@ -1,4 +1,4 @@
-// logo.component.spec.ts
+// layout/components/logo.component.spec.ts
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LogoComponent } from './logo.component';
