@@ -1,8 +1,8 @@
 // app.routes.ts
 import { Routes } from '@angular/router';
 
-import { WelcomeComponent } from './pages/welcome/welcome.component';
-import { AboutComponent } from './pages/about/about.component';
+import { WelcomeComponent } from './shared/pages/welcome/welcome.component';
+import { AboutComponent } from './shared/pages/about/about.component';
 import { DemoComponent } from './demo/demo.component';
 import { MemoizationDemonstrationComponent } from './demo/memoization-demo.component';
 
