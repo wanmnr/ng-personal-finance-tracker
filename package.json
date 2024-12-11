@@ -27,6 +27,8 @@
     "@fortawesome/angular-fontawesome": "^0.15.0",
     "@fortawesome/free-solid-svg-icons": "^6.7.1",
     "date-fns": "^4.1.0",
+    "@ngrx/store": "^18.0.0",
+    "@ngrx/effects": "^18.0.0",
     "ngx-spinner": "^17.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
