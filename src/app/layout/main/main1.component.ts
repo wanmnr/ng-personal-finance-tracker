@@ -3,12 +3,12 @@
 import { Component, computed, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
-import { HeaderComponent } from '../header/header1.component';
-import { SidebarComponent } from '../sidebar/sidebar1.component';
+import { HeaderComponent } from '../components/header/header1.component';
+import { SidebarComponent } from '../components/sidebar/sidebar1.component';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { BehaviorSubject } from 'rxjs';
 import { LayoutService } from '../services/layout1.service';
-import { NavigationService } from '../../core/services/navigation.service'
+import { NavigationService } from '@core/services/navigation.service'
 
 @Component({
   selector: 'app-main',
