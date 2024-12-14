@@ -4,10 +4,13 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#your-primary-color",
+        primary: "blue",
       },
       spacing: {
         16: "4rem", // For header height
+      },
+      scale: {
+        102: "1.02",
       },
     },
   },
