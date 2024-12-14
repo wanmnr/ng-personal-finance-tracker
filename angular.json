@@ -32,9 +32,10 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "@angular/material/prebuilt-themes/magenta-violet.css",
+              "@angular/material/core/theming/",
               "node_modules/ngx-spinner/animations/ball-spin-clockwise.css",
-              "src/styles.scss"
+              "src/styles.scss",
+              "src/theme.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": ["src"]
@@ -54,7 +55,6 @@
                   "maximumWarning": "2kB",
                   "maximumError": "4kB"
                 }
-
               ],
               "outputHashing": "all",
               "fileReplacements": [
@@ -96,15 +96,14 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
-              }
+                "input": "src/assets",
+                "output": "/assets"
+              },
+              "src/favicon.ico"
             ],
-            "styles": [
-              "@angular/material/prebuilt-themes/magenta-violet.css",
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss", "src/theme.scss"],
             "stylePreprocessorOptions": {
-              "includePaths": ["src"]
+              "includePaths": ["src/styles"]
             },
             "scripts": []
           }
