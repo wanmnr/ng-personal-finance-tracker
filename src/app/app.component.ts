@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
-import { MainComponent } from './layout/layouts/main/main1.component';
+import { MainComponent } from './layout/main/main1.component';
 import { SpinnerService } from './shared/services/spinner.service';
 
 @Component({
