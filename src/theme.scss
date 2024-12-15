@@ -1,0 +1,86 @@
+// theme.scss
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+@use 'sass:map';
+@include mat.core();
+
+$theme: mat.define-theme((
+  color: (
+    theme-type: dark,
+    primary: mat.$violet-palette,
+  ),
+  typography: (
+    brand-family: 'Comic Sans',
+    bold-weight: 900
+  ),
+  density: (
+    scale: -1
+  )
+));
+
+html {
+  @include mat.all-component-themes($theme);
+}
+
+// html {
+//   // Emit theme-dependent styles for common features used across multiple components.
+//   @include mat.core-theme($theme);
+
+//   // Emit styles for MatButton based on `$my-theme`. Because the configuration
+//   // passed to `define-theme` omits typography, `button-theme` will not
+//   // emit any typography styles.
+//   @include mat.button-theme($theme);
+
+//   // Include the theme mixins for other components you use here.
+// }
+
+
+
+
+// @use '@angular/material' as mat;
+// @use 'sass:map';
+// @include mat.core();
+
+// // Define palettes using the new syntax
+// $primary-palette: mat.$violet-palette;
+// $accent-palette: mat.$blue-palette;
+// $warn-palette: mat.$red-palette;
+
+// // Typography config
+// $typography-config: mat.define-typography-config(
+//   $font-family: 'Inter, sans-serif',
+//   $headline-1: mat.define-typography-level(96px, 96px, 300),
+//   $body-1: mat.define-typography-level(16px, 24px, 400)
+// );
+
+// // Light theme
+// $light-theme: mat.define-light-theme((
+//   color: (
+//     primary: $primary-palette,
+//     accent: $accent-palette,
+//     warn: $warn-palette,
+//   ),
+//   typography: $typography-config,
+//   density: 0
+// ));
+
+// // Dark theme
+// $dark-theme: mat.define-dark-theme((
+//   color: (
+//     primary: $primary-palette,
+//     accent: $accent-palette,
+//     warn: $warn-palette,
+//   ),
+//   typography: $typography-config,
+//   density: 0
+// ));
+
+// // Apply the theme
+// .light-theme {
+//   @include mat.all-component-themes($light-theme);
+// }
+
+// .dark-theme {
+//   @include mat.all-component-themes($dark-theme);
+// }
