@@ -1,4 +1,4 @@
-// app/core/layout/header/header1.component.ts
+// app/layout/header/header1.component.ts
 // Basic Header with Angular Material and Tailwind
 import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,7 +9,9 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { NavigationService } from '../../../core/services/navigation.service';
 import { LayoutService } from '../../services/layout1.service';
-import { LogoComponent } from "../../../shared/components/logo/logo.component";
+import { LogoComponent } from '../../../shared/components/logo/logo.component';
+import { ThemeService } from '@app/layout/services/theme1.service';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-header',
@@ -21,10 +23,12 @@ import { LogoComponent } from "../../../shared/components/logo/logo.component";
     MatIconModule,
     MatMenuModule,
     MatDividerModule,
-    LogoComponent
+    LogoComponent,
   ],
   template: `
-    <mat-toolbar class="flex items-center justify-between bg-white shadow-md px-4">
+    <mat-toolbar
+      class="flex items-center justify-between bg-white shadow-md px-4"
+    >
       <div class="flex items-center gap-4">
         <app-logo size="medium"></app-logo>
         <button mat-icon-button (click)="toggleSidenav()">
@@ -41,6 +45,9 @@ import { LogoComponent } from "../../../shared/components/logo/logo.component";
         </button>
 
         <mat-menu #profileMenu="matMenu">
+          <button (click)="toggleTheme()">
+            Toggle {{ isDarkMode() ? 'Light' : 'Dark' }} Mode
+          </button>
           <button mat-menu-item>
             <mat-icon>person</mat-icon>
             <span>Profile</span>
@@ -58,20 +65,32 @@ import { LogoComponent } from "../../../shared/components/logo/logo.component";
       </div>
     </mat-toolbar>
   `,
-  styles: [`
-    :host {
-      display: block;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-  `]
+  styles: [
+    `
+      :host {
+        display: block;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+    `,
+  ],
 })
 export class HeaderComponent {
-  layoutService = inject(LayoutService);
-  navigationService = inject(NavigationService);
+  private themeService = inject(ThemeService);
+  private layoutService = inject(LayoutService);
+  private navigationService = inject(NavigationService);
 
-  breadcrumbs$ = computed(() => this.navigationService.getBreadcrumbs());
+  isDarkMode = toSignal(this.themeService.isDarkMode$);
+  breadcrumbs = computed(() => this.navigationService.getBreadcrumbs());
+
+  ngOnInit() {
+    this.themeService.initializeTheme();
+  }
+
+  toggleTheme() {
+    this.themeService.toggleDarkMode();
+  }
 
   toggleSidenav() {
     this.layoutService.toggleSidenav();
