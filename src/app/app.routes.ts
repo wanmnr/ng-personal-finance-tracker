@@ -12,5 +12,17 @@ export const routes: Routes = [
   { path: 'about', component: AboutComponent, title: 'About' },
   { path: 'demo', component: DemoComponent, title: 'Demo' },
   { path: 'memoization-demo', component: MemoizationDemonstrationComponent, title: 'Demo' },
-  { path: '**', redirectTo: '' } // Wildcard route for invalid paths
+  {
+    path: 'budget',
+    loadComponent: () => import('./features/budget/budget1.component')
+      .then(m => m.BudgetComponent),
+    title: 'Budget Overview'
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () => import('./features/dashboard/dashboard1.component')
+      .then(m => m.DashboardComponent),
+    title: 'Dashboard'
+  },
+  { path: '**', redirectTo: '' }
 ];
