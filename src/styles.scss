@@ -1,97 +1,79 @@
-// ----------------------------
-// Global Styles for Angular 18
-// ----------------------------
+// styles.scss
 
-// 1. CSS Reset: Using normalize.css for cross-browser consistency
+// Import the theme
+@use 'theme';
+
+// CSS Reset: Using normalize.css for cross-browser consistency
 @import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
 
-// 2. TailwindCSS Integration: Use Tailwind for utility classes
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// Custom styles
+@import "styles/variables";
+@import "styles/typography";
+@import "styles/themes";
+@import "styles/utilities";
 
-// 3. Import Angular Material Pre-Built Theme (Magenta Violet)
-@import '@angular/material/prebuilt-themes/magenta-violet.css';
+// Import Tailwind CSS
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
-// Theme customization
+// Import Material Icons font
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+// Import Roboto font
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+// Angular Material UI component overrides
+.mat-sidenav {
+  border-radius: 0 !important;
+}
+
 .mat-sidenav-container {
   background-color: transparent !important;
 }
 
-// Add to styles.scss
-@layer components {
-  .focus-outline {
-    @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-900;
+// Tailwind CSS component overrides
+// Custom components
+// Custom components
+.focus-outline {
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px var(--primary), 0 0 0 4px rgba(255, 255, 255, 0.5);
+
+    @media (prefers-color-scheme: dark) {
+      box-shadow: 0 0 0 2px var(--primary), 0 0 0 4px rgba(0, 0, 0, 0.5);
+    }
   }
 }
 
-// 4. Define global variables for light and dark modes
+// Root variables
+// :root {
+//   --primary: #{theme.$primary};
+//   --accent: #{theme.$accent};
+//   --warn: #{theme.$warn};
+// }
 
-// Light Mode Colors
-$light-primary: #1976d2;
-$light-secondary: #ff4081;
-$light-background: #f4f4f9;
-$light-text: #333;
-$light-muted: #777;
-$light-error: #f44336;
-$light-success: #4caf50;
-
-// Dark Mode Colors
-$dark-primary: #90caf9;
-$dark-secondary: #f48fb1;
-$dark-background: #121212;
-$dark-text: #f4f4f4;
-$dark-muted: #888;
-$dark-error: #ef5350;
-$dark-success: #66bb6a;
-
-// Typography
-$font-family-base: 'Roboto', sans-serif;
-$heading-font-family: 'Montserrat', sans-serif;
-$font-size-base: 16px;
-$line-height-base: 1.5;
-
-// Spacing Variables
-$spacing-unit: 1rem; // Base spacing unit
-$spacing-small: 0.5rem;
-$spacing-large: 2rem;
-
-// Breakpoints (for responsive design)
-$breakpoint-sm: 576px;
-$breakpoint-md: 768px;
-$breakpoint-lg: 992px;
-$breakpoint-xl: 1200px;
-
-// 5. Theme Mixins for Light and Dark Modes
-@mixin theme-light {
-  --primary-color: #{$light-primary};
-  --secondary-color: #{$light-secondary};
-  --background-color: #{$light-background};
-  --text-color: #{$light-text};
-  --muted-color: #{$light-muted};
-  --error-color: #{$light-error};
-  --success-color: #{$light-success};
-}
-
-@mixin theme-dark {
-  --primary-color: #{$dark-primary};
-  --secondary-color: #{$dark-secondary};
-  --background-color: #{$dark-background};
-  --text-color: #{$dark-text};
-  --muted-color: #{$dark-muted};
-  --error-color: #{$dark-error};
-  --success-color: #{$dark-success};
-}
-
-// 6. Apply Light and Dark Themes
+// Global styles
 body {
-  font-family: $font-family-base;
-  font-size: $font-size-base;
-  line-height: $line-height-base;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  transition: background-color 0.3s, color 0.3s;
+  font-family: var(--font-family);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
 }
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// body {
+//   font-family: $font-family-base;
+//   font-size: $font-size-base;
+//   line-height: $line-height-base;
+//   background-color: var(--background-color);
+//   color: var(--text-color);
+//   transition: background-color 0.3s, color 0.3s;
+// }
 
 // Light Mode Styles
 body.light-mode {
@@ -103,11 +85,11 @@ body.dark-mode {
   @include theme-dark;
 }
 
+// Responsive utilities
+$breakpoint-sm: 640px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 1024px;
 
-
-
-
-// 10. Responsive Utilities (TailwindCSS covers most responsive utilities)
 @media (max-width: $breakpoint-sm) {
   .hide-sm { display: none !important; }
 }
@@ -118,4 +100,11 @@ body.dark-mode {
 
 @media (min-width: $breakpoint-lg) {
   .hide-lg { display: none !important; }
+}
+
+// Dark mode preference
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
 }
