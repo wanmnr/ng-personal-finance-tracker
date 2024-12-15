@@ -32,10 +32,8 @@
               "src/favicon.ico"
             ],
             "styles": [
-              "@angular/material/core/theming/",
               "node_modules/ngx-spinner/animations/ball-spin-clockwise.css",
-              "src/styles.scss",
-              "src/theme.scss"
+              "src/styles.scss"
             ],
             "stylePreprocessorOptions": {
               "includePaths": ["src"]
