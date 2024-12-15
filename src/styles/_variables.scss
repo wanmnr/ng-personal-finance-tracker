@@ -1,0 +1,59 @@
+// styles/_variables.scss
+
+// Define global variables for light and dark modes
+
+// Light Mode Colors
+$light-primary: #1976d2;
+$light-secondary: #ff4081;
+$light-background: #f4f4f9;
+$light-text: #333;
+$light-muted: #777;
+$light-error: #f44336;
+$light-success: #4caf50;
+
+// Dark Mode Colors
+$dark-primary: #90caf9;
+$dark-secondary: #f48fb1;
+$dark-background: #121212;
+$dark-text: #f4f4f4;
+$dark-muted: #888;
+$dark-error: #ef5350;
+$dark-success: #66bb6a;
+
+// Typography
+$font-family-base: 'Roboto', sans-serif;
+$heading-font-family: 'Montserrat', sans-serif;
+$font-size-base: 16px;
+$line-height-base: 1.5;
+
+// Spacing Variables
+$spacing-unit: 1rem; // Base spacing unit
+$spacing-small: 0.5rem;
+$spacing-large: 2rem;
+
+// Breakpoints (for responsive design)
+$breakpoint-sm: 576px;
+$breakpoint-md: 768px;
+$breakpoint-lg: 992px;
+$breakpoint-xl: 1200px;
+
+// 5. Theme Mixins for Light and Dark Modes
+@mixin theme-light {
+  --primary-color: #{$light-primary};
+  --secondary-color: #{$light-secondary};
+  --background-color: #{$light-background};
+  --text-color: #{$light-text};
+  --muted-color: #{$light-muted};
+  --error-color: #{$light-error};
+  --success-color: #{$light-success};
+}
+
+@mixin theme-dark {
+  --primary-color: #{$dark-primary};
+  --secondary-color: #{$dark-secondary};
+  --background-color: #{$dark-background};
+  --text-color: #{$dark-text};
+  --muted-color: #{$dark-muted};
+  --error-color: #{$dark-error};
+  --success-color: #{$dark-success};
+}
