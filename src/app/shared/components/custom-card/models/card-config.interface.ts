@@ -1,5 +1,3 @@
-// shared/interfaces/card-config.interface.ts
-
 // shared/interfaces/card-action.interface.ts
 export interface CardAction {
   id: string;  // Add this required field
