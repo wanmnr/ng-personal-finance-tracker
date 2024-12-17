@@ -44,14 +44,6 @@ import { NavigationService } from '@core/services/navigation.service'
       display: block;
       height: 100vh;
     }
-
-    mat-sidenav-container {
-      background-color: #f5f5f5;
-    }
-
-    ::ng-deep .mat-drawer {
-      border-radius: 0 !important;
-    }
   `]
 })
 export class MainComponent {
