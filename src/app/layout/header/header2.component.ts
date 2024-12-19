@@ -13,7 +13,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { NavigationService } from '../../../core/services/navigation5.service';
+import { NavigationService } from '../../core/services/navigation5.service';
 
 interface NavigationItem {
   label: string;
