@@ -1,0 +1,89 @@
+// styles2.scss
+// TODO: Try out scss structural pattern
+
+// Use modern @use for Sass modules
+@use 'sass:map';
+@use 'sass:color';
+@use 'theme';
+@use 'styles/variables' as *;
+@use 'styles/breakpoints' as *;
+
+// Vendor styles (order matters)
+@use 'normalize.css' as *;
+@use 'ngx-toastr/toastr';
+@use '@angular/material' as mat;
+
+// Tailwind imports
+@use "tailwindcss/base";
+@use "tailwindcss/components";
+@use "tailwindcss/utilities";
+
+// Custom style modules
+@use 'styles/typography';
+@use 'styles/themes';
+@use 'styles/utilities';
+
+// Fonts (consider moving to index.html for better performance)
+@use 'styles/fonts';
+
+// Material overrides
+.mat-sidenav {
+  border-radius: 0;
+}
+
+.mat-sidenav-container {
+  background-color: var(--background-color);
+}
+
+// Component styles
+.focus-outline {
+  &:focus {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--primary),
+      0 0 0 4px rgb(255 255 255 / 50%);
+
+    @media (prefers-color-scheme: dark) {
+      box-shadow:
+        0 0 0 2px var(--primary),
+        0 0 0 4px rgb(0 0 0 / 50%);
+    }
+  }
+}
+
+// Base styles
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: var(--font-family-base);
+  line-height: var(--line-height-base);
+  -webkit-font-smoothing: antialiased;
+}
+
+// Theme modes
+body {
+  &.light-mode {
+    @include theme-light;
+  }
+
+  &.dark-mode {
+    @include theme-dark;
+  }
+}
+
+// Responsive utilities
+@each $breakpoint, $value in $breakpoints {
+  @media (#{$value}) {
+    .hide-#{$breakpoint} {
+      display: none;
+    }
+  }
+}
+
+// Color scheme preference
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+  }
+}
