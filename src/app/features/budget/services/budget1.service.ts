@@ -4,7 +4,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
 import { Observable, catchError, map, tap } from 'rxjs';
-import { Budget, CreateBudgetDto, UpdateBudgetDto } from '../models/budget.model';
+import { Budget, CreateBudgetDto, UpdateBudgetDto } from '../models/budget1.model';
 import { environment } from '../../../../environments/environment';
 import * as BudgetActions from '../store/budget.actions';
 
