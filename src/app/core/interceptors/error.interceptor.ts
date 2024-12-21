@@ -1,4 +1,5 @@
 // src/app/core/interceptors/error.interceptor.ts
+// Functional Interceptor (New in Angular 18)
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
