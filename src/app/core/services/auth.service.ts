@@ -6,6 +6,7 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { ApiService } from './api.service';
 import { TokenService } from './token.service';
+import { User } from '@core/models/user.model';
 
 export interface AuthResponse {
   user: User;
@@ -14,13 +15,6 @@ export interface AuthResponse {
 
 export interface RefreshTokenResponse {
   token: string;
-}
-
-export interface User {
-  id: string;
-  email: string;
-  name: string;
-  // Add other user properties as needed
 }
 
 export interface LoginCredentials {
@@ -154,6 +148,26 @@ export class AuthService {
     ).pipe(
       catchError(this.handleError)
     );
+  }
+
+  isAdmin(): boolean {
+    const currentUser = this.getCurrentUser();
+    if (!currentUser) return false;
+
+    // If using roles array
+    return currentUser.roles.includes('admin');
+    // Or if using single role
+    // return currentUser.role === 'admin';
+  }
+
+  hasRole(role: string): boolean {
+    const currentUser = this.getCurrentUser();
+    if (!currentUser) return false;
+    return currentUser.roles.includes(role);
+  }
+
+  updateStoredUser(user: User): void {
+    this.handleAuthSuccess(user);
   }
 
   private handleAuthSuccess(user: User): void {
