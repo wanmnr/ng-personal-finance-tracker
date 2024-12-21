@@ -1,14 +1,7 @@
+// core/services/user.service.ts
 import { HttpClient } from "@angular/common/http";
-
-// Define the interfaces
-interface UserProfile {
-  id: string;
-  name: string;
-  email: string;
-  phone?: string;
-  address?: string;
-  // Add other profile properties as needed
-}
+import { catchError, Observable, throwError } from "rxjs";
+import { UserProfile } from '@core/models/user.model';
 
 interface UserPreferences {
   theme: string;
@@ -21,8 +14,17 @@ interface UserPreferences {
 export class UserService {
   constructor(private http: HttpClient) { }
 
-  getUserProfile(userId: string) {
-    return this.http.get(`/api/users/${userId}`);
+  getUserProfile(userId: string): Observable<UserProfile> {
+    return this.http.get<UserProfile>(`/api/users/${userId}`).pipe(
+      catchError(error => {
+        console.error('Error fetching user profile:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
+  validateUserRole(userId: string, role: string): Observable<boolean> {
+    return this.http.get<boolean>(`/api/users/${userId}/validate-role/${role}`);
   }
 
   updateProfile(userId: string, data: UserProfile) {
