@@ -6,16 +6,19 @@
 // CSS Reset: Using normalize.css for cross-browser consistency
 @import url('https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css');
 
-// Custom styles
-@import "styles/variables";
-@import "styles/typography";
-@import "styles/themes";
-@import "styles/utilities";
+// Import Third-Party Package
+@import 'ngx-toastr/toastr';
 
 // Import Tailwind CSS
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+
+// Custom styles
+@import "styles/variables";
+@import "styles/typography";
+@import "styles/themes";
+@import "styles/utilities";
 
 // Import Material Icons font
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons');
