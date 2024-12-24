@@ -104,11 +104,10 @@ export class PaginationComponent implements OnInit {
   faChevronLeft = faChevronLeft;
   faChevronRight = faChevronRight;
 
-  currentPage$ = this.store.select(PaginationSelectors.selectCurrentPage);
-  pageSize$ = this.store.select(PaginationSelectors.selectPageSize);
-  totalItems$ = this.store.select(PaginationSelectors.selectTotalItems);
-  totalPages$ = this.store.select(PaginationSelectors.selectTotalPages);
-
+  currentPage$: Observable<number>;
+  pageSize$: Observable<number>;
+  totalItems$: Observable<number>;
+  totalPages$: Observable<number>;
   config$: Observable<PaginationConfig>;
   displayedPages$: Observable<number[]>;
 
@@ -116,6 +115,10 @@ export class PaginationComponent implements OnInit {
     private store: Store,
     private paginationService: PaginationService
   ) {
+    this.currentPage$ = this.store.select(PaginationSelectors.selectCurrentPage);
+    this.pageSize$ = this.store.select(PaginationSelectors.selectPageSize);
+    this.totalItems$ = this.store.select(PaginationSelectors.selectTotalItems);
+    this.totalPages$ = this.store.select(PaginationSelectors.selectTotalPages);
     this.config$ = this.paginationService.config$;
 
     // Calculate displayed pages based on current state
