@@ -47,8 +47,8 @@ import * as PaginationSelectors from '@shared/store/selectors/pagination.selecto
       <div class="flex items-center space-x-2">
         <!-- Previous button -->
         <button mat-icon-button
-                [disabled]="(paginationState$ | async)?.currentPage === 1"
-                (click)="goToPage((paginationState$ | async)?.currentPage - 1)"
+                [disabled]="(currentPage$ | async) === 1"
+                (click)="onPreviousPage()"
                 aria-label="Previous page">
           <fa-icon [icon]="faChevronLeft"></fa-icon>
         </button>
@@ -56,9 +56,9 @@ import * as PaginationSelectors from '@shared/store/selectors/pagination.selecto
         <!-- Page numbers -->
         @for (page of displayedPages$ | async; track page) {
           <button mat-button
-                  [class.bg-primary]="(paginationState$ | async)?.currentPage === page"
+                  [class.bg-primary]="(currentPage$ | async) === page"
                   (click)="goToPage(page)"
-                  [attr.aria-current]="(paginationState$ | async)?.currentPage === page ? 'page' : null"
+                  [attr.aria-current]="(currentPage$ | async) === page ? 'page' : null"
                   [attr.aria-label]="'Go to page ' + page">
             {{ page }}
           </button>
@@ -66,8 +66,8 @@ import * as PaginationSelectors from '@shared/store/selectors/pagination.selecto
 
         <!-- Next button -->
         <button mat-icon-button
-                [disabled]="(paginationState$ | async)?.currentPage === (paginationState$ | async)?.totalPages"
-                (click)="goToPage((paginationState$ | async)?.currentPage + 1)"
+                [disabled]="(currentPage$ | async) === (totalPages$ | async)"
+                (click)="onNextPage()"
                 aria-label="Next page">
           <fa-icon [icon]="faChevronRight"></fa-icon>
         </button>
@@ -75,7 +75,7 @@ import * as PaginationSelectors from '@shared/store/selectors/pagination.selecto
 
       <!-- Page info -->
       <div class="text-sm text-gray-700">
-        {{ (paginationState$ | async)?.currentPage }} of {{ (paginationState$ | async)?.totalPages }} pages
+        {{ (currentPage$ | async) }} of {{ (totalPages$ | async) }} pages
       </div>
     </nav>
   `,
@@ -151,5 +151,23 @@ export class PaginationComponent implements OnInit {
   onPageSizeChange(pageSize: number): void {
     this.paginationService.setPageSize(pageSize);
     this.pageSizeChange.emit(pageSize);
+  }
+
+  onPreviousPage(): void {
+    this.currentPage$.subscribe(currentPage => {
+      if (currentPage > 1) {
+        this.goToPage(currentPage - 1);
+      }
+    }).unsubscribe();
+  }
+
+  onNextPage(): void {
+    this.currentPage$.subscribe(currentPage => {
+      this.totalPages$.subscribe(totalPages => {
+        if (currentPage < totalPages) {
+          this.goToPage(currentPage + 1);
+        }
+      }).unsubscribe();
+    }).unsubscribe();
   }
 }
