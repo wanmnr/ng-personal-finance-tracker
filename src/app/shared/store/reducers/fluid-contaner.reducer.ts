@@ -1,8 +1,7 @@
 // store/fluid-container.reducer.ts
-
 import { createReducer, on } from '@ngrx/store';
-import { FluidContainerState } from '../types/fluid-container.types';
-import * as FluidContainerActions from './fluid-container.actions';
+import { FluidContainerState } from '@shared/types/fluid-container.types';
+import * as FluidContainerActions from '@shared/store/actions/fluid-container.actions';
 
 export const initialState: FluidContainerState = {
   config: {
