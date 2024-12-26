@@ -9,8 +9,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faWallet, faChartLine } from '@fortawesome/free-solid-svg-icons';
 import { trigger, transition, style, animate } from '@angular/animations';
 import { Store } from '@ngrx/store';
-import { BudgetService } from './services/budget.service';
-import { Budget } from './models/budget.model';
+import { BudgetService } from './services/budget1.service';
+import { Budget } from './models/budget1.model';
 
 @Component({
   selector: 'app-budget',
