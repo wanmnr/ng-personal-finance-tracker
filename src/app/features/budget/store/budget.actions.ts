@@ -1,7 +1,7 @@
 // src/app/features/budget/store/budget.actions.ts
 
 import { createAction, props } from '@ngrx/store';
-import { Budget } from '../models/budget.model';
+import { Budget } from '../models/budget1.model';
 
 /**
  * Action constants for budget operations
