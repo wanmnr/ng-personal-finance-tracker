@@ -1,4 +1,4 @@
-// core/interceptors/loading-spinner.interceptor.ts
+// src/app/core/interceptors/loading-spinner.interceptor.ts
 // TODO: need to be integrate with loading-spinner.service.ts and loading-spinner.component.ts
 import { Injectable } from '@angular/core';
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent } from '@angular/common/http';
