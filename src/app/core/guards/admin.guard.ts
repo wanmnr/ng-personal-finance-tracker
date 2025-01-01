@@ -1,4 +1,10 @@
 // core/guards/admin.guard.ts
+/*
+ * Role-specific check
+ * - Verifies if user has admin privileges
+ * - More specific access control
+ * - Used for admin-only routes
+*/
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -31,21 +37,19 @@ export const adminGuard = () => {
   }
 
   return userService.validateUserRole(currentUser.id, 'admin').pipe(
-    map(isAdmin => {
+    map((isAdmin) => {
       if (isAdmin) {
         // Refresh the user profile
-        userService.getUserProfile(currentUser.id).subscribe(
-          profile => {
-            // Update the stored user data with the new profile
-            const updatedUser: User = {
-              id: profile.id,
-              email: profile.email,
-              name: profile.name,
-              roles: profile.roles
-            };
-            authService.updateStoredUser(updatedUser);
-          }
-        );
+        userService.getUserProfile(currentUser.id).subscribe((profile) => {
+          // Update the stored user data with the new profile
+          const updatedUser: User = {
+            id: profile.id,
+            email: profile.email,
+            name: profile.name,
+            roles: profile.roles,
+          };
+          authService.updateStoredUser(updatedUser);
+        });
         return true;
       }
       router.navigate(['/unauthorized']);
