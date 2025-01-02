@@ -29,6 +29,7 @@ export const routes: Routes = [
     loadComponent: () => import('./features/dashboard/dashboard1.component')
       .then(m => m.DashboardComponent),
     title: 'Dashboard'
+    // canActivate: [authGuard]  // Only basic access
   },
   // {
   //   path: 'transactions',
