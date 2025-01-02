@@ -1,0 +1,57 @@
+<!-- budget1.component.ts -->
+<section
+  class="budget-container p-4 md:p-6 lg:p-8"
+  role="main"
+  aria-labelledby="budget-title"
+>
+  <h1
+    id="budget-title"
+    class="text-2xl md:text-3xl font-bold mb-6 text-gray-800 dark:text-gray-100"
+  >
+    Budget Overview
+  </h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <mat-card
+      *ngFor="let budget of budgets$ | async"
+      class="budget-card hover:shadow-lg transition-shadow duration-300"
+      [@cardAnimation]
+    >
+      <mat-card-header>
+        <fa-icon [icon]="faWallet" class="text-primary-600"></fa-icon>
+        <mat-card-title class="ml-2">{{ budget.category }}</mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content class="mt-4">
+        <div class="flex justify-between items-center">
+          <span class="text-lg">
+            {{ budget.spent | currency }} / {{ budget.limit | currency }}
+          </span>
+          <div
+            class="progress-bar h-2 w-24 bg-gray-200 rounded"
+            role="progressbar"
+            [attr.aria-valuenow]="getPercentage(budget)"
+            aria-valuemin="0"
+            aria-valuemax="100"
+          >
+            <div
+              class="h-full bg-primary-600 rounded"
+              [style.width.%]="getPercentage(budget)"
+            ></div>
+          </div>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button
+          mat-button
+          color="primary"
+          (click)="editBudget(budget)"
+          aria-label="Edit budget"
+        >
+          Edit
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</section>
