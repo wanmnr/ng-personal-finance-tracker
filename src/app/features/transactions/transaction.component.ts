@@ -7,6 +7,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faPlus, faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { Store } from '@ngrx/store';
 import { TransactionFormComponent } from './transaction-form/transaction-form.component';
 import { Transaction, TransactionFormData } from './types/transaction.types';
@@ -26,24 +27,30 @@ import * as TransactionSelectors from './store/transaction.selectors';
     MatSortModule,
     MatButtonModule,
     FontAwesomeModule,
-    TransactionFormComponent
+    TransactionFormComponent,
   ],
   templateUrl: './transaction.component.html',
-  styles: [`
-    :host {
-      display: block;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+      }
 
-    .mat-mdc-table {
-      background: white;
-    }
+      .mat-mdc-table {
+        background: white;
+      }
 
-    .mat-mdc-row:hover {
-      background: rgba(0, 0, 0, 0.04);
-    }
-  `]
+      .mat-mdc-row:hover {
+        background: rgba(0, 0, 0, 0.04);
+      }
+    `,
+  ],
 })
 export class TransactionComponent {
+  faPlus = faPlus;
+  faEdit = faEdit;
+  faTrash = faTrash;
+
   private readonly store = inject(Store);
 
   // Signals
@@ -83,9 +90,11 @@ export class TransactionComponent {
    */
   deleteTransaction(transaction: Transaction): void {
     if (confirm('Are you sure you want to delete this transaction?')) {
-      this.store.dispatch(TransactionActions.deleteTransaction({
-        id: transaction.id
-      }));
+      this.store.dispatch(
+        TransactionActions.deleteTransaction({
+          id: transaction.id,
+        })
+      );
     }
   }
 
@@ -95,10 +104,12 @@ export class TransactionComponent {
   saveTransaction(data: TransactionFormData): void {
     const selectedTrans = this.selectedTransaction();
     if (selectedTrans) {
-      this.store.dispatch(TransactionActions.updateTransaction({
-        id: selectedTrans.id,
-        data
-      }));
+      this.store.dispatch(
+        TransactionActions.updateTransaction({
+          id: selectedTrans.id,
+          data,
+        })
+      );
     } else {
       this.store.dispatch(TransactionActions.createTransaction({ data }));
     }
@@ -113,4 +124,3 @@ export class TransactionComponent {
     this.selectedTransaction.set(null);
   }
 }
-
