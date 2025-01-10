@@ -37,9 +37,10 @@ import { BreadcrumbService } from './breadcrumb.service';
   ],
 })
 export class BreadcrumbNavComponent {
-  protected breadcrumbs$;
+  protected breadcrumbs$; // declare the property
 
-  constructor(private readonly breadcrumbService: BreadcrumbService) {}
-
-  protected breadcrumbs$ = this.breadcrumbService.breadcrumbs$;
+  constructor(private breadcrumbService: BreadcrumbService) {
+    // inject the service
+    this.breadcrumbs$ = this.breadcrumbService.breadcrumbs$; // initialize the property
+  }
 }
