@@ -1,4 +1,4 @@
-// layout/dashboard-header/dashboard-header.component.ts
+// layout/dashboard10-header/dashboard-header.component.ts
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -15,15 +15,19 @@ import { ThemeService } from '../../core/services/theme.service';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    MatMenuModule
+    MatMenuModule,
   ],
   template: `
-    <mat-toolbar role="banner" class="header-toolbar bg-primary text-on-primary">
+    <mat-toolbar
+      role="banner"
+      class="header-toolbar bg-primary text-on-primary"
+    >
       <button
         *ngIf="isMobile"
         mat-icon-button
         (click)="toggleSidenav.emit()"
-        aria-label="Toggle navigation menu">
+        aria-label="Toggle navigation menu"
+      >
         <mat-icon>menu</mat-icon>
       </button>
 
@@ -35,11 +39,13 @@ import { ThemeService } from '../../core/services/theme.service';
       <app-user-menu></app-user-menu>
     </mat-toolbar>
   `,
-  styles: [`
-    .header-toolbar {
-      @apply flex items-center px-4 h-16 shadow-md z-10;
-    }
-  `]
+  styles: [
+    `
+      .header-toolbar {
+        @apply flex items-center px-4 h-16 shadow-md z-10;
+      }
+    `,
+  ],
 })
 export class DashboardHeaderComponent {
   @Input() isMobile = false;
