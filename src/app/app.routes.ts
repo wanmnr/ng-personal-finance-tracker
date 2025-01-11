@@ -1,5 +1,8 @@
 // app.routes.ts
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
+import { permissionsGuard } from './core/guards/permissions.guard';
+import { Permissions } from './core/guards/permissions.guard';
 
 import { WelcomeComponent } from './shared/pages/welcome/welcome.component';
 import { AboutComponent } from './shared/pages/about/about.component';
@@ -47,5 +50,74 @@ export const routes: Routes = [
     title: 'Transactions'
   }
   */
+  // {
+  //   path: 'transactions',
+  //   loadChildren: () =>
+  //     import('./features/transactions/transactions.routes')
+  //       .then(m => m.TRANSACTION_ROUTES),
+  //   canActivate: [authGuard, permissionsGuard],
+  //   data: {
+  //     permissions: [Permissions.VIEW_TRANSACTIONS]
+  //   }
+  // },
+  // {
+  //   path: 'budgets',
+  //   loadChildren: () =>
+  //     import('./features/budgets/budgets.routes')
+  //       .then(m => m.BUDGET_ROUTES),
+  //   canActivate: [authGuard, permissionsGuard],
+  //   data: {
+  //     permissions: [Permissions.VIEW_BUDGETS]
+  //   }
+  // }
   { path: '**', redirectTo: '' }
 ];
+
+
+// export const routes: Routes = [
+//   {
+//     path: '',
+//     pathMatch: 'full',
+//     redirectTo: 'dashboard'
+//   },
+//   {
+//     path: 'auth',
+//     loadChildren: () =>
+//       import('./features/auth/auth.routes')
+//         .then(m => m.AUTH_ROUTES)
+//   },
+//   {
+//     path: 'dashboard',
+//     loadComponent: () =>
+//       import('./features/dashboard/dashboard.component')
+//         .then(m => m.DashboardComponent),
+//     canActivate: [authGuard]
+//   },
+//   {
+//     path: 'transactions',
+//     loadChildren: () =>
+//       import('./features/transactions/transactions.routes')
+//         .then(m => m.TRANSACTION_ROUTES),
+//     canActivate: [authGuard]
+//   },
+//   {
+//     path: 'budgets',
+//     loadChildren: () =>
+//       import('./features/budgets/budgets.routes')
+//         .then(m => m.BUDGET_ROUTES),
+//     canActivate: [authGuard]
+//   },
+//   {
+//     path: 'reports',
+//     loadChildren: () =>
+//       import('@features/reports/reports.routes')
+//         .then(m => m.REPORT_ROUTES),
+//     canActivate: [authGuard]
+//   },
+//   {
+//     path: '**',
+//     loadComponent: () =>
+//       import('./shared/components/not-found/not-found.component')
+//         .then(m => m.NotFoundComponent)
+//   }
+// ];
