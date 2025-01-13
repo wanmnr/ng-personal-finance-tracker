@@ -1,8 +1,21 @@
 // transactions/transaction-form/transaction-form.component.ts
 
-import { Component, EventEmitter, Input, Output, inject, signal } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  inject,
+  signal,
+  DestroyRef,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -11,7 +24,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatButtonModule } from '@angular/material/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { Transaction, TransactionFormData } from '@features/transactions/types/transaction.types';
+import {
+  Transaction,
+  TransactionFormData,
+} from '@features/transactions/types/transaction.types';
+import { CanDeactivateComponent } from '@core/guards/unsaved-changes.guard';
 
 /**
  * Component for creating and editing transactions
@@ -29,10 +46,12 @@ import { Transaction, TransactionFormData } from '@features/transactions/types/t
     MatDatepickerModule,
     MatNativeDateModule,
     MatButtonModule,
-    FontAwesomeModule
+    FontAwesomeModule,
   ],
   template: `
-    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div
+      class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
+    >
       <div class="bg-white rounded-lg p-6 w-full max-w-md">
         <h2 class="text-2xl font-bold mb-6">
           {{ transaction ? 'Edit' : 'Add' }} Transaction
@@ -48,9 +67,10 @@ import { Transaction, TransactionFormData } from '@features/transactions/types/t
               formControlName="amount"
               placeholder="Enter amount"
               required
-            >
-            @if (form.get('amount')?.hasError('required') && form.get('amount')?.touched) {
-              <mat-error>Amount is required</mat-error>
+            />
+            @if (form.get('amount')?.hasError('required') &&
+            form.get('amount')?.touched) {
+            <mat-error>Amount is required</mat-error>
             }
           </mat-form-field>
 
@@ -59,16 +79,17 @@ import { Transaction, TransactionFormData } from '@features/transactions/types/t
             <mat-label>Category</mat-label>
             <mat-select formControlName="categoryId" required>
               @for (category of categories(); track category.id) {
-                <mat-option [value]="category.id">
-                  <div class="flex items-center gap-2">
-                    <fa-icon [icon]="category.icon"></fa-icon>
-                    {{ category.name }}
-                  </div>
-                </mat-option>
+              <mat-option [value]="category.id">
+                <div class="flex items-center gap-2">
+                  <fa-icon [icon]="category.icon"></fa-icon>
+                  {{ category.name }}
+                </div>
+              </mat-option>
               }
             </mat-select>
-            @if (form.get('categoryId')?.hasError('required') && form.get('categoryId')?.touched) {
-              <mat-error>Category is required</mat-error>
+            @if (form.get('categoryId')?.hasError('required') &&
+            form.get('categoryId')?.touched) {
+            <mat-error>Category is required</mat-error>
             }
           </mat-form-field>
 
@@ -80,11 +101,15 @@ import { Transaction, TransactionFormData } from '@features/transactions/types/t
               [matDatepicker]="picker"
               formControlName="date"
               required
-            >
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            />
+            <mat-datepicker-toggle
+              matSuffix
+              [for]="picker"
+            ></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            @if (form.get('date')?.hasError('required') && form.get('date')?.touched) {
-              <mat-error>Date is required</mat-error>
+            @if (form.get('date')?.hasError('required') &&
+            form.get('date')?.touched) {
+            <mat-error>Date is required</mat-error>
             }
           </mat-form-field>
 
@@ -101,11 +126,7 @@ import { Transaction, TransactionFormData } from '@features/transactions/types/t
 
           <!-- Form Actions -->
           <div class="flex justify-end gap-3">
-            <button
-              type="button"
-              mat-button
-              (click)="onCancel()"
-            >
+            <button type="button" mat-button (click)="onCancel()">
               Cancel
             </button>
             <button
@@ -121,14 +142,20 @@ import { Transaction, TransactionFormData } from '@features/transactions/types/t
       </div>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-    }
-  `]
+  styles: [
+    `
+      :host {
+        display: block;
+      }
+    `,
+  ],
 })
 export class TransactionFormComponent {
   private readonly fb = inject(FormBuilder);
+  private readonly destroyRef = inject(DestroyRef);
+
+  // Add this property to track form changes
+  private hasUnsavedChanges = false;
 
   @Input() transaction: Transaction | null = null;
   @Output() save = new EventEmitter<TransactionFormData>();
@@ -146,7 +173,7 @@ export class TransactionFormComponent {
     amount: ['', [Validators.required, Validators.min(0)]],
     categoryId: ['', Validators.required],
     date: [new Date(), Validators.required],
-    notes: ['']
+    notes: [''],
   });
 
   constructor() {
@@ -155,9 +182,25 @@ export class TransactionFormComponent {
         amount: Math.abs(this.transaction.amount),
         categoryId: this.transaction.category.id,
         date: this.transaction.date,
-        notes: this.transaction.notes
+        notes: this.transaction.notes,
       });
     }
+    // Subscribe to form value changes
+    this.form.valueChanges.subscribe(() => {
+      this.hasUnsavedChanges = this.form.dirty;
+    });
+
+    // Cleanup subscription
+    this.destroyRef.onDestroy(() => {
+      this.hasUnsavedChanges = false;
+    });
+  }
+
+  /**
+   * Implementation of CanDeactivateComponent interface
+   */
+  canDeactivate(): boolean {
+    return !this.hasUnsavedChanges;
   }
 
   /**
@@ -169,8 +212,9 @@ export class TransactionFormComponent {
         amount: this.form.value.amount,
         categoryId: this.form.value.categoryId,
         date: this.form.value.date,
-        notes: this.form.value.notes
+        notes: this.form.value.notes,
       };
+      this.hasUnsavedChanges = false; // Reset after successful submission
       this.save.emit(formData);
     }
   }
@@ -179,6 +223,7 @@ export class TransactionFormComponent {
    * Handles form cancellation
    */
   onCancel(): void {
+    this.hasUnsavedChanges = false; // Reset on cancel
     this.cancel.emit();
   }
 }
