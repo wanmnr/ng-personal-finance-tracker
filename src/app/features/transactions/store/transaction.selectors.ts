@@ -44,3 +44,18 @@ export const selectTransactionsByCategory = createSelector(
     }, {} as { [key: string]: typeof transactions });
   }
 );
+
+// export const selectBudgetCategories = createSelector(
+//   selectBudgetState,
+//   (budget) => Object.keys(budget.categories)
+// );
+
+// export const selectTransactionDates = createSelector(
+//   selectTransactionState,
+//   (transactions) => transactions.map(t => t.date)
+// );
+
+// export const selectTransactionAmounts = createSelector(
+//   selectTransactionState,
+//   (transactions) => transactions.map(t => t.amount)
+// );
