@@ -2,7 +2,9 @@
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
 import { permissionsGuard } from './core/guards/permissions.guard';
-import { Permissions } from './core/guards/permissions.guard';
+// import { Permissions } from '@core/guards/permissions.guard';
+import { TransactionFormComponent } from '@features/transactions/transaction-form/transaction-form.component';
+import { unsavedChangesGuard } from '@core/guards/unsaved-changes.guard';
 
 import { WelcomeComponent } from './shared/pages/welcome/welcome.component';
 import { AboutComponent } from './shared/pages/about/about.component';
@@ -18,20 +20,32 @@ export const routes: Routes = [
   { path: 'about', component: AboutComponent, title: 'About' },
   { path: 'demo', component: DemoModalComponent, title: 'Demo Modal' },
   { path: 'demo-modal', component: DemoComponent, title: 'Demo' },
-  { path: 'demo-tooltip', component: DemoTooltipComponent, title: 'Demo Tooltip' },
+  {
+    path: 'demo-tooltip',
+    component: DemoTooltipComponent,
+    title: 'Demo Tooltip',
+  },
   { path: 'demo-myr-currency', component: MYRCurrencyComponent, title: 'Demo' },
-  { path: 'memoization-demo', component: MemoizationDemonstrationComponent, title: 'Demo' },
+  {
+    path: 'memoization-demo',
+    component: MemoizationDemonstrationComponent,
+    title: 'Demo',
+  },
   {
     path: 'budget',
-    loadComponent: () => import('./features/budget/budget1.component')
-      .then(m => m.BudgetComponent),
-    title: 'Budget Overview'
+    loadComponent: () =>
+      import('./features/budget/budget1.component').then(
+        (m) => m.BudgetComponent
+      ),
+    title: 'Budget Overview',
   },
   {
     path: 'dashboard',
-    loadComponent: () => import('./features/dashboard/dashboard1.component')
-      .then(m => m.DashboardComponent),
-    title: 'Dashboard'
+    loadComponent: () =>
+      import('./features/dashboard/dashboard1.component').then(
+        (m) => m.DashboardComponent
+      ),
+    title: 'Dashboard',
     // canActivate: [authGuard]  // Only basic access
   },
   // {
@@ -60,6 +74,18 @@ export const routes: Routes = [
   //     permissions: [Permissions.VIEW_TRANSACTIONS]
   //   }
   // },
+
+  {
+    path: 'transaction/new',
+    component: TransactionFormComponent,
+    canDeactivate: [unsavedChangesGuard],
+  },
+  {
+    path: 'transaction/edit/:id',
+    component: TransactionFormComponent,
+    canDeactivate: [unsavedChangesGuard],
+  },
+
   // {
   //   path: 'budgets',
   //   loadChildren: () =>
@@ -70,9 +96,8 @@ export const routes: Routes = [
   //     permissions: [Permissions.VIEW_BUDGETS]
   //   }
   // }
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: '' },
 ];
-
 
 // export const routes: Routes = [
 //   {
