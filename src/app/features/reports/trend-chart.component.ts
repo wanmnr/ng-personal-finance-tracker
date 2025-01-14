@@ -1,9 +1,8 @@
 // features/reports/components/trend-chart/trend-chart.component.ts
 
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatCardModule } from '@angular/material/card';
-import { Chart } from 'chart.js/auto';
+import { BaseChartComponent } from '@shared/components/base-chart/base-chart.component';
 
 interface TrendData {
   date: Date;
@@ -13,86 +12,48 @@ interface TrendData {
 @Component({
   selector: 'app-trend-chart',
   standalone: true,
-  imports: [CommonModule, MatCardModule],
+  imports: [CommonModule, BaseChartComponent],
   template: `
-    <mat-card class="trend-chart">
-      <mat-card-header>
-        <mat-card-title>Expense Trends</mat-card-title>
-      </mat-card-header>
-      <mat-card-content>
-        <canvas #chartCanvas>
-        </canvas>
-      </mat-card-content>
-    </mat-card>
+    <app-base-chart
+      [title]="'Expense Trends'"
+      [type]="'line'"
+      [data]="chartData"
+      [options]="chartOptions"
+    >
+    </app-base-chart>
   `,
-  styles: [
-    `
-      .trend-chart {
-        margin: 1rem;
-      }
-      mat-card-content {
-        height: 300px;
-      }
-    `,
-  ],
 })
-export class TrendChartComponent implements OnChanges {
-  @Input() data: TrendData[] = [];
-  private chart?: Chart;
-
-  ngOnInit() {
-    this.createChart();
+export class TrendChartComponent {
+  @Input() set data(value: TrendData[]) {
+    this.updateChartData(value);
   }
 
-  ngOnChanges(): void {
-    if (this.chart) {
-      this.updateChartData();
-    }
-  }
+  chartData: any = {
+    labels: [],
+    datasets: [],
+  };
 
-  private createChart(): void {
-    const canvas = document.querySelector('canvas');
-    if (!canvas) return;
-
-    this.chart = new Chart(canvas, {
-      type: 'line',
-      data: {
-        labels: this.data.map((item) => new Date(item.date).toLocaleDateString()),
-        datasets: [
-          {
-            label: 'Expenses',
-            data: this.data.map((item) => item.amount),
-            borderColor: 'rgb(75, 192, 192)',
-            tension: 0.1,
-          },
-        ],
+  chartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      y: {
+        beginAtZero: true,
       },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          y: {
-            beginAtZero: true,
-          },
-        },
-      },
-    });
-  }
+    },
+  };
 
-  private updateChartData(): void {
-    if (!this.chart) return;
-
-    this.chart.data = {
-      labels: this.data.map((item) => new Date(item.date).toLocaleDateString()),
+  private updateChartData(data: TrendData[]): void {
+    this.chartData = {
+      labels: data.map((item) => new Date(item.date).toLocaleDateString()),
       datasets: [
         {
           label: 'Expenses',
-          data: this.data.map((item) => item.amount),
+          data: data.map((item) => item.amount),
           borderColor: 'rgb(75, 192, 192)',
           tension: 0.1,
         },
       ],
     };
-    this.chart.update();
   }
 }
