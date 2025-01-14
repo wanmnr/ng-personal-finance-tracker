@@ -1,5 +1,5 @@
 // shared/components/base-chart/base-chart.component.ts
-// Implement Charts using chart.js/auto
+// Simple Chart: chart.js/auto
 
 import {
   Component,
