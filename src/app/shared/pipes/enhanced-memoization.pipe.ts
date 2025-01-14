@@ -1,10 +1,11 @@
 // @shared/pipes/enhanced-memoization.pipe.ts
+
 import { Pipe, PipeTransform } from '@angular/core';
-import { Transaction } from '@features/dashboard/models/finance2.model';
+import { Transaction } from '@app/features/dashboard/types/finance2.types';
 
 @Pipe({
   name: 'financialCalculations',
-  standalone: true
+  standalone: true,
 })
 export class FinancialCalculationsPipe implements PipeTransform {
   private lastTransactions: Transaction[] | null = null;
@@ -18,7 +19,12 @@ export class FinancialCalculationsPipe implements PipeTransform {
     timeframe: 'daily' | 'weekly' | 'monthly' | 'yearly' = 'monthly',
     category?: string
   ): any {
-    const inputHash = this.generateHash(transactions, operation, timeframe, category);
+    const inputHash = this.generateHash(
+      transactions,
+      operation,
+      timeframe,
+      category
+    );
 
     if (
       this.lastTransactions === transactions &&
@@ -39,7 +45,10 @@ export class FinancialCalculationsPipe implements PipeTransform {
         this.lastResult = this.calculateTotalBalance(transactions);
         break;
       case 'categorySpending':
-        this.lastResult = this.calculateCategorySpending(transactions, category);
+        this.lastResult = this.calculateCategorySpending(
+          transactions,
+          category
+        );
         break;
       case 'monthlyTrend':
         this.lastResult = this.calculateMonthlyTrend(transactions, timeframe);
@@ -71,8 +80,8 @@ export class FinancialCalculationsPipe implements PipeTransform {
     const spending: { [key: string]: number } = {};
 
     transactions
-      .filter(t => !category || t.category === category)
-      .forEach(t => {
+      .filter((t) => !category || t.category === category)
+      .forEach((t) => {
         spending[t.category] = (spending[t.category] || 0) + t.amount;
       });
 
@@ -90,15 +99,20 @@ export class FinancialCalculationsPipe implements PipeTransform {
     for (const [date, txs] of Object.entries(grouped)) {
       trend.push({
         date,
-        amount: txs.reduce((sum, tx) =>
-          sum + (tx.type === 'income' ? tx.amount : -tx.amount), 0)
+        amount: txs.reduce(
+          (sum, tx) => sum + (tx.type === 'income' ? tx.amount : -tx.amount),
+          0
+        ),
       });
     }
 
     return trend;
   }
 
-  private groupByTimeframe(transactions: Transaction[], timeframe: string): { [key: string]: Transaction[] } {
+  private groupByTimeframe(
+    transactions: Transaction[],
+    timeframe: string
+  ): { [key: string]: Transaction[] } {
     return transactions.reduce((groups, tx) => {
       const date = new Date(tx.date);
       let key: string;
@@ -111,7 +125,9 @@ export class FinancialCalculationsPipe implements PipeTransform {
           key = `${date.getFullYear()}-W${this.getWeekNumber(date)}`;
           break;
         case 'monthly':
-          key = `${date.getFullYear()}-${(date.getMonth() + 1).toString().padStart(2, '0')}`;
+          key = `${date.getFullYear()}-${(date.getMonth() + 1)
+            .toString()
+            .padStart(2, '0')}`;
           break;
         case 'yearly':
           key = date.getFullYear().toString();
@@ -128,7 +144,8 @@ export class FinancialCalculationsPipe implements PipeTransform {
 
   private getWeekNumber(date: Date): number {
     const firstDayOfYear = new Date(date.getFullYear(), 0, 1);
-    const pastDaysOfYear = (date.getTime() - firstDayOfYear.getTime()) / 86400000;
+    const pastDaysOfYear =
+      (date.getTime() - firstDayOfYear.getTime()) / 86400000;
     return Math.ceil((pastDaysOfYear + firstDayOfYear.getDay() + 1) / 7);
   }
 }
