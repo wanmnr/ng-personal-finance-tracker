@@ -1,5 +1,11 @@
 // app.config.ts
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection, isDevMode } from '@angular/core';
+import {
+  ApplicationConfig,
+  importProvidersFrom,
+  provideZoneChangeDetection,
+  isDevMode,
+  APP_INITIALIZER,
+} from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -14,6 +20,8 @@ import { errorInterceptor } from '@core/interceptors/error3.interceptor';
 import { paginationReducer } from '@shared/store/reducers/pagination.reducer';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 // import { PaginationEffects } from '@shared/store/effects/pagination.effects';
+import { FaIconLibrary, FaConfig } from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,17 +30,27 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(withInterceptors([errorInterceptor])),
     provideAnimationsAsync(),
     provideToastr({
-        positionClass: 'toast-bottom-right',
-        preventDuplicates: true
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
     }),
     provideStore({
-        [layoutFeature.name]: layoutFeature.reducer,
-        pagination: paginationReducer,
-        // Add more reducers here like:
+      [layoutFeature.name]: layoutFeature.reducer,
+      pagination: paginationReducer,
+      // Add more reducers here like:
     }),
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (library: FaIconLibrary) => {
+        return () => {
+          library.addIconPacks(fas);
+        };
+      },
+      deps: [FaIconLibrary],
+      multi: true,
+    },
     // If you add effects later:
     // provideEffects([PaginationEffects])
     importProvidersFrom(NgxSpinnerModule.forRoot()),
-    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() })
-],
+    provideStoreDevtools({ maxAge: 25, logOnly: !isDevMode() }),
+  ],
 };
