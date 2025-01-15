@@ -1,7 +1,7 @@
 // @features/dashboard/finance-dashboard-declarative.component.ts
 import { Component, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Transaction } from './models/finance2.model';
+import { Transaction } from './types/finance2.types';
 import { FinancialCalculationsPipe } from '@app/shared/pipes/enhanced-memoization.pipe';
 
 interface CategorySpending {
