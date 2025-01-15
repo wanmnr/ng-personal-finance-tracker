@@ -10,7 +10,8 @@
     "storybook": "ng run ng-personal-finance-tracker:storybook",
     "build-storybook": "ng run ng-personal-finance-tracker:build-storybook",
     "compodoc:generate": "compodoc -p tsconfig.json",
-    "compodoc:serve": "compodoc -s"
+    "compodoc:serve": "compodoc -p tsconfig.json -s",
+    "compodoc:watch": "compodoc -p tsconfig.json -s -w"
   },
   "private": true,
   "dependencies": {
