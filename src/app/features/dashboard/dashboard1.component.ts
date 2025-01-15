@@ -90,6 +90,7 @@ export class DashboardComponent implements OnInit {
   constructor(private financialService: FinancialService) {
     this.metrics$ = this.financialService.getFinancialMetrics();
   }
+  // private readonly transactionService = inject(TransactionService);
 
   ngOnInit(): void {
     // Initial setup if needed
