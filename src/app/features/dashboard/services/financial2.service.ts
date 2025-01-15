@@ -1,59 +1,59 @@
-// src/app/features/dashboard/financial1.service.ts
+// services/financial2.service.ts
+
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { Transaction, Budget, FinancialMetrics, MonthlyReport } from '../models/financial1.model';
+import { Observable, BehaviorSubject, of } from 'rxjs';
+import { delay } from 'rxjs/operators';
+import {
+  FinancialMetrics,
+  TransactionSummary,
+  DashboardPreferences,
+} from '@features/dashboard/models/financial2.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class FinancialService {
-  private apiUrl = 'api/financial'; // Your API endpoint
+  private preferencesSubject = new BehaviorSubject<DashboardPreferences>({
+    layoutType: 'comfortable',
+    visibleMetrics: ['balance', 'income', 'expenses'],
+    defaultTimeframe: 'monthly',
+    refreshInterval: 30000,
+  });
 
-  constructor(private http: HttpClient) { }
-
-  // FinancialMetric Methods
   getFinancialMetrics(): Observable<FinancialMetrics> {
-    return this.http.get<FinancialMetrics>(`${this.apiUrl}/metrics`);
-  }
-
-  // Transaction Methods
-  getTransactions(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(`${this.apiUrl}/transactions`);
-  }
-
-  addTransaction(transaction: Transaction): Observable<Transaction> {
-    return this.http.post<Transaction>(`${this.apiUrl}/transactions`, transaction);
-  }
-
-  // Budget Methods
-  getBudgets(): Observable<Budget[]> {
-    return this.http.get<Budget[]>(`${this.apiUrl}/budgets`);
-  }
-
-  updateBudget(budget: Budget): Observable<Budget> {
-    return this.http.put<Budget>(`${this.apiUrl}/budgets/${budget.id}`, budget);
-  }
-
-  // Analytics Methods
-  getMonthlyReport(month: number, year: number): Observable<any> {
-    return this.http.get(`${this.apiUrl}/reports/monthly`, {
-      params: { month: month.toString(), year: year.toString() }
+    return of({
+      totalBalance: 10000,
+      previousBalance: 9000,
+      totalIncome: 5000,
+      totalExpenses: 3000,
+      savingsRate: 0.2,
+      monthlyChange: 0.1,
     });
   }
 
+  getTransactionSummary(): Observable<TransactionSummary> {
+    return of({
+      recent: [],
+      categoryBreakdown: [],
+      dailyTotals: [],
+    });
+  }
 
-  // // CRUD operations for transactions
-  // addTransaction() { }
-  // getTransactions() { }
-  // updateTransaction() { }
-  // deleteTransaction() { }
+  getDashboardPreferences(): Observable<DashboardPreferences> {
+    return this.preferencesSubject.asObservable();
+  }
 
-  // // Budget operations
-  // calculateBudget() { }
-  // setBudgetLimits() { }
+  refreshData(): Observable<boolean> {
+    return of(true).pipe(delay(1000));
+  }
 
-  // // Analytics functions
-  // generateReport() { }
-  // calculateExpensesByCategory() { }
+  getRealtimeUpdates(): Observable<void> {
+    return new Observable((subscriber) => {
+      const interval = setInterval(() => {
+        subscriber.next();
+      }, 30000);
+
+      return () => clearInterval(interval);
+    });
+  }
 }
