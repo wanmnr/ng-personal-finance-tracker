@@ -1,18 +1,27 @@
 // app.routes.ts
-import { Routes } from '@angular/router';
-import { authGuard } from './core/guards/auth.guard';
-import { permissionsGuard } from './core/guards/permissions.guard';
-// import { Permissions } from '@core/guards/permissions.guard';
-import { TransactionFormComponent } from '@features/transactions/transaction-form/transaction-form.component';
-import { unsavedChangesGuard } from '@core/guards/unsaved-changes.guard';
 
-import { WelcomeComponent } from './shared/pages/welcome/welcome.component';
-import { AboutComponent } from './shared/pages/about/about.component';
+// Angular Core imports
+import { Routes } from '@angular/router';
+
+// Core Guards imports
+import { authGuard } from '@core/guards/auth.guard';
+import { permissionsGuard } from '@core/guards/permissions.guard';
+import { unsavedChangesGuard } from '@core/guards/unsaved-changes.guard';
+// import { Permissions } from '@core/guards/permissions.guard';
+
+// Feature Components imports
+import { TransactionFormComponent } from '@features/transactions/transaction-form/transaction-form.component';
+
+// Demo Components imports
 import { DemoComponent } from './demo/demo.component';
-import { MemoizationDemonstrationComponent } from './demo/memoization-demo.component';
 import { DemoModalComponent } from './demo/demo-modal.component';
 import { DemoTooltipComponent } from './demo/tooltip-demo.component';
+import { MemoizationDemonstrationComponent } from './demo/memoization-demo.component';
 import { MYRCurrencyComponent } from './demo/myr-currency.component';
+
+// Shared Components imports
+import { AboutComponent } from './shared/pages/about/about.component';
+import { WelcomeComponent } from './shared/pages/welcome/welcome.component';
 
 // Define your routes here
 export const routes: Routes = [
