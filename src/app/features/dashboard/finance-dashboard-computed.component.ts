@@ -1,7 +1,7 @@
 // @features/dashboard/finance-dashboard-computed.component.ts
 import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Transaction } from './models/finance2.model';
+import { Transaction } from './types/finance2.types';
 import { FinancialCalculationsPipe } from '@app/shared/pipes/enhanced-memoization.pipe';
 
 @Component({
@@ -21,10 +21,10 @@ import { FinancialCalculationsPipe } from '@app/shared/pipes/enhanced-memoizatio
         <h3>Monthly Spending by Category</h3>
         <div class="category-list">
           @for (category of categorySpending(); track category.category) {
-            <div class="category-item">
-              <span>{{ category.category }}</span>
-              <span>{{ category.amount | currency }}</span>
-            </div>
+          <div class="category-item">
+            <span>{{ category.category }}</span>
+            <span>{{ category.amount | currency }}</span>
+          </div>
           }
         </div>
       </div>
@@ -33,13 +33,15 @@ import { FinancialCalculationsPipe } from '@app/shared/pipes/enhanced-memoizatio
         <h3>Financial Trend</h3>
         <div class="trend-list">
           @for (trend of monthlyTrend(); track trend.date) {
-            <div class="trend-item">
-              <span>{{ trend.date | date:'MMM yyyy' }}</span>
-              <span [class.positive]="trend.amount > 0"
-                    [class.negative]="trend.amount < 0">
-                {{ trend.amount | currency }}
-              </span>
-            </div>
+          <div class="trend-item">
+            <span>{{ trend.date | date : 'MMM yyyy' }}</span>
+            <span
+              [class.positive]="trend.amount > 0"
+              [class.negative]="trend.amount < 0"
+            >
+              {{ trend.amount | currency }}
+            </span>
+          </div>
           }
         </div>
       </div>
@@ -50,65 +52,71 @@ import { FinancialCalculationsPipe } from '@app/shared/pipes/enhanced-memoizatio
       </div>
     </div>
   `,
-  styles: [`
-    .dashboard {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1rem;
-      padding: 1rem;
-    }
+  styles: [
+    `
+      .dashboard {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        padding: 1rem;
+      }
 
-    .card {
-      background: white;
-      padding: 1.5rem;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
+      .card {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
 
-    .amount {
-      font-size: 1.5rem;
-      font-weight: bold;
-      color: #2c3e50;
-    }
+      .amount {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #2c3e50;
+      }
 
-    .category-list,
-    .trend-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.5rem;
-    }
+      .category-list,
+      .trend-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+      }
 
-    .category-item,
-    .trend-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 0.5rem 0;
-      border-bottom: 1px solid #eee;
-    }
+      .category-item,
+      .trend-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 0.5rem 0;
+        border-bottom: 1px solid #eee;
+      }
 
-    .positive { color: #27ae60; }
-    .negative { color: #e74c3c; }
+      .positive {
+        color: #27ae60;
+      }
+      .negative {
+        color: #e74c3c;
+      }
 
-    .actions {
-      grid-column: 1/-1;
-      display: flex;
-      gap: 1rem;
-      margin-top: 1rem;
-    }
+      .actions {
+        grid-column: 1/-1;
+        display: flex;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
 
-    button {
-      padding: 0.5rem 1rem;
-      background: #3498db;
-      color: white;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-    }
+      button {
+        padding: 0.5rem 1rem;
+        background: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+      }
 
-    button:hover {
-      background: #2980b9;
-    }
-  `]
+      button:hover {
+        background: #2980b9;
+      }
+    `,
+  ],
 })
 export class FinanceDashboardComputedComponent {
   private financialCalculations = new FinancialCalculationsPipe();
@@ -183,7 +191,7 @@ export class FinanceDashboardComputedComponent {
       updatedAt: new Date(),
     };
 
-    this.transactions.update(txs => [...txs, newTransaction]);
+    this.transactions.update((txs) => [...txs, newTransaction]);
   }
 
   changeTimeframe() {
