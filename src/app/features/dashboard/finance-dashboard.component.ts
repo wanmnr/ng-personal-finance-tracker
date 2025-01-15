@@ -1,7 +1,7 @@
 // @features/dashboard/finance-dashboard.component.ts
 import { Component, computed, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Transaction } from './models/finance2.model';
+import { Transaction } from '@features/dashboard/types/finance2.types';
 import { FinancialCalculationsPipe } from '@app/shared/pipes/enhanced-memoization.pipe';
 
 @Component({
@@ -157,7 +157,6 @@ export class Finance2DashboardComponent {
       'totalBalance'
     );
   });
-
 
   categorySpending = computed(() => {
     const spending = this.financialCalculations.transform(
