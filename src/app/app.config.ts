@@ -1,27 +1,33 @@
 // app.config.ts
+
+// Angular Core imports
 import {
+  APP_INITIALIZER,
   ApplicationConfig,
   importProvidersFrom,
-  provideZoneChangeDetection,
   isDevMode,
-  APP_INITIALIZER,
+  provideZoneChangeDetection,
 } from '@angular/core';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { provideRouter } from '@angular/router';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
+// Third-party library imports
+import { FaConfig, FaIconLibrary } from '@fortawesome/angular-fontawesome';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 import { provideStore } from '@ngrx/store';
 import { provideEffects } from '@ngrx/effects';
+import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideToastr } from 'ngx-toastr';
-import { layoutFeature } from './layout/store/layout.state';
 import { NgxSpinnerModule } from 'ngx-spinner';
+
+// Application imports
 import { routes } from './app.routes';
 import { errorInterceptor } from '@core/interceptors/error3.interceptor';
-// import { provideEffects } from '@ngrx/effects';
+import { layoutFeature } from './layout/store/layout.state';
 import { paginationReducer } from '@shared/store/reducers/pagination.reducer';
-import { provideStoreDevtools } from '@ngrx/store-devtools';
 // import { PaginationEffects } from '@shared/store/effects/pagination.effects';
-import { FaIconLibrary, FaConfig } from '@fortawesome/angular-fontawesome';
-import { fas } from '@fortawesome/free-solid-svg-icons';
+// import { provideEffects } from '@ngrx/effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
