@@ -1,0 +1,53 @@
+<!-- transaction2-filters.component.html -->
+<form
+  [formGroup]="filterForm"
+  class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6"
+>
+  <!-- Date Range -->
+  <mat-form-field appearance="outline">
+    <mat-label>Date Range</mat-label>
+    <mat-date-range-input [rangePicker]="picker">
+      <input
+        matStartDate
+        formControlName="startDate"
+        placeholder="Start date"
+      />
+      <input matEndDate formControlName="endDate" placeholder="End date" />
+    </mat-date-range-input>
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+
+  <!-- Category -->
+  <mat-form-field appearance="outline">
+    <mat-label>Category</mat-label>
+    <mat-select formControlName="category">
+      <mat-option [value]="''">All Categories</mat-option>
+      <mat-option *ngFor="let category of categories" [value]="category">
+        {{ category }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Type -->
+  <mat-form-field appearance="outline">
+    <mat-label>Type</mat-label>
+    <mat-select formControlName="type">
+      <mat-option [value]="''">All Types</mat-option>
+      <mat-option [value]="TRANSACTION_TYPES.INCOME">Income</mat-option>
+      <mat-option [value]="TRANSACTION_TYPES.EXPENSE">Expense</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- Amount Range -->
+  <div class="flex gap-2">
+    <mat-form-field appearance="outline">
+      <mat-label>Min Amount</mat-label>
+      <input matInput type="number" formControlName="minAmount" />
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Max Amount</mat-label>
+      <input matInput type="number" formControlName="maxAmount" />
+    </mat-form-field>
+  </div>
+</form>
