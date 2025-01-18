@@ -1,0 +1,69 @@
+<!-- notification-panel/notification-panel.component.html -->
+
+<div class="notification-panel" role="complementary" aria-label="Notifications">
+  <div class="notification-header">
+    <h2 class="text-lg font-semibold flex items-center">
+      <fa-icon [icon]="['fas', 'bell']" class="mr-2"></fa-icon>
+      Notifications
+      <ng-container *ngIf="unreadCount$ | async as unreadCount">
+        <span
+          *ngIf="unreadCount > 0"
+          class="ml-2 px-2 py-1 text-sm bg-red-500 text-white rounded-full"
+          role="status"
+          aria-live="polite"
+        >
+          {{ unreadCount }}
+        </span>
+      </ng-container>
+    </h2>
+    <button
+      (click)="clearAll()"
+      class="text-gray-500 hover:text-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+      aria-label="Clear all notifications"
+    >
+      Clear All
+    </button>
+  </div>
+
+  <div class="notifications-list" [style.max-height]="maxHeight" role="list">
+    <ng-container *ngIf="notifications$ | async as notifications">
+      <div
+        *ngFor="let notification of notifications"
+        class="notification-item"
+        [ngClass]="{
+          unread: !notification.isRead,
+          info: notification.type === NotificationType.INFO,
+          success: notification.type === NotificationType.SUCCESS,
+          warning: notification.type === NotificationType.WARNING,
+          error: notification.type === NotificationType.ERROR
+        }"
+        (click)="onNotificationClick(notification)"
+        role="listitem"
+        tabindex="0"
+        [attr.aria-label]="notification.title + ': ' + notification.message"
+      >
+        <div class="notification-icon">
+          <fa-icon
+            [icon]="[
+              'fas',
+              notification.type === NotificationType.SUCCESS
+                ? 'check'
+                : notification.type === NotificationType.WARNING
+                ? 'exclamation-triangle'
+                : notification.type === NotificationType.ERROR
+                ? 'times'
+                : 'info-circle'
+            ]"
+          ></fa-icon>
+        </div>
+        <div class="notification-content">
+          <h3 class="notification-title">{{ notification.title }}</h3>
+          <p class="notification-message">{{ notification.message }}</p>
+          <span class="notification-time">
+            {{ notification.timestamp | notificationDate }}
+          </span>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+</div>
