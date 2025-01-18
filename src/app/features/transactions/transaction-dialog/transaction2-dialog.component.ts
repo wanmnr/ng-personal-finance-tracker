@@ -1,4 +1,4 @@
-// components/transaction2-dialog/transaction-dialog.component.ts
+// transactions/transaction2-dialog/transaction2-dialog.component.ts
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
