@@ -1,4 +1,4 @@
-// state/transaction/transaction.actions.ts
+// transactions/store/transaction2.actions.ts
 import { createAction, props } from '@ngrx/store';
 import { Transaction, TransactionFilters } from '../models/transaction2.model';
 

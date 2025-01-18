@@ -1,7 +1,7 @@
-// state/transaction/transaction.reducer.ts
+// transactions/store/transaction2.reducer.ts
 import { createReducer, on } from '@ngrx/store';
 import { Transaction } from '../models/transaction2.model';
-import * as TransactionActions from './transaction.actions';
+import * as TransactionActions from './transaction2.actions';
 
 /**
  * Interface representing transaction state
