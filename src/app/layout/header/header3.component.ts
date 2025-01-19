@@ -1,10 +1,21 @@
 // app/core/layout/header/header.component.ts
 // Enterprise-Grade Header with Advanced Features
-import { Component, inject, signal, computed, effect } from '@angular/core';
+import {
+  Component,
+  inject,
+  signal,
+  computed,
+  Input,
+  Output,
+  EventEmitter,
+} from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatMenuModule } from '@angular/material/menu';
-import { FontAwesomeModule, IconDefinition } from '@fortawesome/angular-fontawesome';
+import {
+  FontAwesomeModule,
+  IconDefinition,
+} from '@fortawesome/angular-fontawesome';
 import {
   faBars,
   faBell,
@@ -27,6 +38,7 @@ import { NotificationService } from '@core/services/notification.service';
 import { TimeAgoPipe } from '@shared/pipes/time-ago.pipe';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs/operators';
 
 interface Notification {
   id: number;
@@ -315,6 +327,9 @@ interface QuickAction {
   ],
 })
 export class HeaderComponent {
+  @Input() sidenavOpen = false;
+  @Output() menuClick = new EventEmitter<void>();
+
   private themeService = inject(ThemeService);
   private authService = inject(AuthService);
   private notificationService = inject(NotificationService);
@@ -332,7 +347,7 @@ export class HeaderComponent {
     moon: faMoon,
     refresh: faSyncAlt,
     add: faPlus,
-    report: faChartBar
+    report: faChartBar,
   };
 
   // Signals
@@ -387,9 +402,19 @@ export class HeaderComponent {
 
   private loadUserProfile() {
     this.authService.currentUser$
-      .pipe(takeUntilDestroyed())
-      .subscribe((user) => {
-        this.userProfile.set(user);
+      .pipe(
+        takeUntilDestroyed(),
+        map((user) => {
+          if (!user) return null;
+          return {
+            avatar: 'assets/default-avatar.png', // Or get from user if available
+            name: user.name,
+            role: 'User', // Set appropriate role or get from user if available
+          } as UserProfile;
+        })
+      )
+      .subscribe((userProfile) => {
+        this.userProfile.set(userProfile);
       });
   }
 
@@ -439,12 +464,14 @@ export class HeaderComponent {
       });
   }
 
-  getNotificationTypeClass(type: 'success' | 'warning' | 'error' | 'info'): string {
+  getNotificationTypeClass(
+    type: 'success' | 'warning' | 'error' | 'info'
+  ): string {
     const classes: Record<string, string> = {
       success: 'bg-green-100 text-green-600',
       warning: 'bg-yellow-100 text-yellow-600',
       error: 'bg-red-100 text-red-600',
-      info: 'bg-blue-100 text-blue-600'
+      info: 'bg-blue-100 text-blue-600',
     };
     return classes[type] || classes['info'];
   }
