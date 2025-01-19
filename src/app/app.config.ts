@@ -27,7 +27,9 @@ import { errorInterceptor } from '@core/interceptors/error3.interceptor';
 import { layoutFeature } from './layout/store/layout.state';
 import { paginationReducer } from '@shared/store/reducers/pagination.reducer';
 // import { PaginationEffects } from '@shared/store/effects/pagination.effects';
-// import { provideEffects } from '@ngrx/effects';
+import { transactionReducer } from '@features/transactions/store/transaction2.reducer';
+import { TransactionEffects } from '@features/transactions/store/transaction2.effects';
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -42,8 +44,10 @@ export const appConfig: ApplicationConfig = {
     provideStore({
       [layoutFeature.name]: layoutFeature.reducer,
       pagination: paginationReducer,
+      transactions: transactionReducer,
       // Add more reducers here like:
     }),
+    provideEffects([TransactionEffects]),
     {
       provide: APP_INITIALIZER,
       useFactory: (library: FaIconLibrary) => {
