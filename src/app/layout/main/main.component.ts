@@ -1,5 +1,13 @@
 // main.component.ts
-import { Component, OnInit, ViewChild, AfterViewInit, HostListener, inject, computed } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  HostListener,
+  inject,
+  computed,
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../header/header1.component';
@@ -21,10 +29,33 @@ import { NavigationService } from '../../core/services/navigation.service';
     HeaderComponent,
     SidebarComponent,
     MatSidenavModule,
-    MatCardModule
+    MatCardModule,
   ],
   templateUrl: './main.component.html',
-  styleUrl: './main.component.scss'
+  styles: [
+    `
+      :host {
+        @apply block h-screen;
+      }
+
+      .mat-drawer-container {
+        @apply bg-transparent;
+      }
+
+      .sidebar-width {
+        @apply w-64 transition-all duration-300;
+
+        &.collapsed {
+          @apply w-20;
+        }
+      }
+
+      // Skip to main content link for keyboard users
+      .skip-link {
+        @apply sr-only focus:not-sr-only fixed left-4 top-4 px-4 py-2 bg-primary text-white z-50;
+      }
+    `,
+  ],
 })
 export class MainComponent implements OnInit, AfterViewInit {
   @ViewChild('sidenav') sidenav!: MatSidenav;
@@ -59,7 +90,7 @@ export class MainComponent implements OnInit, AfterViewInit {
   menuItems = [
     { icon: 'dashboard', label: 'Dashboard', route: '/dashboard' },
     { icon: 'person', label: 'Profile', route: '/profile' },
-    { icon: 'settings', label: 'Settings', route: '/settings' }
+    { icon: 'settings', label: 'Settings', route: '/settings' },
   ];
 
   ngOnInit(): void {
@@ -70,7 +101,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     this.breakpointObserver
       .observe([Breakpoints.XSmall, Breakpoints.Small])
       .pipe(takeUntil(this.destroy$))
-      .subscribe(result => {
+      .subscribe((result) => {
         this.layoutService.setMobileState(result.matches);
       });
   }
