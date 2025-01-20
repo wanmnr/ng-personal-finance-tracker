@@ -9,36 +9,26 @@ import { permissionsGuard } from '@core/guards/permissions.guard';
 import { unsavedChangesGuard } from '@core/guards/unsaved-changes.guard';
 // import { Permissions } from '@core/guards/permissions.guard';
 
-// Feature Components imports
-import { TransactionFormComponent } from '@features/transactions/transaction-form/transaction-form.component';
-
-// Demo Components imports
-import { DemoComponent } from './demo/demo.component';
-import { DemoModalComponent } from './demo/demo-modal.component';
-import { DemoTooltipComponent } from './demo/tooltip-demo.component';
-import { MemoizationDemonstrationComponent } from './demo/memoization-demo.component';
-import { MYRCurrencyComponent } from './demo/myr-currency.component';
-
-// Shared Components imports
-import { AboutComponent } from './shared/pages/about/about.component';
-import { WelcomeComponent } from './shared/pages/welcome/welcome.component';
+// Routes Configuration imports
+import { layoutRoutes } from '@layout/layout.route';
 
 // Define your routes here
 export const routes: Routes = [
-  { path: '', component: WelcomeComponent, title: 'Home' },
-  { path: 'about', component: AboutComponent, title: 'About' },
-  { path: 'demo', component: DemoModalComponent, title: 'Demo Modal' },
-  { path: 'demo-modal', component: DemoComponent, title: 'Demo' },
+  // Main application routes (with layout)
   {
-    path: 'demo-tooltip',
-    component: DemoTooltipComponent,
-    title: 'Demo Tooltip',
+    path: '',
+    children: layoutRoutes,
   },
-  { path: 'demo-myr-currency', component: MYRCurrencyComponent, title: 'Demo' },
+  // Your public routes (accessible without layout)
   {
-    path: 'memoization-demo',
-    component: MemoizationDemonstrationComponent,
-    title: 'Demo',
+    path: 'auth',
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('@layout/layout.route').then((m) => m.layoutRoutes),
+      },
+    ],
   },
   {
     path: 'budget',
@@ -84,17 +74,6 @@ export const routes: Routes = [
   //   }
   // },
 
-  {
-    path: 'transaction/new',
-    component: TransactionFormComponent,
-    canDeactivate: [unsavedChangesGuard],
-  },
-  {
-    path: 'transaction/edit/:id',
-    component: TransactionFormComponent,
-    canDeactivate: [unsavedChangesGuard],
-  },
-
   // {
   //   path: 'budgets',
   //   loadChildren: () =>
@@ -105,6 +84,8 @@ export const routes: Routes = [
   //     permissions: [Permissions.VIEW_BUDGETS]
   //   }
   // }
+
+  // Fallback route
   { path: '**', redirectTo: '' },
 ];
 
