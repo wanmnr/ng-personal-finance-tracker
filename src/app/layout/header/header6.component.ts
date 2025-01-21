@@ -14,19 +14,19 @@ import {
   faSortDown,
 } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
-import { ContextService } from '@layout/services/context5.service';
+import { ContextService } from '@app/layout/services/context6.service';
 import {
   FilterOption,
   SortOption,
   ColumnOption,
   ContextAction,
-} from '@layout/models/context5.types';
+} from '@layout/models/context6.types';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [CommonModule, MatToolbarModule, MatMenuModule, FontAwesomeModule],
-  templateUrl: './header5.component.html',
+  templateUrl: './header6.component.html',
 })
 export class HeaderComponent {
   private contextService = inject(ContextService);
