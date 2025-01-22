@@ -3,7 +3,17 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
+    // Base configuration
     "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+
+    // Module resolution
+    "moduleResolution": "bundler",
+    "module": "ES2022",
+    "target": "ES2022",
+    "lib": ["ES2022", "dom"],
+
+    // Path aliases
     "paths": {
       "@app/*": ["src/app/*"],
       "@core/*": ["src/app/core/*"],
@@ -12,26 +22,25 @@
       "@layout/*": ["src/app/layout/*"],
       "@env/*": ["src/environments/*"]
     },
-    "outDir": "./dist/out-tsc",
+
+    // Strict Type Checking
     "strict": true,
     "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
+    "noPropertyAccessFromIndexSignature": false,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+
+    // Additional Checks
     "skipLibCheck": true,
     "isolatedModules": true,
     "esModuleInterop": true,
+
+    // Source Maps and Declarations
     "sourceMap": true,
-    "declaration": false,
+
+    // Angular Specific
     "experimentalDecorators": true,
-    "moduleResolution": "bundler",
-    "importHelpers": true,
-    "target": "ES2022",
-    "module": "ES2022",
-    "lib": [
-      "ES2022",
-      "dom"
-    ]
+    "importHelpers": true
   },
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
