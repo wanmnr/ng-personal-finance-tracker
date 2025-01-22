@@ -1,5 +1,5 @@
 /**
- * @file sidebar3.service.ts
+ * @file dynamic-sidebar.service.ts
  * @description Service managing the state and behavior of the dynamic sidebar
  */
 
