@@ -11,9 +11,9 @@ import { map } from 'rxjs/operators';
 import {
   WidgetConfig,
   WidgetType,
-} from '@features/dashboard/models/widget.model';
-import { WidgetService } from '@features/dashboard/services/widget.service';
-import { WidgetRegistry } from '@features/dashboard/registry/widget.registry';
+} from '@app/features/dashboard/dashboard-widget/widget.model';
+import { WidgetService } from '@app/features/dashboard/dashboard-widget/widget.service';
+import { WidgetRegistry } from '@app/features/dashboard/dashboard-widget/widget.registry';
 
 @Component({
   selector: 'app-dashboard',
