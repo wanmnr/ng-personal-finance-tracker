@@ -3,7 +3,11 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { WidgetConfig, WidgetType, WidgetData } from '@features/dashboard/models/widget.model';
+import {
+  WidgetConfig,
+  WidgetType,
+  WidgetData,
+} from '@app/features/dashboard/dashboard-widget/widget.model';
 
 @Injectable({
   providedIn: 'root',
