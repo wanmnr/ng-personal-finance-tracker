@@ -1,7 +1,7 @@
-// registry/widget.registry.ts
+// widget.registry.ts
 
 import { Type } from '@angular/core';
-import { WidgetType } from '@features/dashboard/models/widget.model';
+import { WidgetType } from '@app/features/dashboard/dashboard-widget/widget.model';
 
 export class WidgetRegistry {
   private static readonly widgetMap = new Map<WidgetType, Type<any>>();
