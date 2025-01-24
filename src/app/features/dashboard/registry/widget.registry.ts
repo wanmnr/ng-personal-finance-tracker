@@ -1,4 +1,5 @@
-// widget.registry.ts
+// registry/widget.registry.ts
+
 import { Type } from '@angular/core';
 import { WidgetType } from '@features/dashboard/models/widget.model';
 
@@ -8,6 +9,7 @@ export class WidgetRegistry {
     WidgetType,
     Record<string, any>
   >();
+  private static readonly componentsList: Type<any>[] = [];
 
   static registerWidget(
     type: WidgetType,
@@ -16,6 +18,9 @@ export class WidgetRegistry {
   ) {
     this.widgetMap.set(type, component);
     this.defaultSettingsMap.set(type, defaultSettings);
+    if (!this.componentsList.includes(component)) {
+      this.componentsList.push(component);
+    }
   }
 
   static getComponent(type: WidgetType): Type<any> {
@@ -27,7 +32,7 @@ export class WidgetRegistry {
   }
 
   static getComponents(): Type<any>[] {
-    return Array.from(this.widgetMap.values());
+    return this.componentsList;
   }
 
   static getDefaultSettings(type: WidgetType): Record<string, any> {
