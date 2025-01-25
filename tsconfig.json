@@ -20,6 +20,11 @@
       "@shared/*": ["src/app/shared/*"],
       "@features/*": ["src/app/features/*"],
       "@layout/*": ["src/app/layout/*"],
+      "@dashboard/*": ["src/app/features/dashboard/*"],
+      "@budget/*": ["src/app/features/budget/*"],
+      "@transaction/*": ["src/app/features/transactions/*"],
+      "@report/*": ["src/app/features/report/*"],
+      "@settings/*": ["src/app/features/settings/*"],
       "@env/*": ["src/environments/*"]
     },
 
