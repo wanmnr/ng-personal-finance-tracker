@@ -1,10 +1,15 @@
-// src/app/features/budget/budget.service.ts
+// src/app/features/budget/budget1.service.ts
 
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Store } from '@ngrx/store';
-import { Observable, catchError, map, tap } from 'rxjs';
-import { Budget, CreateBudgetDto, UpdateBudgetDto } from '../models/budget1.model';
+import { Observable, catchError, map, of, tap } from 'rxjs';
+import {
+  Budget,
+  BudgetSummary,
+  CreateBudgetDto,
+  UpdateBudgetDto,
+} from '../models/budget1.model';
 import { environment } from '../../../../environments/environment';
 import * as BudgetActions from '../store/budget.actions';
 
@@ -13,12 +18,80 @@ import * as BudgetActions from '../store/budget.actions';
  * @remarks Follows Single Responsibility Principle by focusing only on budget operations
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BudgetService {
   private readonly http = inject(HttpClient);
   private readonly store = inject(Store);
   private readonly apiUrl = `${environment.apiUrl}/budgets`;
+
+  // Sample data for demonstration
+  private sampleBudgets: Budget[] = [
+    {
+      id: '1',
+      name: 'Monthly Rent & Maintenance',
+      category: 'Housing',
+      allocated: 2000,
+      spent: 1800,
+      percentage: 90,
+      createdAt: new Date('2024-01-01'),
+      updatedAt: new Date('2024-01-24'),
+    },
+    {
+      id: '2',
+      name: 'Groceries & Dining',
+      category: 'Food',
+      allocated: 800,
+      spent: 600,
+      percentage: 75,
+      createdAt: new Date('2024-01-01'),
+      updatedAt: new Date('2024-01-24'),
+    },
+    {
+      id: '3',
+      name: 'Gas & Public Transit',
+      category: 'Transportation',
+      allocated: 400,
+      spent: 250,
+      percentage: 62.5,
+      createdAt: new Date('2024-01-01'),
+      updatedAt: new Date('2024-01-24'),
+    },
+    {
+      id: '4',
+      name: 'Movies & Recreation',
+      category: 'Entertainment',
+      allocated: 300,
+      spent: 275,
+      percentage: 91.67,
+      createdAt: new Date('2024-01-01'),
+      updatedAt: new Date('2024-01-24'),
+    },
+    {
+      id: '5',
+      name: 'Electricity & Water',
+      category: 'Utilities',
+      allocated: 500,
+      spent: 325,
+      percentage: 65,
+      createdAt: new Date('2024-01-01'),
+      updatedAt: new Date('2024-01-24'),
+    },
+  ];
+
+  private sampleBudgetSummary: BudgetSummary = {
+    totalBudget: 5000,
+    totalSpent: 3250,
+    remaining: 1750,
+  };
+
+  getBudgets(): Observable<Budget[]> {
+    return of(this.sampleBudgets);
+  }
+
+  getBudgetSummary(): Observable<BudgetSummary> {
+    return of(this.sampleBudgetSummary);
+  }
 
   /**
    * Fetches all budgets from the backend
@@ -27,8 +100,10 @@ export class BudgetService {
    */
   fetchBudgets(): Observable<Budget[]> {
     return this.http.get<Budget[]>(this.apiUrl).pipe(
-      tap(budgets => this.store.dispatch(BudgetActions.loadBudgetsSuccess({ budgets }))),
-      catchError(error => {
+      tap((budgets) =>
+        this.store.dispatch(BudgetActions.loadBudgetsSuccess({ budgets }))
+      ),
+      catchError((error) => {
         this.store.dispatch(BudgetActions.loadBudgetsFailure({ error }));
         throw error;
       })
@@ -43,8 +118,12 @@ export class BudgetService {
    */
   createBudget(budget: CreateBudgetDto): Observable<Budget> {
     return this.http.post<Budget>(this.apiUrl, budget).pipe(
-      tap(newBudget => this.store.dispatch(BudgetActions.createBudgetSuccess({ budget: newBudget }))),
-      catchError(error => {
+      tap((newBudget) =>
+        this.store.dispatch(
+          BudgetActions.createBudgetSuccess({ budget: newBudget })
+        )
+      ),
+      catchError((error) => {
         this.store.dispatch(BudgetActions.createBudgetFailure({ error }));
         throw error;
       })
@@ -58,13 +137,19 @@ export class BudgetService {
    * @throws Error if the API request fails
    */
   updateBudget(budgetUpdate: UpdateBudgetDto): Observable<Budget> {
-    return this.http.patch<Budget>(`${this.apiUrl}/${budgetUpdate.id}`, budgetUpdate).pipe(
-      tap(updatedBudget => this.store.dispatch(BudgetActions.updateBudgetSuccess({ budget: updatedBudget }))),
-      catchError(error => {
-        this.store.dispatch(BudgetActions.updateBudgetFailure({ error }));
-        throw error;
-      })
-    );
+    return this.http
+      .patch<Budget>(`${this.apiUrl}/${budgetUpdate.id}`, budgetUpdate)
+      .pipe(
+        tap((updatedBudget) =>
+          this.store.dispatch(
+            BudgetActions.updateBudgetSuccess({ budget: updatedBudget })
+          )
+        ),
+        catchError((error) => {
+          this.store.dispatch(BudgetActions.updateBudgetFailure({ error }));
+          throw error;
+        })
+      );
   }
 
   /**
@@ -76,7 +161,7 @@ export class BudgetService {
   deleteBudget(id: string): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}/${id}`).pipe(
       tap(() => this.store.dispatch(BudgetActions.deleteBudgetSuccess({ id }))),
-      catchError(error => {
+      catchError((error) => {
         this.store.dispatch(BudgetActions.deleteBudgetFailure({ error }));
         throw error;
       })
@@ -91,12 +176,12 @@ export class BudgetService {
    */
   getBudgetById(id: string): Observable<Budget> {
     return this.http.get<Budget>(`${this.apiUrl}/${id}`).pipe(
-      map(budget => ({
+      map((budget) => ({
         ...budget,
         createdAt: new Date(budget.createdAt),
-        updatedAt: new Date(budget.updatedAt)
+        updatedAt: new Date(budget.updatedAt),
       })),
-      catchError(error => {
+      catchError((error) => {
         throw error;
       })
     );
