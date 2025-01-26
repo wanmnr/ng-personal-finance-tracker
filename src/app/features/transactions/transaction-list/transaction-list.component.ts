@@ -14,7 +14,7 @@ import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { Transaction } from '@features/transactions/models/transaction.interface';
+import { Transaction } from '@app/features/transactions/models/transaction1.interface';
 
 /**
  * Component for displaying the list of transactions in a table format
