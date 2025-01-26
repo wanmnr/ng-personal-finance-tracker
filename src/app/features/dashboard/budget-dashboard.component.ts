@@ -1,5 +1,11 @@
 // dashboard/budget-dashboard.component.ts
 
+/*
+ * TODO:
+ * - Future enhancements may include adding filters or toggles for different budget cycles and exporting budget data as reports.
+ * - Additional testing should verify data accuracy, especially when handling edge cases such as over-budget scenarios or empty categories.
+ */
+
 // Budget-Centric Dashboard Approach
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -14,7 +20,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { BudgetService } from '@features/budget/services/budget1.service';
-import { BudgetSummary } from '@features/budget/models/budget1.model';
+import { Budget, BudgetSummary } from '@features/budget/models/budget1.model';
 
 @Component({
   selector: 'app-dashboard',
@@ -72,7 +78,7 @@ import { BudgetSummary } from '@features/budget/models/budget1.model';
               <div>
                 <p class="text-sm text-gray-600">Remaining</p>
                 <p class="text-2xl font-bold text-green-500">
-                  {{ (budgetSummary$ | async)?.remaining | currency }}
+                  {{ (budgetSummary$ | async)?.remainingBudget | currency }}
                 </p>
               </div>
               <fa-icon [icon]="faArrowUp" class="text-3xl text-green-500">
@@ -159,7 +165,7 @@ import { BudgetSummary } from '@features/budget/models/budget1.model';
 export class DashboardComponent implements OnInit {
   currentCycle$ = new BehaviorSubject<Date>(new Date());
   budgetSummary$: Observable<BudgetSummary>;
-  budgets$: Observable<any[]>;
+  budgets$: Observable<Budget[]>;
 
   faPiggyBank = faPiggyBank;
   faChartPie = faChartPie;
