@@ -1,4 +1,8 @@
-// src/app/features/budget/budget1.service.ts
+/**
+ * @file budget1.service.ts
+ * @description
+ * @decorator Injectable
+ */
 
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
@@ -30,7 +34,13 @@ export class BudgetService {
     {
       id: '1',
       name: 'Monthly Rent & Maintenance',
-      category: 'Housing',
+      category: {
+        id: 'cat1',
+        name: 'Housing',
+        color: '#FF9800',
+        icon: 'home',
+        description: 'Housing and maintenance expenses',
+      },
       allocated: 2000,
       spent: 1800,
       percentage: 90,
@@ -40,7 +50,13 @@ export class BudgetService {
     {
       id: '2',
       name: 'Groceries & Dining',
-      category: 'Food',
+      category: {
+        id: 'cat2',
+        name: 'Food',
+        color: '#4CAF50',
+        icon: 'utensils',
+        description: 'Food and dining expenses',
+      },
       allocated: 800,
       spent: 600,
       percentage: 75,
@@ -50,7 +66,13 @@ export class BudgetService {
     {
       id: '3',
       name: 'Gas & Public Transit',
-      category: 'Transportation',
+      category: {
+        id: 'cat3',
+        name: 'Transportation',
+        color: '#2196F3',
+        icon: 'car',
+        description: 'Transportation expenses',
+      },
       allocated: 400,
       spent: 250,
       percentage: 62.5,
@@ -60,7 +82,13 @@ export class BudgetService {
     {
       id: '4',
       name: 'Movies & Recreation',
-      category: 'Entertainment',
+      category: {
+        id: 'cat4',
+        name: 'Entertainment',
+        color: '#9C27B0',
+        icon: 'film',
+        description: 'Entertainment and recreation expenses',
+      },
       allocated: 300,
       spent: 275,
       percentage: 91.67,
@@ -70,7 +98,13 @@ export class BudgetService {
     {
       id: '5',
       name: 'Electricity & Water',
-      category: 'Utilities',
+      category: {
+        id: 'cat5',
+        name: 'Utilities',
+        color: '#F44336',
+        icon: 'bolt',
+        description: 'Utility expenses',
+      },
       allocated: 500,
       spent: 325,
       percentage: 65,
@@ -82,7 +116,7 @@ export class BudgetService {
   private sampleBudgetSummary: BudgetSummary = {
     totalBudget: 5000,
     totalSpent: 3250,
-    remaining: 1750,
+    remainingBudget: 1750,
   };
 
   getBudgets(): Observable<Budget[]> {
@@ -91,6 +125,27 @@ export class BudgetService {
 
   getBudgetSummary(): Observable<BudgetSummary> {
     return of(this.sampleBudgetSummary);
+  }
+
+  getTotalBudget(): Observable<number> {
+    // Implement the logic to get total budget
+    return new Observable<number>();
+  }
+
+  getTotalSpent(): Observable<number> {
+    // Implement the logic to get total spent
+    return new Observable<number>();
+  }
+
+  getRemainingBudget(): Observable<number> {
+    // Implement the logic to get remaining budget
+    return new Observable<number>();
+  }
+
+  getCategoryIcon(categoryName: string): any {
+    // Implement the logic to return the appropriate icon based on category name
+    // You can use a switch statement or a mapping object
+    return null;
   }
 
   /**
