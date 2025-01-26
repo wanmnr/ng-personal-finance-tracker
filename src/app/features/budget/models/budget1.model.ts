@@ -1,63 +1,68 @@
-// src/app/features/budget/budget.model.ts
-
 /**
- * Represents a single budget entry in the system
+ * @file budget.model.ts
+ * @description Contains interfaces and types for budget management functionality
+ * @module BudgetModule
  */
+
+import { Category } from '@app/features/dashboard/models/category.model';
+
 export interface Budget {
-  /** Unique identifier for the budget */
   id: string;
-
   name: string;
-
-  /** Category of the budget */
-  category: BudgetCategory;
-
-  /** Maximum limit set for this budget category */
+  category: Category;
   allocated: number;
-
-  /** Amount spent in this budget category */
   spent: number;
-
   percentage: number;
-
-  /** Date when the budget was created */
   createdAt: Date;
-
-  /** Date when the budget was last updated */
   updatedAt: Date;
-}
-
-/**
- * Represents the possible budget categories in the application
- */
-export type BudgetCategory =
-  | 'Housing'
-  | 'Transportation'
-  | 'Food'
-  | 'Utilities'
-  | 'Healthcare'
-  | 'Entertainment'
-  | 'Other';
-
-/**
- * Data transfer object for creating a new budget
- */
-export interface CreateBudgetDto {
-  category: BudgetCategory;
-  limit: number;
-}
-
-/**
- * Data transfer object for updating an existing budget
- */
-export interface UpdateBudgetDto {
-  id: string;
-  spent?: number;
-  limit?: number;
 }
 
 export interface BudgetSummary {
   totalBudget: number;
   totalSpent: number;
-  remaining: number;
+  remainingBudget: number;
+}
+
+/**
+ * Data transfer object for creating a new budget entry
+ * @interface
+ *
+ * @example
+ * ```typescript
+ * const newBudget: CreateBudgetDto = {
+ *   category: 'Food',
+ *   limit: 500
+ * };
+ * ```
+ */
+export interface CreateBudgetDto {
+  /** Category for the new budget */
+  category: Category;
+
+  /** Initial spending limit for the budget */
+  limit: number;
+}
+
+/**
+ * Data transfer object for updating an existing budget
+ * @interface
+ *
+ * @example
+ * ```typescript
+ * const updateData: UpdateBudgetDto = {
+ *   id: '123',
+ *   spent: 150,
+ *   limit: 600
+ * };
+ * ```
+ */
+export interface UpdateBudgetDto {
+  /** ID of the budget to update */
+  id: string;
+
+  /** New spent amount (optional) */
+  spent?: number;
+
+  /** New spending limit (optional) */
+  limit?: number;
 }
