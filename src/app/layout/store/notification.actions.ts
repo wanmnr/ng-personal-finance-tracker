@@ -1,7 +1,7 @@
 // store/notification.actions.ts
 
 import { createAction, props } from '@ngrx/store';
-import { INotification } from '../models/notification.types';
+import { INotification } from '../types/notification.types';
 
 /**
  * Action creators for notification management
@@ -16,9 +16,7 @@ export const markAsRead = createAction(
   props<{ id: string }>()
 );
 
-export const clearNotifications = createAction(
-  '[Notification] Clear All'
-);
+export const clearNotifications = createAction('[Notification] Clear All');
 
 export const loadNotifications = createAction(
   '[Notification] Load Notifications'

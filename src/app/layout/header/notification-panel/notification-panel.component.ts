@@ -25,7 +25,7 @@ import {
   INotification,
   NotificationState,
   NotificationType,
-} from '../../models/notification.types';
+} from '../../types/notification.types';
 import { NotificationService } from '../../services/notification.service';
 import { CommonModule } from '@angular/common';
 import { NotificationDatePipe } from '@app/shared/pipes/notification-date.pipe';
