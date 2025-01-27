@@ -4,6 +4,18 @@
  * @module BudgetModule
  */
 
+/**
+ * TODO: Integrating validation logic directly into DTOs
+ * Validation logic and stricter typing could be
+ * implemented using libraries like `class-validator`
+ * or by creating custom validation utilities
+ * @author Wan
+ */
+
+/**
+ * TODO: Exploring stricter typing options for specific properties like `id` and `percentage`
+ */
+
 import { Category } from '@app/features/dashboard/models/category.model';
 
 export interface Budget {
@@ -36,11 +48,8 @@ export interface BudgetSummary {
  * ```
  */
 export interface CreateBudgetDto {
-  /** Category for the new budget */
   category: Category;
-
-  /** Initial spending limit for the budget */
-  limit: number;
+  allocated: number;
 }
 
 /**
@@ -57,12 +66,7 @@ export interface CreateBudgetDto {
  * ```
  */
 export interface UpdateBudgetDto {
-  /** ID of the budget to update */
   id: string;
-
-  /** New spent amount (optional) */
+  allocated?: number;
   spent?: number;
-
-  /** New spending limit (optional) */
-  limit?: number;
 }
