@@ -54,7 +54,7 @@ export class BudgetComponent implements OnInit {
   }
 
   getPercentage(budget: Budget): number {
-    return (budget.spent / budget.limit) * 100;
+    return (budget.spent / budget.allocated) * 100;
   }
 
   editBudget(budget: Budget): void {
