@@ -3,12 +3,12 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { INotification, NotificationType } from '../models/notification.types';
+import { INotification, NotificationType } from '../types/notification.types';
 import * as NotificationActions from '../store/notification.actions';
 import { v4 as uuidv4 } from 'uuid';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NotificationService {
   /**
@@ -16,7 +16,7 @@ export class NotificationService {
    */
   private notificationsSubject = new BehaviorSubject<INotification[]>([]);
 
-  constructor(private store: Store) { }
+  constructor(private store: Store) {}
 
   /**
    * Creates and dispatches a new notification
@@ -38,7 +38,7 @@ export class NotificationService {
       message,
       timestamp: new Date(),
       isRead: false,
-      data
+      data,
     };
 
     this.store.dispatch(NotificationActions.addNotification({ notification }));
