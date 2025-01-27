@@ -7,7 +7,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
-import { NavigationService } from '../../core/services/navigation.service';
+import { NavigationService } from '../services/navigation.service';
 import { LayoutService } from '../services/layout1.service';
 import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { ThemeService } from '@app/layout/services/theme1.service';

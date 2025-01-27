@@ -8,7 +8,7 @@ import { SidebarComponent } from '@layout/sidebar/sidebar1.component';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { BehaviorSubject } from 'rxjs';
 import { LayoutService } from '../services/layout1.service';
-import { NavigationService } from '@core/services/navigation.service'
+import { NavigationService } from '@app/layout/services/navigation.service';
 
 @Component({
   selector: 'app-main',
@@ -18,7 +18,7 @@ import { NavigationService } from '@core/services/navigation.service'
     RouterOutlet,
     HeaderComponent,
     SidebarComponent,
-    MatSidenavModule
+    MatSidenavModule,
   ],
   template: `
     <div class="flex flex-col h-screen">
@@ -29,7 +29,8 @@ import { NavigationService } from '@core/services/navigation.service'
           #sidenav
           [mode]="layoutService.getLayoutState().isMobile ? 'over' : 'side'"
           [opened]="layoutService.getLayoutState().sidenavOpened"
-          class="w-64 bg-gray-800 text-white p-4">
+          class="w-64 bg-gray-800 text-white p-4"
+        >
           <app-sidebar></app-sidebar>
         </mat-sidenav>
 
@@ -39,12 +40,14 @@ import { NavigationService } from '@core/services/navigation.service'
       </mat-sidenav-container>
     </div>
   `,
-  styles: [`
-    :host {
-      display: block;
-      height: 100vh;
-    }
-  `]
+  styles: [
+    `
+      :host {
+        display: block;
+        height: 100vh;
+      }
+    `,
+  ],
 })
 export class MainComponent {
   @ViewChild('sidenav') sidenav!: MatSidenav;
@@ -68,5 +71,4 @@ export class MainComponent {
 
   // private readonly isMobileSubject = new BehaviorSubject<boolean>(window.innerWidth < 768);
   // isMobile = this.isMobileSubject.value;
-
 }
