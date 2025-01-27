@@ -1,10 +1,10 @@
-// app/core/services/navigation1.service.ts
+// layout/services/navigation1.service.ts
 // Basic State Management Approach
 import { Injectable, signal } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavigationService {
   private readonly sidenavState = signal<boolean>(false);
@@ -12,7 +12,7 @@ export class NavigationService {
   private readonly breadcrumbs = signal<string[]>([]);
 
   toggleSidenav(): void {
-    this.sidenavState.update(state => !state);
+    this.sidenavState.update((state) => !state);
   }
 
   getSidenavState(): boolean {

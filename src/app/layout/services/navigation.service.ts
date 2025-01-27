@@ -1,4 +1,4 @@
-// app/core/services/navigation.service.ts
+// layout/services/navigation.service.ts
 import { Injectable, signal } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
@@ -11,14 +11,14 @@ export interface NavigationState {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavigationService {
   private readonly navigationState = signal<NavigationState>({
     breadcrumbs: [],
     currentRoute: '',
     previousRoute: null,
-    permissions: []
+    permissions: [],
   });
 
   constructor(private router: Router) {
@@ -26,49 +26,49 @@ export class NavigationService {
   }
 
   private initializeRouteListener(): void {
-    this.router.events.pipe(
-      filter(event => event instanceof NavigationEnd)
-    ).subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.updateNavigationState(event.url);
-      }
-    });
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.updateNavigationState(event.url);
+        }
+      });
   }
 
   private updateNavigationState(currentRoute: string): void {
-    this.navigationState.update(state => ({
+    this.navigationState.update((state) => ({
       ...state,
       previousRoute: state.currentRoute,
       currentRoute,
-      breadcrumbs: this.generateBreadcrumbs(currentRoute)
+      breadcrumbs: this.generateBreadcrumbs(currentRoute),
     }));
   }
 
   private generateBreadcrumbs(route: string): string[] {
     return route
       .split('/')
-      .filter(segment => segment)
-      .map(segment => this.formatBreadcrumb(segment));
+      .filter((segment) => segment)
+      .map((segment) => this.formatBreadcrumb(segment));
   }
 
   private formatBreadcrumb(segment: string): string {
     return segment
       .split('-')
-      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(' ');
   }
 
   setBreadcrumbs(breadcrumbs: string[]): void {
-    this.navigationState.update(state => ({
+    this.navigationState.update((state) => ({
       ...state,
-      breadcrumbs
+      breadcrumbs,
     }));
   }
 
   setPermissions(permissions: string[]): void {
-    this.navigationState.update(state => ({
+    this.navigationState.update((state) => ({
       ...state,
-      permissions
+      permissions,
     }));
   }
 

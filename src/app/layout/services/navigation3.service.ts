@@ -1,4 +1,4 @@
-// app/core/services/navigation3.service.ts
+// layout/services/navigation3.service.ts
 // Permission-Based Navigation Approach
 import { Injectable, inject } from '@angular/core';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ interface NavigationItem {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavigationService {
   private readonly router = inject(Router);
@@ -31,7 +31,7 @@ export class NavigationService {
       {
         label: 'Dashboard',
         path: '/dashboard',
-        requiredPermissions: ['view_dashboard']
+        requiredPermissions: ['view_dashboard'],
       },
       {
         label: 'Projects',
@@ -41,10 +41,10 @@ export class NavigationService {
           {
             label: 'Create Project',
             path: '/projects/create',
-            requiredPermissions: ['create_project']
-          }
-        ]
-      }
+            requiredPermissions: ['create_project'],
+          },
+        ],
+      },
     ];
     this.navigationItems.next(items);
   }
@@ -54,8 +54,8 @@ export class NavigationService {
   }
 
   getAccessibleNavigationItems(): Observable<NavigationItem[]> {
-    return new Observable<NavigationItem[]>(observer => {
-      this.userPermissions.subscribe(permissions => {
+    return new Observable<NavigationItem[]>((observer) => {
+      this.userPermissions.subscribe((permissions) => {
         const filteredItems = this.filterNavigationItems(
           this.navigationItems.value,
           permissions
@@ -69,9 +69,10 @@ export class NavigationService {
     items: NavigationItem[],
     permissions: string[]
   ): NavigationItem[] {
-    return items.filter(item => {
-      const hasPermission = !item.requiredPermissions ||
-        item.requiredPermissions.every(permission =>
+    return items.filter((item) => {
+      const hasPermission =
+        !item.requiredPermissions ||
+        item.requiredPermissions.every((permission) =>
           permissions.includes(permission)
         );
 
@@ -96,10 +97,7 @@ export class NavigationService {
   }
 
   navigateToAuthorizedRoute(path: string): void {
-    const item = this.findNavigationItem(
-      this.navigationItems.value,
-      path
-    );
+    const item = this.findNavigationItem(this.navigationItems.value, path);
 
     if (item && this.canAccessRoute(item)) {
       this.router.navigate([path]);
@@ -123,9 +121,11 @@ export class NavigationService {
   }
 
   private canAccessRoute(item: NavigationItem): boolean {
-    return !item.requiredPermissions ||
-      item.requiredPermissions.every(permission =>
+    return (
+      !item.requiredPermissions ||
+      item.requiredPermissions.every((permission) =>
         this.hasPermission(permission)
-      );
+      )
+    );
   }
 }

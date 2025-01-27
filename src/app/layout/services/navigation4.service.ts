@@ -1,4 +1,4 @@
-// app/core/services/navigation4.service.ts
+// layout/services/navigation4.service.ts
 // Navigation State History Management Approach
 import { Injectable, inject, signal } from '@angular/core';
 import { Router, NavigationEnd, Params } from '@angular/router';
@@ -14,7 +14,7 @@ interface NavigationState {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavigationService {
   private readonly router = inject(Router);
@@ -28,18 +28,24 @@ export class NavigationService {
   private readonly canGoBack = signal<boolean>(false);
   private readonly canGoForward = signal<boolean>(false);
 
-  private readonly currentState = new BehaviorSubject<NavigationState | null>(null);
+  private readonly currentState = new BehaviorSubject<NavigationState | null>(
+    null
+  );
 
   constructor() {
     this.initializeNavigationListener();
   }
 
   private initializeNavigationListener(): void {
-    this.router.events.pipe(
-      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
-    ).subscribe((event) => {
-      this.handleNavigation(event);
-    });
+    this.router.events
+      .pipe(
+        filter(
+          (event): event is NavigationEnd => event instanceof NavigationEnd
+        )
+      )
+      .subscribe((event) => {
+        this.handleNavigation(event);
+      });
   }
 
   private handleNavigation(event: NavigationEnd): void {
@@ -52,12 +58,15 @@ export class NavigationService {
       timestamp: Date.now(),
       params: routeSnapshot.root.firstChild?.params,
       queryParams: routeSnapshot.root.queryParams,
-      data: state
+      data: state,
     };
 
     // Remove all states after current index if we're not at the end
     if (this.currentIndex < this.navigationStack.length - 1) {
-      this.navigationStack = this.navigationStack.slice(0, this.currentIndex + 1);
+      this.navigationStack = this.navigationStack.slice(
+        0,
+        this.currentIndex + 1
+      );
     }
 
     // Add new state
@@ -85,7 +94,7 @@ export class NavigationService {
       const previousState = this.navigationStack[this.currentIndex];
       this.router.navigate([previousState.url], {
         state: previousState.data,
-        queryParams: previousState.queryParams
+        queryParams: previousState.queryParams,
       });
     }
   }
@@ -96,7 +105,7 @@ export class NavigationService {
       const nextState = this.navigationStack[this.currentIndex];
       this.router.navigate([nextState.url], {
         state: nextState.data,
-        queryParams: nextState.queryParams
+        queryParams: nextState.queryParams,
       });
     }
   }
@@ -124,7 +133,7 @@ export class NavigationService {
   }
 
   toggleSidenav(): void {
-    this.sidenavState.update(state => !state);
+    this.sidenavState.update((state) => !state);
   }
 
   getSidenavState(): boolean {

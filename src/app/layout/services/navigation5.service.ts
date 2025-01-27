@@ -1,7 +1,12 @@
-// app/core/services/navigation5.service.ts
+// layout/services/navigation5.service.ts
 // Navigation Guard Integration Approach
 import { Injectable, inject } from '@angular/core';
-import { Router, NavigationEnd, CanActivate, ActivatedRouteSnapshot } from '@angular/router';
+import {
+  Router,
+  NavigationEnd,
+  CanActivate,
+  ActivatedRouteSnapshot,
+} from '@angular/router';
 import { BehaviorSubject, Observable, map, filter } from 'rxjs';
 
 interface NavigationGuardConfig {
@@ -11,7 +16,7 @@ interface NavigationGuardConfig {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavigationService {
   private readonly router = inject(Router);
@@ -26,12 +31,16 @@ export class NavigationService {
   }
 
   private initializeNavigationGuardListener(): void {
-    this.router.events.pipe(
-      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
-    ).subscribe((event) => {
-      this.lastAllowedRoute.next(event.urlAfterRedirects);
-      this.navigationBlocked.next(false);
-    });
+    this.router.events
+      .pipe(
+        filter(
+          (event): event is NavigationEnd => event instanceof NavigationEnd
+        )
+      )
+      .subscribe((event) => {
+        this.lastAllowedRoute.next(event.urlAfterRedirects);
+        this.navigationBlocked.next(false);
+      });
   }
 
   registerGuardedRoute(config: NavigationGuardConfig): void {
@@ -59,11 +68,14 @@ export class NavigationService {
     return true;
   }
 
-  async navigateTo(path: string, options: {
-    queryParams?: Record<string, any>,
-    state?: any,
-    skipGuards?: boolean
-  } = {}): Promise<boolean> {
+  async navigateTo(
+    path: string,
+    options: {
+      queryParams?: Record<string, any>;
+      state?: any;
+      skipGuards?: boolean;
+    } = {}
+  ): Promise<boolean> {
     if (!options.skipGuards) {
       const canNavigate = await this.canNavigateTo(path);
       if (!canNavigate) {
@@ -73,7 +85,7 @@ export class NavigationService {
 
     return this.router.navigate([path], {
       queryParams: options.queryParams,
-      state: options.state
+      state: options.state,
     });
   }
 

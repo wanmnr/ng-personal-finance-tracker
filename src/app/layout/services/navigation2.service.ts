@@ -1,4 +1,4 @@
-// app/core/services/navigation2.service.ts
+// layout/services/navigation2.service.ts
 // Advanced Router Integration Approach
 import { Injectable, inject } from '@angular/core';
 import { Router, NavigationEnd, Event } from '@angular/router';
@@ -12,7 +12,7 @@ interface NavigationHistoryEntry {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class NavigationService {
   private readonly router = inject(Router);
@@ -28,18 +28,23 @@ export class NavigationService {
   }
 
   private initializeRouterEvents(): void {
-    this.router.events.pipe(
-      filter((event: Event): event is NavigationEnd => event instanceof NavigationEnd)
-    ).subscribe((event: NavigationEnd) => {
-      this.addToHistory(event.urlAfterRedirects);
-      this.currentRoute.next(event.urlAfterRedirects);
-    });
+    this.router.events
+      .pipe(
+        filter(
+          (event: Event): event is NavigationEnd =>
+            event instanceof NavigationEnd
+        )
+      )
+      .subscribe((event: NavigationEnd) => {
+        this.addToHistory(event.urlAfterRedirects);
+        this.currentRoute.next(event.urlAfterRedirects);
+      });
   }
 
   private addToHistory(url: string): void {
     this.navigationHistory.push({
       url,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     });
 
     if (this.navigationHistory.length > this.maxHistoryLength) {
