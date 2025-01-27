@@ -1,4 +1,4 @@
-// app/core/models/context6.types.ts
+// app/layout/types/context6.types.ts
 
 import { IconDefinition } from '@fortawesome/free-solid-svg-icons';
 

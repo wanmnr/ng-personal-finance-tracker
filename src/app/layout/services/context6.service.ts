@@ -1,4 +1,4 @@
-// app/core/services/context6.service.ts
+// app/layout/services/context6.service.ts
 
 import { Injectable, signal } from '@angular/core';
 import {
@@ -6,7 +6,7 @@ import {
   SortOption,
   ColumnOption,
   ContextAction,
-} from '../models/context6.types';
+} from '../types/context6.types';
 import { faEdit, faTrash, faDownload } from '@fortawesome/free-solid-svg-icons';
 
 @Injectable({

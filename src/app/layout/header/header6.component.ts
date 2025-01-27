@@ -1,4 +1,4 @@
-// app/core/layout/header/header5.component.ts
+// app/header/header5.component.ts
 // Context-Aware Header with Action Menus
 import { Component, inject, computed } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -20,7 +20,7 @@ import {
   SortOption,
   ColumnOption,
   ContextAction,
-} from '@layout/models/context6.types';
+} from '@app/layout/types/context6.types';
 
 @Component({
   selector: 'app-header',
