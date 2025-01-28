@@ -1,4 +1,5 @@
 // main.component.ts
+
 import {
   Component,
   OnInit,
@@ -11,14 +12,14 @@ import {
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from '../header/header1.component';
-import { SidebarComponent } from '../sidebar/sidebar1.component';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 import { MatSidenavModule, MatSidenav } from '@angular/material/sidenav';
 import { MatCardModule } from '@angular/material/card';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { LayoutService } from '../services/layout1.service';
-import { NavigationService } from '../../core/services/navigation.service';
+import { NavigationService } from '../services/navigation.service';
 
 @Component({
   selector: 'app-main',
@@ -86,8 +87,7 @@ export class MainComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // Example menu items - adjust based on your needs
-  menuItems = [
+  navigationItems = [
     { icon: 'dashboard', label: 'Dashboard', route: '/dashboard' },
     { icon: 'person', label: 'Profile', route: '/profile' },
     { icon: 'settings', label: 'Settings', route: '/settings' },
