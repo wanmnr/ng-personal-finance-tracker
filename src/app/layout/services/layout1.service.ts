@@ -1,5 +1,5 @@
 // app/layout/services/layout1.service.ts
-import { Injectable, signal } from '@angular/core';
+import { computed, Injectable, signal } from '@angular/core';
 
 export interface LayoutState {
   sidenavOpened: boolean;
@@ -8,40 +8,45 @@ export interface LayoutState {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class LayoutService {
   private readonly layoutState = signal<LayoutState>({
     sidenavOpened: true,
     isMobile: false,
-    theme: 'light'
+    theme: 'light',
   });
 
-  // private readonly sidenavOpenedState = signal<boolean>(true);
+  // Add computed properties
+  readonly sidenavMode = computed(() =>
+    this.getMobileState() ? 'over' : 'side'
+  );
+
+  readonly sidenavWidth = computed(() =>
+    this.getSidenavState() ? 'sidebar-width' : 'sidebar-width collapsed'
+  );
+
+  getIsDarkMode = computed(() => this.getLayoutState().theme === 'dark');
 
   toggleSidenav(): void {
-    this.layoutState.update(state => ({
+    this.layoutState.update((state) => ({
       ...state,
-      sidenavOpened: !state.sidenavOpened
+      sidenavOpened: !state.sidenavOpened,
     }));
   }
 
-  // toggleSidenav(): void {
-  //   this.sidenavOpenedState.update(state => !state);
-  // }
-
   setMobileState(isMobile: boolean): void {
-    this.layoutState.update(state => ({
+    this.layoutState.update((state) => ({
       ...state,
       isMobile,
-      sidenavOpened: isMobile ? false : state.sidenavOpened
+      sidenavOpened: isMobile ? false : state.sidenavOpened,
     }));
   }
 
   toggleTheme(): void {
-    this.layoutState.update(state => ({
+    this.layoutState.update((state) => ({
       ...state,
-      theme: state.theme === 'light' ? 'dark' : 'light'
+      theme: state.theme === 'light' ? 'dark' : 'light',
     }));
   }
 
