@@ -97,5 +97,61 @@ export class IncomeService {
     return icons[source] || faBriefcase;
   }
 
-  // ... (similar documentation for other methods)
+  /**
+   * Retrieves the average monthly income
+   * @returns {Observable<number>} Average monthly income
+   */
+  getAverageIncome(): Observable<number> {
+    const total = this.mockIncome.reduce((acc, curr) => acc + curr.amount, 0);
+    return of(total / this.mockIncome.length || 0);
+  }
+
+  /**
+   * Gets the next scheduled payment amount
+   * @returns {Observable<number>} Next payment amount
+   */
+  getNextPaymentAmount(): Observable<number> {
+    const nextPayment = this.mockIncome.find(
+      (income) => income.status === 'pending'
+    );
+    return of(nextPayment?.amount || 0);
+  }
+
+  /**
+   * Gets days until next payment
+   * @returns {Observable<number>} Number of days until next payment
+   */
+  getDaysUntilNextPayment(): Observable<number> {
+    return of(15); // Mock value
+  }
+
+  /**
+   * Gets recent income entries
+   * @returns {Observable<Income[]>} List of recent income entries
+   */
+  getRecentIncome(): Observable<Income[]> {
+    return of(this.mockIncome.filter((income) => income.status === 'received'));
+  }
+
+  /**
+   * Gets scheduled income entries
+   * @returns {Observable<Income[]>} List of scheduled income entries
+   */
+  getScheduledIncome(): Observable<Income[]> {
+    return of(this.mockIncome.filter((income) => income.status === 'pending'));
+  }
+
+  /**
+   * Gets color for income source
+   * @param {string} source - Income source
+   * @returns {string} Color code
+   */
+  getSourceColor(source: string): string {
+    const colors: { [key: string]: string } = {
+      Salary: '#4CAF50',
+      Freelance: '#2196F3',
+      Investment: '#9C27B0',
+    };
+    return colors[source] || '#757575';
+  }
 }
