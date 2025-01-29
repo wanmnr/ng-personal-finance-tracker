@@ -1,0 +1,132 @@
+<!-- income-tracker-dashboard.component.html -->
+
+<div class="dashboard-container p-4 min-h-screen">
+  <header class="mb-6">
+    <h1 class="text-2xl font-bold">Income Tracker</h1>
+  </header>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+    <mat-card class="summary-card">
+      <mat-card-content>
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600">Total Income</p>
+            <p class="text-2xl font-bold">
+              {{ totalIncome$ | async | currency }}
+            </p>
+          </div>
+          <fa-icon [icon]="faMoneyCheckAlt" class="text-3xl text-green-500">
+          </fa-icon>
+        </div>
+        <p class="text-sm mt-2" [ngClass]="getIncomeChangeClass(incomeChange$ | async)">
+          {{ (incomeChange$ | async) | percentage }} from last month
+        </p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <mat-card-content>
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600">Average Monthly</p>
+            <p class="text-2xl font-bold">
+              {{ averageIncome$ | async | currency }}
+            </p>
+          </div>
+          <fa-icon [icon]="faChartLine" class="text-3xl text-blue-500">
+          </fa-icon>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="summary-card">
+      <mat-card-content>
+        <div class="flex items-center justify-between">
+          <div>
+            <p class="text-sm text-gray-600">Next Payment</p>
+            <p class="text-2xl font-bold">
+              {{ nextPaymentAmount$ | async | currency }}
+            </p>
+          </div>
+          <fa-icon [icon]="faCalendarAlt" class="text-3xl text-purple-500">
+          </fa-icon>
+        </div>
+        <p class="text-sm mt-2 text-gray-600">
+          Due in {{ daysUntilNextPayment$ | async }} days
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+
+  <mat-card class="income-list-card">
+    <mat-card-content>
+      <mat-tab-group>
+        <mat-tab label="Recent Income">
+          <div class="p-4">
+            <div
+              *ngFor="let income of recentIncome$ | async"
+              class="income-item flex items-center justify-between p-4 border-b last:border-b-0"
+            >
+              <div class="flex items-center">
+                <fa-icon
+                  [icon]="getIncomeSourceIcon(income.source)"
+                  class="text-2xl mr-3"
+                  [ngStyle]="{ color: getSourceColor(income.source) }"
+                >
+                </fa-icon>
+                <div>
+                  <p class="font-medium">{{ income.source }}</p>
+                  <p class="text-sm text-gray-600">
+                    {{ income.date | date : 'mediumDate' }}
+                  </p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="text-lg font-bold">
+                  {{ income.amount | currency }}
+                </p>
+                <p
+                  class="text-xs"
+                  [ngClass]="getStatusClass(income.status)"
+                >
+                  {{ income.status }}
+                </p>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Scheduled">
+          <div class="p-4">
+            <div
+              *ngFor="let income of scheduledIncome$ | async"
+              class="income-item flex items-center justify-between p-4 border-b last:border-b-0"
+            >
+              <div class="flex items-center">
+                <fa-icon
+                  [icon]="faClock"
+                  class="text-2xl mr-3 text-gray-500"
+                >
+                </fa-icon>
+                <div>
+                  <p class="font-medium">{{ income.source }}</p>
+                  <p class="text-sm text-gray-600">
+                    Due: {{ income.dueDate | date : 'mediumDate' }}
+                  </p>
+                </div>
+              </div>
+              <div class="text-right">
+                <p class="text-lg font-bold">
+                  {{ income.amount | currency }}
+                </p>
+                <p class="text-xs text-gray-600">
+                  {{ getDaysUntilDue(income.dueDate) }} days remaining
+                </p>
+              </div>
+            </div>
+          </div>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card-content>
+  </mat-card>
+</div>
