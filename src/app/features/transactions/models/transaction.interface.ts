@@ -11,6 +11,7 @@ export type TransactionType = typeof TRANSACTION_TYPES[keyof typeof TRANSACTION_
  */
 export interface Transaction {
   id: string;
+  description: string;
   amount: number;
   type: 'INCOME' | 'EXPENSE';
   category: Category;
@@ -33,4 +34,11 @@ export interface TransactionFilters {
   type?: TransactionType;
   minAmount?: number;
   maxAmount?: number;
+}
+
+export interface TransactionState {
+  transactions: Transaction[];
+  loading: boolean;
+  error: string | null;
+  selectedTransaction: Transaction | null;
 }
