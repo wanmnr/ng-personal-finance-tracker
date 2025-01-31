@@ -1,6 +1,7 @@
 /**
  * @file goal.model.ts
  * @description Defines the interface for financial goals and their properties
+ *  @module Models
  */
 
 /**
