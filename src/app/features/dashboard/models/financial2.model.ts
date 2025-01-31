@@ -1,4 +1,8 @@
-// @features/dashboard/models/financial2.model.ts
+/**
+ * @file financial2.model.ts
+ * @description Type definitions for financial data structures
+ * @module Models
+ */
 
 export interface Transaction {
   id: string;
