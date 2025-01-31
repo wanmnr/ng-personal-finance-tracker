@@ -1,4 +1,8 @@
-// personal-finance.model.ts
+/**
+ * @file personal-finance.model.ts
+ * @description Type definitions for personal finance tracker app data structures
+ * @module Models
+ */
 
 // models/category.model.ts
 export interface Category {
