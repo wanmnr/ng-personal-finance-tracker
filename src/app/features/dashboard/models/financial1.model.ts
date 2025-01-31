@@ -1,4 +1,8 @@
-// src/app/features/dashboard/models/financial.model.ts
+/**
+ * @file financial1.model.ts
+ * @description Type definitions for financial data structures
+ * @module Models
+ */
 
 export interface FinancialMetrics {
   totalBalance: number;
