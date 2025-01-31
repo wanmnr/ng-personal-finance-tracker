@@ -1,4 +1,9 @@
-// @features/dashboard/financial1.service.ts
+/**
+ * @file financial1.service.ts
+ * @description Service for handling expense analytics data operations
+ * @module Services
+ */
+
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { catchError, delay, Observable, of, throwError, timeout } from 'rxjs';
@@ -24,7 +29,7 @@ export class FinancialService {
   private timeoutDuration = 5000;
   private useMockData = environment.useMockData;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   private handleError<T>(operation = 'operation', mockData: T) {
     return (error: HttpErrorResponse): Observable<T> => {
@@ -41,50 +46,64 @@ export class FinancialService {
 
   // FinancialMetric Methods
   getFinancialMetrics(): Observable<FinancialMetrics> {
-    return this.http.get<FinancialMetrics>(`${this.apiUrl}/metrics`).pipe(
-      timeout(this.timeoutDuration),
-      catchError(this.handleError('getFinancialMetrics', mockFinancialMetrics))
-    );
+    return this.http
+      .get<FinancialMetrics>(`${this.apiUrl}/metrics`)
+      .pipe(
+        timeout(this.timeoutDuration),
+        catchError(
+          this.handleError('getFinancialMetrics', mockFinancialMetrics)
+        )
+      );
   }
 
   // Transaction Methods
   getTransactions(): Observable<Transaction[]> {
-    return this.http.get<Transaction[]>(`${this.apiUrl}/transactions`).pipe(
-      timeout(this.timeoutDuration),
-      catchError(this.handleError('getTransactions', mockTransactions))
-    );
+    return this.http
+      .get<Transaction[]>(`${this.apiUrl}/transactions`)
+      .pipe(
+        timeout(this.timeoutDuration),
+        catchError(this.handleError('getTransactions', mockTransactions))
+      );
   }
 
   addTransaction(transaction: Transaction): Observable<Transaction> {
-    return this.http.post<Transaction>(`${this.apiUrl}/transactions`, transaction).pipe(
-      timeout(this.timeoutDuration),
-      catchError(this.handleError('addTransaction', transaction))
-    );
+    return this.http
+      .post<Transaction>(`${this.apiUrl}/transactions`, transaction)
+      .pipe(
+        timeout(this.timeoutDuration),
+        catchError(this.handleError('addTransaction', transaction))
+      );
   }
 
   // Budget Methods
   getBudgets(): Observable<Budget[]> {
-    return this.http.get<Budget[]>(`${this.apiUrl}/budgets`).pipe(
-      timeout(this.timeoutDuration),
-      catchError(this.handleError('getBudgets', mockBudgets))
-    );
+    return this.http
+      .get<Budget[]>(`${this.apiUrl}/budgets`)
+      .pipe(
+        timeout(this.timeoutDuration),
+        catchError(this.handleError('getBudgets', mockBudgets))
+      );
   }
 
   updateBudget(budget: Budget): Observable<Budget> {
-    return this.http.put<Budget>(`${this.apiUrl}/budgets/${budget.id}`, budget).pipe(
-      timeout(this.timeoutDuration),
-      catchError(this.handleError('updateBudget', budget))
-    );
+    return this.http
+      .put<Budget>(`${this.apiUrl}/budgets/${budget.id}`, budget)
+      .pipe(
+        timeout(this.timeoutDuration),
+        catchError(this.handleError('updateBudget', budget))
+      );
   }
 
   // Analytics Methods
   getMonthlyReport(month: number, year: number): Observable<MonthlyReport> {
-    return this.http.get<MonthlyReport>(`${this.apiUrl}/reports/monthly`, {
-      params: { month: month.toString(), year: year.toString() }
-    }).pipe(
-      timeout(this.timeoutDuration),
-      catchError(this.handleError('getMonthlyReport', mockMonthlyReport))
-    );
+    return this.http
+      .get<MonthlyReport>(`${this.apiUrl}/reports/monthly`, {
+        params: { month: month.toString(), year: year.toString() },
+      })
+      .pipe(
+        timeout(this.timeoutDuration),
+        catchError(this.handleError('getMonthlyReport', mockMonthlyReport))
+      );
   }
 
   // // CRUD operations for transactions
