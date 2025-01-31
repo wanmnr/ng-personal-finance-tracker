@@ -1,3 +1,9 @@
+/**
+ * @file category.model.ts
+ * @description Type definitions for category data structures
+ * @module Models
+ */
+
 export type CategoryName =
   | 'Housing'
   | 'Transportation'
