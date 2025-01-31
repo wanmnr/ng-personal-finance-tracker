@@ -1,4 +1,8 @@
-// src/app/features/dashboard/financial1.service.ts
+/**
+ * @file financial3.service.ts
+ * @description Service for handling expense analytics data operations
+ * @module Services
+ */
 
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
