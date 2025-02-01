@@ -1,6 +1,7 @@
 /**
  * @file budget1.service.ts
  * @description
+ * @module BudgetModule
  * @decorator Injectable
  */
 
