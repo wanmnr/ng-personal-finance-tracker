@@ -1,4 +1,8 @@
-// src/app/features/budget/store/budget.actions.ts
+/**
+ * @file budget.actions.ts
+ * @description
+ * @module BudgetModule
+ */
 
 import { createAction, props } from '@ngrx/store';
 import { Budget } from '../models/budget1.model';
@@ -22,9 +26,7 @@ export const DELETE_BUDGET_FAILURE = '[Budget] Delete Budget Failure';
 /**
  * Load Budgets Actions
  */
-export const loadBudgets = createAction(
-  LOAD_BUDGETS
-);
+export const loadBudgets = createAction(LOAD_BUDGETS);
 
 export const loadBudgetsSuccess = createAction(
   LOAD_BUDGETS_SUCCESS,
