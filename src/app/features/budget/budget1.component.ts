@@ -1,6 +1,10 @@
-// src/app/features/budget/budget1.component.ts
-// Approach 1: Component with Basic Feature Set
+/**
+ * @file budget1.component.ts
+ * @description
+ * @module BudgetModule
+ */
 
+// Approach 1: Component with Basic Feature Set
 import {
   Component,
   OnInit,
