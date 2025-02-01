@@ -1,14 +1,27 @@
-// src/app/features/budget/budget2-edit-dialog.component.ts
+/**
+ * @file budget2-edit-dialog.component.ts
+ * @description
+ * @module BudgetModule
+ */
 
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { MatDialogModule, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import {
+  FormBuilder,
+  FormGroup,
+  ReactiveFormsModule,
+  Validators,
+} from '@angular/forms';
+import {
+  MatDialogModule,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
-import { BudgetDialogData  } from './models/budget2.model';
+import { BudgetDialogData } from './models/budget2.model';
 
 @Component({
   selector: 'app-budget-edit-dialog',
@@ -20,10 +33,12 @@ import { BudgetDialogData  } from './models/budget2.model';
     MatFormFieldModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   template: `
-    <h2 mat-dialog-title>{{ dialogData.mode === 'add' ? 'Add New Budget' : 'Edit Budget' }}</h2>
+    <h2 mat-dialog-title>
+      {{ dialogData.mode === 'add' ? 'Add New Budget' : 'Edit Budget' }}
+    </h2>
 
     <form [formGroup]="budgetForm" (ngSubmit)="handleSubmit()">
       <mat-dialog-content>
@@ -31,13 +46,16 @@ import { BudgetDialogData  } from './models/budget2.model';
           <mat-form-field appearance="outline">
             <mat-label>Category</mat-label>
             <mat-select formControlName="category">
-              <mat-option *ngFor="let category of budgetCategories" [value]="category">
-                {{category}}
+              <mat-option
+                *ngFor="let category of budgetCategories"
+                [value]="category"
+              >
+                {{ category }}
               </mat-option>
             </mat-select>
             @if (budgetForm.get('category')?.hasError('required') &&
-                 budgetForm.get('category')?.touched) {
-              <mat-error>Category is required</mat-error>
+            budgetForm.get('category')?.touched) {
+            <mat-error>Category is required</mat-error>
             }
           </mat-form-field>
 
@@ -48,72 +66,76 @@ import { BudgetDialogData  } from './models/budget2.model';
               type="number"
               formControlName="limit"
               placeholder="Enter budget limit"
-              min="0">
+              min="0"
+            />
             @if (budgetForm.get('limit')?.hasError('required') &&
-                 budgetForm.get('limit')?.touched) {
-              <mat-error>Budget limit is required</mat-error>
-            }
-            @if (budgetForm.get('limit')?.hasError('min')) {
-              <mat-error>Budget limit must be greater than 0</mat-error>
+            budgetForm.get('limit')?.touched) {
+            <mat-error>Budget limit is required</mat-error>
+            } @if (budgetForm.get('limit')?.hasError('min')) {
+            <mat-error>Budget limit must be greater than 0</mat-error>
             }
           </mat-form-field>
 
           @if (dialogData.mode === 'edit') {
-            <mat-form-field appearance="outline">
-              <mat-label>Spent Amount</mat-label>
-              <input
-                matInput
-                type="number"
-                formControlName="spent"
-                placeholder="Enter spent amount"
-                min="0">
-              @if (budgetForm.get('spent')?.hasError('required') &&
-                   budgetForm.get('spent')?.touched) {
-                <mat-error>Spent amount is required</mat-error>
-              }
-              @if (budgetForm.get('spent')?.hasError('min')) {
-                <mat-error>Spent amount must be greater than 0</mat-error>
-              }
-            </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Spent Amount</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="spent"
+              placeholder="Enter spent amount"
+              min="0"
+            />
+            @if (budgetForm.get('spent')?.hasError('required') &&
+            budgetForm.get('spent')?.touched) {
+            <mat-error>Spent amount is required</mat-error>
+            } @if (budgetForm.get('spent')?.hasError('min')) {
+            <mat-error>Spent amount must be greater than 0</mat-error>
+            }
+          </mat-form-field>
           }
         </div>
       </mat-dialog-content>
 
       <mat-dialog-actions align="end">
-        <button mat-button type="button" (click)="handleCancel()">Cancel</button>
+        <button mat-button type="button" (click)="handleCancel()">
+          Cancel
+        </button>
         <button
           mat-raised-button
           color="primary"
           type="submit"
-          [disabled]="budgetForm.invalid">
+          [disabled]="budgetForm.invalid"
+        >
           {{ dialogData.mode === 'add' ? 'Add' : 'Update' }}
         </button>
       </mat-dialog-actions>
     </form>
   `,
-  styles: [`
-    :host {
-      display: block;
-      padding: 24px;
-      max-width: 100%;
-      width: 400px;
-    }
+  styles: [
+    `
+      :host {
+        display: block;
+        padding: 24px;
+        max-width: 100%;
+        width: 400px;
+      }
 
-    mat-dialog-content {
-      padding-top: 20px;
-      padding-bottom: 20px;
-    }
+      mat-dialog-content {
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
 
-    mat-form-field {
-      width: 100%;
-    }
-  `]
+      mat-form-field {
+        width: 100%;
+      }
+    `,
+  ],
 })
 export class BudgetEditDialogComponent {
   private readonly _formBuilder = inject(FormBuilder);
   private readonly _dialogRef = inject(MatDialogRef<BudgetEditDialogComponent>);
   private readonly _dialogData: BudgetDialogData = inject(MAT_DIALOG_DATA);
-
 
   // If you want to be more specific about what's exposed:
 
@@ -143,13 +165,13 @@ export class BudgetEditDialogComponent {
     'Healthcare',
     'Entertainment',
     'Shopping',
-    'Others'
+    'Others',
   ];
 
   readonly budgetForm: FormGroup = this._formBuilder.group({
     category: ['', Validators.required],
     limit: [0, [Validators.required, Validators.min(0)]],
-    spent: [0, [Validators.required, Validators.min(0)]]
+    spent: [0, [Validators.required, Validators.min(0)]],
   });
 
   get dialogData(): BudgetDialogData {
@@ -165,9 +187,10 @@ export class BudgetEditDialogComponent {
   handleSubmit(): void {
     if (this.budgetForm.valid) {
       const formValue = this.budgetForm.value;
-      const result = this.dialogData.mode === 'edit' && this.dialogData.budget
-        ? { ...this.dialogData.budget, ...formValue }
-        : formValue;
+      const result =
+        this.dialogData.mode === 'edit' && this.dialogData.budget
+          ? { ...this.dialogData.budget, ...formValue }
+          : formValue;
 
       this._dialogRef.close(result);
     }
