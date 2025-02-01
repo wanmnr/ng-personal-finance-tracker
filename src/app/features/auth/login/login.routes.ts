@@ -1,4 +1,8 @@
-// features/auth/login/login.routes.ts
+/**
+ * @file login.routes.ts
+ * @description Route configuration for login-related features including forgot password and reset password
+ * @module AuthModule
+ */
 
 import { Routes } from '@angular/router';
 import { LoginComponent } from './login.component';
@@ -23,6 +27,6 @@ export const loginRoutes: Routes = [
       //       (m) => m.ResetPasswordComponent
       //     )
       // }
-    ]
-  }
+    ],
+  },
 ];
