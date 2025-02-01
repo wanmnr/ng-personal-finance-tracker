@@ -1,11 +1,15 @@
-// src/app/core/services/auth.service.ts
-//
+/**
+ * @file auth.service.ts
+ * @description Authentication service handling user authentication, registration, and session management
+ * @module AuthModule
+ */
+
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
-import { ApiService } from './api.service';
-import { TokenService } from './token.service';
+import { ApiService } from '../../core/services/api.service';
+import { TokenService } from '../../core/services/token.service';
 import { User } from '@core/models/user.model';
 
 export interface AuthResponse {
@@ -28,7 +32,7 @@ export interface RegisterCredentials extends LoginCredentials {
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
   private currentUserSubject = new BehaviorSubject<User | null>(null);
@@ -50,31 +54,35 @@ export class AuthService {
   }
 
   register(credentials: RegisterCredentials): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(
-      this.apiService.getEndpoint('auth/register'),
-      credentials,
-      { headers: this.apiService.getHeaders() }
-    ).pipe(
-      tap(response => {
-        this.tokenService.setToken(response.token);
-        this.handleAuthSuccess(response.user);
-      }),
-      catchError(this.handleError)
-    );
+    return this.http
+      .post<AuthResponse>(
+        this.apiService.getEndpoint('auth/register'),
+        credentials,
+        { headers: this.apiService.getHeaders() }
+      )
+      .pipe(
+        tap((response) => {
+          this.tokenService.setToken(response.token);
+          this.handleAuthSuccess(response.user);
+        }),
+        catchError(this.handleError)
+      );
   }
 
   login(credentials: LoginCredentials): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(
-      this.apiService.getEndpoint('auth/login'),
-      credentials,
-      { headers: this.apiService.getHeaders() }
-    ).pipe(
-      tap(response => {
-        this.tokenService.setToken(response.token);
-        this.handleAuthSuccess(response.user);
-      }),
-      catchError(this.handleError)
-    );
+    return this.http
+      .post<AuthResponse>(
+        this.apiService.getEndpoint('auth/login'),
+        credentials,
+        { headers: this.apiService.getHeaders() }
+      )
+      .pipe(
+        tap((response) => {
+          this.tokenService.setToken(response.token);
+          this.handleAuthSuccess(response.user);
+        }),
+        catchError(this.handleError)
+      );
   }
 
   // login(credentials: any): Observable<any> {
@@ -83,18 +91,20 @@ export class AuthService {
   // }
 
   logout(): Observable<void> {
-    return this.http.post<void>(
-      this.apiService.getEndpoint('auth/logout'),
-      {},
-      { headers: this.apiService.getHeaders() }
-    ).pipe(
-      tap(() => {
-        this.tokenService.removeToken();
-        localStorage.removeItem('user');
-        this.currentUserSubject.next(null);
-      }),
-      catchError(this.handleError)
-    );
+    return this.http
+      .post<void>(
+        this.apiService.getEndpoint('auth/logout'),
+        {},
+        { headers: this.apiService.getHeaders() }
+      )
+      .pipe(
+        tap(() => {
+          this.tokenService.removeToken();
+          localStorage.removeItem('user');
+          this.currentUserSubject.next(null);
+        }),
+        catchError(this.handleError)
+      );
   }
 
   // logout(): Observable<any> {
@@ -116,38 +126,40 @@ export class AuthService {
   // }
 
   refreshToken(): Observable<RefreshTokenResponse> {
-    return this.http.post<RefreshTokenResponse>(
-      this.apiService.getEndpoint('auth/refresh-token'),
-      {},
-      { headers: this.apiService.getHeaders() }
-    ).pipe(
-      tap(response => {
-        if (response.token) {
-          this.tokenService.setToken(response.token);
-        }
-      }),
-      catchError(this.handleError)
-    );
+    return this.http
+      .post<RefreshTokenResponse>(
+        this.apiService.getEndpoint('auth/refresh-token'),
+        {},
+        { headers: this.apiService.getHeaders() }
+      )
+      .pipe(
+        tap((response) => {
+          if (response.token) {
+            this.tokenService.setToken(response.token);
+          }
+        }),
+        catchError(this.handleError)
+      );
   }
 
   requestPasswordReset(email: string): Observable<void> {
-    return this.http.post<void>(
-      this.apiService.getEndpoint('auth/forgot-password'),
-      { email },
-      { headers: this.apiService.getHeaders() }
-    ).pipe(
-      catchError(this.handleError)
-    );
+    return this.http
+      .post<void>(
+        this.apiService.getEndpoint('auth/forgot-password'),
+        { email },
+        { headers: this.apiService.getHeaders() }
+      )
+      .pipe(catchError(this.handleError));
   }
 
   resetPassword(token: string, newPassword: string): Observable<void> {
-    return this.http.post<void>(
-      this.apiService.getEndpoint('auth/reset-password'),
-      { token, newPassword },
-      { headers: this.apiService.getHeaders() }
-    ).pipe(
-      catchError(this.handleError)
-    );
+    return this.http
+      .post<void>(
+        this.apiService.getEndpoint('auth/reset-password'),
+        { token, newPassword },
+        { headers: this.apiService.getHeaders() }
+      )
+      .pipe(catchError(this.handleError));
   }
 
   isAdmin(): boolean {
