@@ -1,4 +1,9 @@
-// features/auth/login/login.component.ts
+/**
+ * @file login.component.ts
+ * @description Login page component providing user authentication interface
+ * @module AuthModule
+ */
+
 import { Component } from '@angular/core';
 
 @Component({
