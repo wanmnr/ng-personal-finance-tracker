@@ -1,7 +1,7 @@
 // core/interceptors/auth2.interceptor.ts
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '@features/auth/auth.service';
 import { TokenService } from '../services/token.service';
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
@@ -11,7 +11,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   if (authService.isAuthenticated()) {
     const authToken = tokenService.getToken();
     const authReq = req.clone({
-      headers: req.headers.set('Authorization', `Bearer ${authToken}`)
+      headers: req.headers.set('Authorization', `Bearer ${authToken}`),
     });
     return next(authReq);
   }
