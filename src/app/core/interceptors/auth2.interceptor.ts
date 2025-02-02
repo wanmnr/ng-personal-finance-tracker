@@ -7,22 +7,25 @@ import {
   HttpHandler,
   HttpEvent,
   HttpErrorResponse,
-  HttpResponse
+  HttpResponse,
 } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError, switchMap, tap, finalize } from 'rxjs/operators';
 import { environment } from '@env/environment';
-import { AuthService } from '@core/services/auth.service';
+import { AuthService } from '@features/auth/auth.service';
 import { TokenService } from '../services/token.service';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
-    private tokenService: TokenService,
-  ) { }
+    private tokenService: TokenService
+  ) {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  intercept(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
     // Start timing for request monitoring
     const startTime = Date.now();
     let statusCode: number;
@@ -38,12 +41,12 @@ export class AuthInterceptor implements HttpInterceptor {
     return next.handle(modifiedRequest).pipe(
       // Monitor responses
       tap(
-        event => {
+        (event) => {
           if (event instanceof HttpResponse) {
             statusCode = event.status;
           }
         },
-        error => {
+        (error) => {
           statusCode = error.status;
           console.error('Request Error:', error);
         }
@@ -61,7 +64,9 @@ export class AuthInterceptor implements HttpInterceptor {
       finalize(() => {
         const endTime = Date.now();
         const duration = endTime - startTime;
-        console.log(`${request.method} ${request.url} ${statusCode} took ${duration}ms`);
+        console.log(
+          `${request.method} ${request.url} ${statusCode} took ${duration}ms`
+        );
       })
     );
   }
@@ -69,7 +74,7 @@ export class AuthInterceptor implements HttpInterceptor {
   private addHeaders(request: HttpRequest<any>): HttpRequest<any> {
     const token = this.getToken();
     const headers: { [key: string]: string } = {
-      'X-Environment': environment.production ? 'prod' : 'test'
+      'X-Environment': environment.production ? 'prod' : 'test',
     };
 
     // Add CSRF token if available
@@ -85,27 +90,36 @@ export class AuthInterceptor implements HttpInterceptor {
 
     // Add CORS headers for cross-origin requests
     if (this.isCrossOriginRequest(request)) {
-      headers['Access-Control-Allow-Origin'] = environment.allowedOrigins.join(',');
-      headers['Access-Control-Allow-Methods'] = 'GET, POST, PUT, DELETE, OPTIONS';
+      headers['Access-Control-Allow-Origin'] =
+        environment.allowedOrigins.join(',');
+      headers['Access-Control-Allow-Methods'] =
+        'GET, POST, PUT, DELETE, OPTIONS';
       headers['Access-Control-Allow-Headers'] = 'Content-Type, Authorization';
     }
 
     return request.clone({
-      setHeaders: headers
+      setHeaders: headers,
     });
   }
 
   private getToken(): string {
     return environment.production
-      ? (this.tokenService.getToken() || '')
+      ? this.tokenService.getToken() || ''
       : 'test-token';
   }
 
   private getCsrfToken(): string {
-    return document.querySelector('meta[name="csrf-token"]')?.getAttribute('content') || '';
+    return (
+      document
+        .querySelector('meta[name="csrf-token"]')
+        ?.getAttribute('content') || ''
+    );
   }
 
-  private handle401Error(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  private handle401Error(
+    request: HttpRequest<any>,
+    next: HttpHandler
+  ): Observable<HttpEvent<any>> {
     return this.authService.refreshToken().pipe(
       switchMap(() => {
         return next.handle(this.addHeaders(request));
