@@ -4,10 +4,10 @@
  * - Verifies if user has admin privileges
  * - More specific access control
  * - Used for admin-only routes
-*/
+ */
 import { inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth.service';
+import { AuthService } from '../../features/auth/auth.service';
 import { UserService } from '../services/user.service';
 import { map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
