@@ -1,4 +1,9 @@
-// auth.guard.ts
+/**
+ * @file auth.guard.ts
+ * @description [brief description of the file's purpose]
+ * @module Guard
+ */
+
 /*
  * Basic authentication check
  * - Verifies if user is logged in
