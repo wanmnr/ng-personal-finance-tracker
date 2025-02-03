@@ -1,11 +1,11 @@
-// auth.guard.ts
+/**
+ * @file auth2.guard.ts
+ * @description [brief description of the file's purpose]
+ * @module Guard
+ */
 
 import { inject } from '@angular/core';
-import {
-  CanActivateFn,
-  Router,
-  UrlTree
-} from '@angular/router';
+import { CanActivateFn, Router, UrlTree } from '@angular/router';
 import { Auth, authState } from '@angular/fire/auth';
 import { map, Observable, take } from 'rxjs';
 
@@ -17,7 +17,7 @@ export const authGuard: CanActivateFn = (): Observable<boolean | UrlTree> => {
 
   return authState(auth).pipe(
     take(1),
-    map(user => {
+    map((user) => {
       if (!user) {
         return router.createUrlTree(['/auth/login']);
       }
