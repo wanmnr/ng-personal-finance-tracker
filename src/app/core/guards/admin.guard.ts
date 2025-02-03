@@ -1,4 +1,9 @@
-// core/guards/admin.guard.ts
+/**
+ * @file admin.guard.ts
+ * @description [brief description of the file's purpose]
+ * @module Guard
+ */
+
 /*
  * Role-specific check
  * - Verifies if user has admin privileges
