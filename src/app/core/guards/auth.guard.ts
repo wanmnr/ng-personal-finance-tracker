@@ -1,6 +1,10 @@
 /**
  * @file auth.guard.ts
- * @description [brief description of the file's purpose]
+ * @description Angular route guard that provides basic authentication protection for routes.
+ * Implements a straightforward authentication check to ensure users are logged in before
+ * accessing protected routes. If authentication check fails, automatically redirects
+ * unauthenticated users to the login page. This guard serves as a fundamental security
+ * layer for routes requiring user authentication without specific role requirements.
  * @module Guard
  */
 
