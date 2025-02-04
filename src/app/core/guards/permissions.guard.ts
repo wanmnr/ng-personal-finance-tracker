@@ -1,4 +1,11 @@
-// core/guards/permissions.guard.ts
+/**
+ * @file permissions.guard.ts
+ * @description Angular route guard that validates user permissions
+ * against route-specific requirements, enforcing access control
+ * by redirecting unauthorized users and ensuring authenticated users
+ * have sufficient permissions to access protected routes.
+ * @module Guard
+ */
 
 import { inject } from '@angular/core';
 import { CanActivateFn, Router, UrlTree } from '@angular/router';
