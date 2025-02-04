@@ -1,4 +1,13 @@
-// core/interceptors/auth2.interceptor.ts
+/**
+ * @file auth2.interceptor.ts
+ * @description Class-based HTTP interceptor implementing authentication and request processing logic.
+ * Handles token-based authentication, CSRF protection, CORS configuration, and request monitoring.
+ * Features include automatic token refresh on 401 errors, request timing metrics, environment-specific
+ * headers, and comprehensive error handling. Provides test endpoint bypassing and secure cross-origin
+ * communication support through a traditional OOP approach.
+ * @module Interceptor
+ */
+
 // Traditional Class-Based Interceptor
 import { Injectable } from '@angular/core';
 import {
