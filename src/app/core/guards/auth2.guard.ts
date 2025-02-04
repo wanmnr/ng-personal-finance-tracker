@@ -1,6 +1,15 @@
 /**
  * @file auth2.guard.ts
- * @description [brief description of the file's purpose]
+ * @description Angular route guard implementing Firebase authentication with session management.
+ * Provides multi-layered authentication verification including:
+ * 1. Firebase user authentication status
+ * 2. Email verification check
+ * 3. Session timeout management (30-minute duration)
+ * The guard automatically redirects to appropriate routes based on authentication state:
+ * - Unauthenticated users to login
+ * - Unverified emails to verification page
+ * - Expired sessions to login
+ * Implements activity tracking to maintain session freshness through localStorage.
  * @module Guard
  */
 
