@@ -1,4 +1,14 @@
-// core/interceptors/cache.interceptor.ts
+/**
+ * @file cache.interceptor.ts
+ * @description HTTP cache interceptor that:
+ * - Implements a simple in-memory caching mechanism for GET requests
+ * - Stores HTTP responses in a Map using the request URL as key
+ * - Returns cached responses if available, avoiding redundant server calls
+ * - Caches new responses automatically for future requests
+ * - Improves application performance by reducing server load
+ * @module Interceptor
+ */
+
 // Functional Interceptor (New in Angular 18)
 import { HttpInterceptorFn, HttpResponse } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
@@ -19,7 +29,7 @@ export const cacheInterceptor: HttpInterceptorFn = (req, next) => {
   }
 
   return next(req).pipe(
-    tap(event => {
+    tap((event) => {
       if (event instanceof HttpResponse) {
         cache.set(req.url, event);
       }
