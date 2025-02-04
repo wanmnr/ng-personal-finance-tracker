@@ -1,4 +1,10 @@
-// src/app/core/permissions/permission.guard.ts
+/**
+ * @file permission.guard.ts
+ * @description Route guard that enforces permission-based access control by validating user permissions
+ * against route requirements. Redirects unauthorized users to an error page when permission checks fail.
+ * Supports multiple permission requirements defined in route data configuration.
+ * @module Guard
+ */
 
 import { Injectable } from '@angular/core';
 import {
