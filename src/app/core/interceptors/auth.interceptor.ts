@@ -1,4 +1,13 @@
-// core/interceptors/auth.interceptor.ts
+/**
+ * @file auth.interceptor.ts
+ * @description HTTP interceptor that handles authentication, authorization, and request/response processing.
+ * Manages token-based authentication, adds security headers, handles CORS, implements request timing,
+ * processes 401 unauthorized errors with token refresh, and provides request logging. Supports test
+ * environment bypassing and cross-origin request handling while maintaining secure communication between
+ * client and server.
+ * @module Interceptor
+ */
+
 // Functional Interceptor (New in Angular 18)
 import {
   HttpHandlerFn,
