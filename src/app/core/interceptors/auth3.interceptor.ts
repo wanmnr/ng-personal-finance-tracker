@@ -1,4 +1,12 @@
-// core/interceptors/auth2.interceptor.ts
+/**
+ * @file auth3.interceptor.ts
+ * @description Implements HTTP request interception for authentication
+ * by automatically adding Bearer tokens to outgoing requests when a user is authenticated.
+ * This interceptor checks the authentication state and appends the authorization header
+ * with the user's token before forwarding the request.
+ * @module Interceptor
+ */
+
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { AuthService } from '@features/auth/auth.service';
