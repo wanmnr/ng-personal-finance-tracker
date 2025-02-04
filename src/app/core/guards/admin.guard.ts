@@ -1,6 +1,12 @@
 /**
  * @file admin.guard.ts
- * @description [brief description of the file's purpose]
+ * @description Angular route guard that implements role-based access control for admin routes.
+ * It performs multi-layer authentication and authorization checks by:
+ * 1. Verifying user authentication status
+ * 2. Checking local admin privileges
+ * 3. Validating admin role with the server
+ * 4. Refreshing user profile on successful validation
+ * If any check fails, redirects to login or unauthorized pages accordingly.
  * @module Guard
  */
 
