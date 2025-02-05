@@ -1,0 +1,19 @@
+{
+  "tsconfig": "./tsconfig.doc.json",
+  "output": "./documentation",
+  "theme": "material",
+  "exportFormat": "html",
+  "disableSourceCode": false,
+  "disableCoverage": false,
+  "disablePrivate": true,
+  "disableProtected": false,
+  "disableInternal": true,
+  "disableGraph": false,
+  "coverageTest": 85,
+  "gaID": "",
+  "customFavicon": "",
+  "customLogo": "",
+  "serve": true,
+  "watch": true,
+  "includeCodeSnippets": true
+}
