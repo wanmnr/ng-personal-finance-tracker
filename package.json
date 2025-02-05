@@ -11,7 +11,12 @@
     "build-storybook": "ng run ng-personal-finance-tracker:build-storybook",
     "compodoc:generate": "compodoc -p tsconfig.json",
     "compodoc:serve": "compodoc -p tsconfig.json -s",
-    "compodoc:watch": "compodoc -p tsconfig.json -s -w"
+    "compodoc:watch": "compodoc -p tsconfig.json -s -w",
+    "docs:coverage": "compodoc -p tsconfig.json --coverageTest",
+    "lint": "ng lint",
+    "lint:fix": "ng lint --fix",
+    "format": "prettier --write \"src/**/*.{ts,html,scss}\"",
+    "check-docs": "compodoc -p tsconfig.json --coverageTest 85"
   },
   "private": true,
   "dependencies": {
@@ -58,7 +63,10 @@
     "@storybook/blocks": "^8.3.6",
     "@storybook/test": "^8.3.6",
     "@types/jasmine": "~5.1.0",
+    "@typescript-eslint/eslint-plugin": "^8.23.0",
+    "@typescript-eslint/parser": "^8.23.0",
     "autoprefixer": "^10.4.20",
+    "eslint": "^9.19.0",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
