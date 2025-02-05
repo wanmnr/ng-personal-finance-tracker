@@ -1,0 +1,60 @@
+{
+  "root": true,
+  "ignorePatterns": ["projects/**/*"],
+  "overrides": [
+    {
+      "files": ["*.ts"],
+      "parserOptions": {
+        "project": ["tsconfig.json"],
+        "createDefaultProgram": true
+      },
+      "extends": [
+        "plugin:@angular-eslint/recommended",
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:jsdoc/recommended"
+      ],
+      "plugins": ["jsdoc"],
+      "rules": {
+        "jsdoc/require-jsdoc": [
+          "error",
+          {
+            "publicOnly": true,
+            "require": {
+              "ClassDeclaration": true,
+              "MethodDefinition": true,
+              "FunctionDeclaration": true
+            }
+          }
+        ],
+        "jsdoc/require-description": ["error"],
+        "jsdoc/require-returns": ["error"],
+        "jsdoc/require-param": ["error"],
+        "jsdoc/tag-lines": [
+          "error",
+          "any",
+          {
+            "startLines": 1,
+            "endLines": 0
+          }
+        ],
+        "@angular-eslint/component-class-suffix": [
+          "error",
+          {
+            "suffixes": ["Component", "Page", "Modal"]
+          }
+        ],
+        "@angular-eslint/directive-class-suffix": [
+          "error",
+          {
+            "suffixes": ["Directive"]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["*.html"],
+      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "rules": {}
+    }
+  ]
+}
