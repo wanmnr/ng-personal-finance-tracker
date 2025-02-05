@@ -1,4 +1,13 @@
-// core/interceptors/error3.interceptor.ts
+/**
+ * @file error3.interceptor.ts
+ * @description HTTP error interceptor that provides centralized error handling for the application.
+ * Handles common HTTP error status codes (401, 403, 404, 400, 500) and provides appropriate user feedback
+ * using toast notifications. Implements automatic navigation to error-specific routes and login page
+ * when necessary. For 400 (Bad Request) errors, it processes validation errors from the server's
+ * response. This interceptor ensures consistent error handling and user experience across the application.
+ * @module Interceptor
+ */
+
 // Functional Interceptor (New in Angular 18)
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
@@ -42,7 +51,7 @@ export const errorInterceptor: HttpInterceptorFn = (req, next) => {
         case 500:
           toastr.error('Internal server error');
           router.navigate(['/server-error'], {
-            state: { error: error.error }
+            state: { error: error.error },
           });
           break;
 
