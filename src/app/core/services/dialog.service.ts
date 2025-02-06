@@ -1,7 +1,7 @@
 /**
  * @file dialog.service.ts
  * @description Service that handles dialog/confirmation operations across the application
- * @module Services/Core
+ * @module Services
  */
 
 import { Injectable } from '@angular/core';
