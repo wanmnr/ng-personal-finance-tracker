@@ -1,4 +1,12 @@
-// src/app/core/interceptors/timeout.interceptor.ts
+/**
+ * @file timeout.interceptor.ts
+ * @description HTTP interceptor that enforces request timeouts and cancellation handling. It sets
+ * a 30-second timeout for all HTTP requests and integrates with CancelService to allow manual
+ * request cancellation. This helps prevent hanging requests and provides request cancellation
+ * capability across the application.
+ * @module Interceptor
+ */
+
 import { Injectable } from '@angular/core';
 import {
   HttpInterceptor,
