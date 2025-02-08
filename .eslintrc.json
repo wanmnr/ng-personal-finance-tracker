@@ -11,32 +11,35 @@
       "extends": [
         "plugin:@angular-eslint/recommended",
         "plugin:@angular-eslint/template/process-inline-templates",
-        "plugin:jsdoc/recommended"
+        "plugin:typescript-eslint/recommended"
       ],
-      "plugins": ["jsdoc"],
+      "plugins": ["eslint-plugin-tsdoc"],
       "rules": {
-        "jsdoc/require-jsdoc": [
-          "error",
-          {
-            "publicOnly": true,
-            "require": {
-              "ClassDeclaration": true,
-              "MethodDefinition": true,
-              "FunctionDeclaration": true
-            }
-          }
-        ],
-        "jsdoc/require-description": ["error"],
-        "jsdoc/require-returns": ["error"],
-        "jsdoc/require-param": ["error"],
-        "jsdoc/tag-lines": [
-          "error",
-          "any",
-          {
-            "startLines": 1,
-            "endLines": 0
-          }
-        ],
+        "tsdoc/syntax": "warn",
+        "@typescript-eslint/explicit-member-accessibility": "error",
+        "@typescript-eslint/explicit-function-return-type": "error",
+        "tsdoc/require-description": ["error", {
+          "contexts": [
+            "ClassDeclaration",
+            "InterfaceDeclaration",
+            "MethodDefinition",
+            "PropertyDefinition",
+            "FunctionDeclaration"
+          ]
+        }],
+        "tsdoc/require-returns": "error",
+        "tsdoc/require-param": "error",
+        "tsdoc/tag-lines": ["error", "any", {
+          "startLines": 1,
+          "endLines": 0
+        }],
+        "tsdoc/require-file-overview": ["error", {
+          "tags": ["@file", "@module"]
+        }],
+        "tsdoc/require-example": ["warn", {
+          "contexts": ["ClassDeclaration", "MethodDefinition"],
+          "unlessSimple": true
+        }],
         "@angular-eslint/component-class-suffix": [
           "error",
           {
