@@ -1,4 +1,9 @@
-// src/app/layout/header/header.component.ts
+/**
+ * @file header.component.ts
+ * @description Basic Header
+ * @module Layout
+ */
+
 import { Component, Output, EventEmitter, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
@@ -10,7 +15,7 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDividerModule } from '@angular/material/divider';
-import { LogoComponent } from "../../shared/components/logo/logo.component";
+import { LogoComponent } from '../../shared/components/logo/logo.component';
 
 interface NavItem {
   label: string;
@@ -33,10 +38,24 @@ interface NavItem {
     FormsModule,
     MatTooltipModule,
     MatDividerModule,
-    LogoComponent
+    LogoComponent,
   ],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styles: [
+    `
+      :host {
+        @apply block;
+      }
+
+      .focus-outline {
+        @apply focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:focus:ring-offset-gray-800;
+      }
+
+      .mat-toolbar {
+        @apply shadow-sm;
+      }
+    `,
+  ],
 })
 export class HeaderComponent {
   @Input() appName = 'My App';
@@ -52,7 +71,7 @@ export class HeaderComponent {
   navItems: NavItem[] = [
     { label: 'Home', route: '/', icon: 'home' },
     { label: 'Dashboard', route: '/dashboard', icon: 'dashboard' },
-    { label: 'About', route: '/about', icon: 'info' }
+    { label: 'About', route: '/about', icon: 'info' },
   ];
 
   toggleTheme(): void {
