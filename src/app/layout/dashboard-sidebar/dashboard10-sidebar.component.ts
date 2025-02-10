@@ -6,7 +6,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatDividerModule } from '@angular/material/divider';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { NavItem } from './nav-item.interface';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService } from '../../features/auth/auth.service';
 
 @Component({
   selector: 'app-dashboard-sidenav',
