@@ -1,6 +1,6 @@
 /**
- * @file permission-sets.ts
- * @module core/permissions
+ * @file permission-sets.types.ts
+ * @module core/types
  * @description Defines permission sets for different user roles in the application
  *
  * @remarks
