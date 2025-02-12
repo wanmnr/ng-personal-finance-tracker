@@ -25,25 +25,20 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        loadChildren: () =>
-          import('@layout/layout.route').then((m) => m.layoutRoutes),
+        loadChildren: () => import('@layout/layout.route').then((m) => m.layoutRoutes),
       },
     ],
   },
   {
     path: 'budget',
     loadComponent: () =>
-      import('./features/budget/budget1.component').then(
-        (m) => m.BudgetComponent
-      ),
+      import('./features/budget/budget1.component').then((m) => m.BudgetComponent),
     title: 'Budget Overview',
   },
   {
     path: 'dashboard',
     loadComponent: () =>
-      import('./features/dashboard/dashboard1.component').then(
-        (m) => m.DashboardComponent
-      ),
+      import('./features/dashboard/dashboard1.component').then((m) => m.DashboardComponent),
     title: 'Dashboard',
     // canActivate: [authGuard]  // Only basic access
   },
@@ -63,6 +58,11 @@ export const routes: Routes = [
     title: 'Transactions'
   }
   */
+  {
+    path: 'transaction',
+    loadChildren: () =>
+      import('@features/transactions/transaction.component').then((m) => m.TransactionComponent),
+  },
   // {
   //   path: 'transactions',
   //   loadChildren: () =>
