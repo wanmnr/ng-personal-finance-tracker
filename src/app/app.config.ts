@@ -1,4 +1,8 @@
-// app.config.ts
+/**
+ * @file app.config.ts
+ * @module app/configuration
+ * @description Application-wide configuration and provider setup for Angular application
+ */
 
 // Angular Core imports
 import {
@@ -30,7 +34,27 @@ import { paginationReducer } from '@shared/store/reducers/pagination.reducer';
 import { transactionReducer } from '@features/transactions/store/transaction2.reducer';
 import { TransactionEffects } from '@features/transactions/store/transaction2.effects';
 
-
+/**
+ * @remarks
+ * Core configuration includes:
+ * - Router setup with predefined routes
+ * - HTTP client with error interceptor
+ * - NgRx store configuration with:
+ *   - Layout feature state
+ *   - Pagination state
+ *   - Transaction state and effects
+ * - Font Awesome icon library initialization
+ * - Development tools (NgRx DevTools in dev mode)
+ * - Animation support
+ * - Toast notifications configuration
+ * - Loading spinner setup
+ *
+ * Third-party integrations:
+ * - NgRx for state management
+ * - Font Awesome for icons
+ * - Toastr for notifications
+ * - NgxSpinner for loading indicators
+ */
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
