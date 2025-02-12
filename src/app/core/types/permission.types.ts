@@ -1,6 +1,6 @@
 /**
  * @file permission.types.ts
- * @module core/permissions
+ * @module core/types
  * @description Core permission enumeration for application access control
  *
  * @remarks
