@@ -1,4 +1,24 @@
-// layout/header/notification-panel/notification-panel.component.ts
+/**
+ * @file notification-panel.component.ts
+ * @module app/layout/header/notification-panel
+ *
+ * @description Interactive notification panel that displays and manages system notifications
+ *
+ * @remarks
+ * The notification panel provides a centralized interface for displaying system notifications with:
+ * - Different notification types (info, success, warning, error)
+ * - Read/unread status tracking
+ * - Notification count management
+ * - Responsive design for mobile and desktop views
+ * - Click handling for individual notifications
+ * - Bulk clearing functionality
+ *
+ * Each notification includes:
+ * - Icon indicating the notification type
+ * - Title and message content
+ * - Timestamp
+ * - Visual indicators for unread status
+ */
 
 import {
   Component,
@@ -10,10 +30,7 @@ import {
 } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import {
-  FaIconLibrary,
-  FontAwesomeModule,
-} from '@fortawesome/angular-fontawesome';
+import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {
   faBell,
   faCheck,
@@ -21,11 +38,7 @@ import {
   faInfoCircle,
   faTimes,
 } from '@fortawesome/free-solid-svg-icons';
-import {
-  INotification,
-  NotificationState,
-  NotificationType,
-} from '../../types/notification.types';
+import { INotification, NotificationState, NotificationType } from '../../types/notification.types';
 import { NotificationService } from '../../services/notification.service';
 import { CommonModule } from '@angular/common';
 import { NotificationDatePipe } from '@app/shared/pipes/notification-date.pipe';
@@ -119,9 +132,7 @@ export class NotificationPanelComponent implements OnInit {
   @Input() maxHeight = '400px';
   @Output() notificationClick = new EventEmitter<INotification>();
 
-  notifications$: Observable<INotification[]> = new Observable<
-    INotification[]
-  >();
+  notifications$: Observable<INotification[]> = new Observable<INotification[]>();
   unreadCount$: Observable<number> = new Observable<number>();
   NotificationType = NotificationType;
 
@@ -130,22 +141,12 @@ export class NotificationPanelComponent implements OnInit {
     private notificationService: NotificationService,
     private faLibrary: FaIconLibrary
   ) {
-    this.faLibrary.addIcons(
-      faBell,
-      faCheck,
-      faExclamationTriangle,
-      faInfoCircle,
-      faTimes
-    );
+    this.faLibrary.addIcons(faBell, faCheck, faExclamationTriangle, faInfoCircle, faTimes);
   }
 
   ngOnInit(): void {
-    this.notifications$ = this.store.pipe(
-      select((state) => state.notifications.notifications)
-    );
-    this.unreadCount$ = this.store.pipe(
-      select((state) => state.notifications.unreadCount)
-    );
+    this.notifications$ = this.store.pipe(select((state) => state.notifications.notifications));
+    this.unreadCount$ = this.store.pipe(select((state) => state.notifications.unreadCount));
   }
 
   /**
