@@ -1,4 +1,19 @@
-// src/app/layout/footer/footer.component.ts
+/**
+ * @file footer.component.ts
+ * @module app/layout/footer
+ *
+ * @description Configurable footer component with social links, navigation sections, and scroll-to-top functionality
+ *
+ * @remarks
+ * The footer consists of three main sections:
+ * - Social media links with icons
+ * - Customizable navigation sections (Company, Legal, Support, etc.)
+ * - Copyright information
+ *
+ * Default configuration includes standard social media links and common footer sections,
+ * all of which can be overridden through inputs.
+ */
+
 import { Component, Inject, Input } from '@angular/core';
 import { CommonModule, DOCUMENT } from '@angular/common';
 import { MatIconModule } from '@angular/material/icon';
@@ -30,17 +45,17 @@ interface FooterSection {
     MatButtonModule,
     RouterModule,
     CopyrightComponent,
-    FooterLinksComponent
+    FooterLinksComponent,
   ],
   templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+  styleUrl: './footer.component.scss',
 })
 export class FooterComponent {
   @Input() companyName = 'Your Company';
   @Input() socialLinks: SocialLink[] = [
     { icon: 'facebook', url: '#', label: 'Visit us on Facebook' },
     { icon: 'twitter', url: '#', label: 'Follow us on Twitter' },
-    { icon: 'linkedin', url: '#', label: 'Connect with us on LinkedIn' }
+    { icon: 'linkedin', url: '#', label: 'Connect with us on LinkedIn' },
   ];
 
   @Input() footerSections: FooterSection[] = [
@@ -49,25 +64,25 @@ export class FooterComponent {
       links: [
         { label: 'About Us', url: '/about' },
         { label: 'Careers', url: '/careers' },
-        { label: 'Contact', url: '/contact' }
-      ]
+        { label: 'Contact', url: '/contact' },
+      ],
     },
     {
       title: 'Legal',
       links: [
         { label: 'Privacy Policy', url: '/privacy' },
         { label: 'Terms of Service', url: '/terms' },
-        { label: 'Cookie Policy', url: '/cookies' }
-      ]
+        { label: 'Cookie Policy', url: '/cookies' },
+      ],
     },
     {
       title: 'Support',
       links: [
         { label: 'Help Center', url: '/help' },
         { label: 'FAQs', url: '/faqs' },
-        { label: 'Customer Service', url: '/support' }
-      ]
-    }
+        { label: 'Customer Service', url: '/support' },
+      ],
+    },
   ];
 
   constructor(@Inject(DOCUMENT) private document: Document) {}
