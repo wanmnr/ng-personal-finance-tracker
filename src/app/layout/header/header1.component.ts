@@ -1,5 +1,22 @@
-// app/layout/header/header1.component.ts
-// Basic Header with Angular Material and Tailwind
+/**
+ * @file header1.component.ts
+ * @module app/layout/header
+ *
+ * @description Basic Header using Angular Material and Tailwind with theme switching and user profile controls
+ *
+ * @remarks
+ * Features:
+ * - Responsive toolbar with logo and mobile-friendly navigation
+ * - Theme switching between light and dark modes
+ * - User profile menu with quick actions
+ * - Notification system integration
+ * - Permission-based navigation controls
+ * - Sticky positioning with proper z-index layering
+ *
+ * The header maintains consistent positioning across all viewport sizes and
+ * integrates with the application's navigation and theming systems.
+ */
+
 import { Component, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -26,9 +43,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
     LogoComponent,
   ],
   template: `
-    <mat-toolbar
-      class="flex items-center justify-between bg-white shadow-md px-4"
-    >
+    <mat-toolbar class="flex items-center justify-between bg-white shadow-md px-4">
       <div class="flex items-center gap-4">
         <app-logo size="medium"></app-logo>
         <button mat-icon-button (click)="toggleSidenav()">
@@ -45,9 +60,7 @@ import { toSignal } from '@angular/core/rxjs-interop';
         </button>
 
         <mat-menu #profileMenu="matMenu">
-          <button (click)="toggleTheme()">
-            Toggle {{ isDarkMode() ? 'Light' : 'Dark' }} Mode
-          </button>
+          <button (click)="toggleTheme()">Toggle {{ isDarkMode() ? 'Light' : 'Dark' }} Mode</button>
           <button mat-menu-item>
             <mat-icon>person</mat-icon>
             <span>Profile</span>
