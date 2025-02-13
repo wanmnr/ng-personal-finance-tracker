@@ -1,4 +1,14 @@
-// src/app/layout/footer/copyright/copyright.component.ts
+/**
+ * @file copyright.component.ts
+ * @module app/layout/footer/copyright
+ *
+ * @description Displays dynamic copyright information with the current year
+ *
+ * @remarks
+ * A simple component that automatically updates the copyright year.
+ * Typically used within the footer to display standard copyright text.
+ */
+
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -7,7 +17,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './copyright.component.html',
-  styleUrl: './copyright.component.scss'
+  styleUrl: './copyright.component.scss',
 })
 export class CopyrightComponent {
   currentYear = new Date().getFullYear();
