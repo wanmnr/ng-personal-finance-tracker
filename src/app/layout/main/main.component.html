@@ -1,12 +1,10 @@
+<!-- main.component.html -->
 <div
   class="min-h-screen flex flex-col bg-gray-50"
   [class.dark:bg-gray-900]="layoutService.getIsDarkMode()"
 >
   <!-- Header -->
-  <app-header
-    class="fixed top-0 left-0 right-0 z-50"
-    (menuClick)="layoutService.toggleSidenav()"
-  >
+  <app-header class="fixed top-0 left-0 right-0 z-50" (menuClick)="layoutService.toggleSidenav()">
   </app-header>
 
   <!-- Main content area -->
@@ -20,10 +18,7 @@
         fixedInViewport
         [fixedTopGap]="64"
       >
-        <app-sidebar
-          [isExpanded]="layoutService.getSidenavState()"
-          [menuItems]="navigationItems"
-        >
+        <app-sidebar [isExpanded]="layoutService.getSidenavState()" [menuItems]="navigationItems">
         </app-sidebar>
       </mat-sidenav>
 
@@ -33,9 +28,7 @@
             <!-- Breadcrumbs -->
             <nav aria-label="Breadcrumb" class="mb-4">
               <ol class="flex items-center space-x-2">
-                <ng-container
-                  *ngFor="let breadcrumb of breadcrumbs$(); let last = last"
-                >
+                <ng-container *ngFor="let breadcrumb of breadcrumbs$(); let last = last">
                   <li>
                     <span *ngIf="!last">
                       {{ breadcrumb }}
