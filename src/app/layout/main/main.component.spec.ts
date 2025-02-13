@@ -1,11 +1,10 @@
-// main.component.spec.ts
+/**
+ * @file main.component.spec.ts
+ * @module MainComponent/Testing
+ * @description Test suite for the main layout component responsible for responsive layout management and theme handling
+ */
 
-import {
-  ComponentFixture,
-  TestBed,
-  fakeAsync,
-  tick,
-} from '@angular/core/testing';
+import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
@@ -28,6 +27,20 @@ interface LayoutState {
 
 type SidenavWidthType = 'sidebar-width' | 'sidebar-width collapsed';
 
+/**
+ * @description Test specifications for MainComponent
+ * @remarks
+ * Test categories:
+ * - Component initialization
+ * - Responsive breakpoint handling
+ * - Window resize events
+ * - Keyboard navigation (Escape key)
+ * - Template integration
+ * - Dark mode functionality
+ * - Resource cleanup
+ * - Performance optimization
+ * - Error handling
+ */
 describe('MainComponent', () => {
   let component: MainComponent;
   let fixture: ComponentFixture<MainComponent>;
@@ -56,12 +69,8 @@ describe('MainComponent', () => {
       'sidenavWidth',
     ]);
 
-    navigationService = jasmine.createSpyObj('NavigationService', [
-      'getBreadcrumbs',
-    ]);
-    breakpointObserver = jasmine.createSpyObj('BreakpointObserver', [
-      'observe',
-    ]);
+    navigationService = jasmine.createSpyObj('NavigationService', ['getBreadcrumbs']);
+    breakpointObserver = jasmine.createSpyObj('BreakpointObserver', ['observe']);
 
     // Setup default spy returns with correct types
     layoutService.getLayoutState.and.returnValue({
@@ -74,19 +83,12 @@ describe('MainComponent', () => {
     layoutService.getMobileState.and.returnValue(false);
     layoutService.getIsDarkMode.and.returnValue(false);
     layoutService.sidenavMode.and.returnValue('side');
-    layoutService.sidenavWidth.and.returnValue(
-      'sidebar-width' as SidenavWidthType
-    );
+    layoutService.sidenavWidth.and.returnValue('sidebar-width' as SidenavWidthType);
     navigationService.getBreadcrumbs.and.returnValue(['Home', 'Dashboard']);
     breakpointObserver.observe.and.returnValue(breakpointSubject);
 
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule,
-        BrowserAnimationsModule,
-        MatSidenavModule,
-        MatCardModule,
-      ],
+      imports: [RouterTestingModule, BrowserAnimationsModule, MatSidenavModule, MatCardModule],
       declarations: [MainComponent, HeaderComponent, SidebarComponent],
       providers: [
         { provide: LayoutService, useValue: layoutService },
@@ -173,21 +175,15 @@ describe('MainComponent', () => {
     });
 
     it('should render sidebar component', () => {
-      const sidebar = fixture.debugElement.query(
-        By.directive(SidebarComponent)
-      );
+      const sidebar = fixture.debugElement.query(By.directive(SidebarComponent));
       expect(sidebar).toBeTruthy();
     });
 
     it('should render breadcrumbs correctly', () => {
       fixture.detectChanges();
-      const breadcrumbsElement = fixture.debugElement.query(
-        By.css('[aria-label="Breadcrumb"]')
-      );
+      const breadcrumbsElement = fixture.debugElement.query(By.css('[aria-label="Breadcrumb"]'));
       expect(breadcrumbsElement.nativeElement.textContent).toContain('Home');
-      expect(breadcrumbsElement.nativeElement.textContent).toContain(
-        'Dashboard'
-      );
+      expect(breadcrumbsElement.nativeElement.textContent).toContain('Dashboard');
     });
   });
 
