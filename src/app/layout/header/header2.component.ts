@@ -1,15 +1,33 @@
-// app/core/layout/header/header.component.ts
-// Advanced Header with FontAwesome Icons and Dynamic Navigation
+/**
+ * @file header2.component.ts
+ * @module app/core/layout/header
+ * @description Advanced Header with FontAwesome Icons and Dynamic Navigation
+ *
+ * @remarks
+ * A feature-rich header component that provides:
+ * - Responsive layout with mobile optimization
+ * - Dynamic navigation bar with router integration
+ * - Search functionality
+ * - Notification system with counter
+ * - User profile menu
+ * - Collapsible sidenav control
+ *
+ * The component utilizes Material Design components and FontAwesome icons
+ * for a modern, professional appearance. It maintains a sticky position at
+ * the top of the viewport and includes shadow styling for depth.
+ *
+ * @example
+ * Basic usage in a template:
+ * ```html
+ * <app-header></app-header>
+ * ```
+ */
+
 import { Component, inject } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import {
-  faBars,
-  faBell,
-  faUser,
-  faSearch
-} from '@fortawesome/free-solid-svg-icons';
+import { faBars, faBell, faUser, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -30,19 +48,17 @@ interface NavigationItem {
     MatButtonModule,
     FontAwesomeModule,
     RouterModule,
-    FormsModule
+    FormsModule,
   ],
   template: `
     <header class="bg-white shadow-md">
       <!-- Top Bar -->
       <div class="h-16 px-4 flex items-center justify-between">
         <div class="flex items-center gap-4">
-          <button
-            class="p-2 hover:bg-gray-100 rounded-full"
-            (click)="toggleSidenav()">
+          <button class="p-2 hover:bg-gray-100 rounded-full" (click)="toggleSidenav()">
             <fa-icon [icon]="menuIcon" class="text-gray-600"></fa-icon>
           </button>
-          <img src="assets/logo.svg" alt="Logo" class="h-8">
+          <img src="assets/logo.svg" alt="Logo" class="h-8" />
         </div>
 
         <!-- Search Bar -->
@@ -53,10 +69,12 @@ interface NavigationItem {
               [(ngModel)]="searchQuery"
               (input)="onSearch()"
               class="w-full px-4 py-2 pl-10 rounded-lg border focus:ring-2 focus:ring-blue-500"
-              placeholder="Search...">
+              placeholder="Search..."
+            />
             <fa-icon
               [icon]="searchIcon"
-              class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">
+              class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"
+            >
             </fa-icon>
           </div>
         </div>
@@ -65,25 +83,29 @@ interface NavigationItem {
         <div class="flex items-center gap-2">
           <button
             class="p-2 hover:bg-gray-100 rounded-full relative"
-            (click)="toggleNotifications()">
+            (click)="toggleNotifications()"
+          >
             <fa-icon [icon]="bellIcon" class="text-gray-600"></fa-icon>
             <span
               *ngIf="unreadNotifications > 0"
-              class="absolute top-0 right-0 h-4 w-4 bg-red-500 rounded-full text-white text-xs flex items-center justify-center">
-              {{unreadNotifications}}
+              class="absolute top-0 right-0 h-4 w-4 bg-red-500 rounded-full text-white text-xs flex items-center justify-center"
+            >
+              {{ unreadNotifications }}
             </span>
           </button>
 
           <div class="relative">
             <button
               class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100"
-              (click)="toggleProfileMenu()">
+              (click)="toggleProfileMenu()"
+            >
               <img
                 [src]="userProfile.avatar || 'assets/default-avatar.png'"
                 alt="Profile"
-                class="h-8 w-8 rounded-full">
+                class="h-8 w-8 rounded-full"
+              />
               <span class="hidden md:block text-sm font-medium">
-                {{userProfile.name}}
+                {{ userProfile.name }}
               </span>
             </button>
           </div>
@@ -91,21 +113,17 @@ interface NavigationItem {
       </div>
 
       <!-- Navigation Bar -->
-      <nav
-        *ngIf="showNavigation"
-        class="h-12 px-4 border-t flex items-center">
+      <nav *ngIf="showNavigation" class="h-12 px-4 border-t flex items-center">
         <ul class="flex gap-4">
           @for (item of navigationItems; track item.path) {
             <li>
               <a
                 [routerLink]="item.path"
                 routerLinkActive="text-blue-600 font-medium"
-                class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100">
-                <fa-icon
-                  *ngIf="item.icon"
-                  [icon]="item.icon">
-                </fa-icon>
-                {{item.label}}
+                class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100"
+              >
+                <fa-icon *ngIf="item.icon" [icon]="item.icon"> </fa-icon>
+                {{ item.label }}
               </a>
             </li>
           }
@@ -113,14 +131,16 @@ interface NavigationItem {
       </nav>
     </header>
   `,
-  styles: [`
-    :host {
-      display: block;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-  `]
+  styles: [
+    `
+      :host {
+        display: block;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+      }
+    `,
+  ],
 })
 export class HeaderComponent {
   private readonly navigationService = inject(NavigationService);
@@ -135,14 +155,14 @@ export class HeaderComponent {
   showNavigation = true;
   userProfile = {
     name: 'John Doe',
-    avatar: null
+    avatar: null,
   };
 
   navigationItems: NavigationItem[] = [
     { label: 'Dashboard', path: '/dashboard' },
     { label: 'Projects', path: '/projects' },
     { label: 'Team', path: '/team' },
-    { label: 'Reports', path: '/reports' }
+    { label: 'Reports', path: '/reports' },
   ];
 
   toggleSidenav() {
