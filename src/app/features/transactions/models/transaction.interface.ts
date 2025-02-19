@@ -1,9 +1,16 @@
-// models/transaction2.model.ts
+/**
+ * @file transaction.model.ts
+ * @module app/features/transactions/models
+ * @description Core transaction domain models and state management interfaces
+ */
 
 import { Category } from '@app/features/dashboard/models/category.model';
 import { TRANSACTION_TYPES } from './transaction2.constant';
 
-export type TransactionType = typeof TRANSACTION_TYPES[keyof typeof TRANSACTION_TYPES];
+/**
+ * Valid transaction type values derived from TRANSACTION_TYPES constant
+ */
+export type TransactionType = (typeof TRANSACTION_TYPES)[keyof typeof TRANSACTION_TYPES];
 
 /**
  * Interface representing a financial transaction
@@ -36,6 +43,9 @@ export interface TransactionFilters {
   maxAmount?: number;
 }
 
+/**
+ * Manages transaction data and UI state
+ */
 export interface TransactionState {
   transactions: Transaction[];
   loading: boolean;
