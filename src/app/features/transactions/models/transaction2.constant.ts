@@ -1,4 +1,12 @@
-// transaction2.constants.ts
+/**
+ * @file transaction2.constants.ts
+ * @module app/features/transactions/models
+ * @description Predefined transaction classification values
+ */
+
+/**
+ * Standard transaction category options
+ */
 export const TRANSACTION_CATEGORIES = [
   'Groceries',
   'Rent',
@@ -8,6 +16,9 @@ export const TRANSACTION_CATEGORIES = [
   'Other',
 ] as const;
 
+/**
+ * Available transaction operation types
+ */
 export const TRANSACTION_TYPES = {
   INCOME: 'INCOME',
   EXPENSE: 'EXPENSE',
