@@ -1,8 +1,15 @@
-// models/transaction2.model.ts
+/**
+ * @file transaction2.model.ts
+ * @module app/features/transactions/models
+ * @description Core transaction domain types and filter criteria
+ */
 
 import { TRANSACTION_TYPES } from './transaction2.constant';
 
-export type TransactionType = typeof TRANSACTION_TYPES[keyof typeof TRANSACTION_TYPES];
+/**
+ * Valid transaction operation types
+ */
+export type TransactionType = (typeof TRANSACTION_TYPES)[keyof typeof TRANSACTION_TYPES];
 
 /**
  * Interface representing a financial transaction
