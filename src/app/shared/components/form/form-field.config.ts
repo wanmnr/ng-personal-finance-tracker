@@ -51,7 +51,7 @@
  * ```
  */
 
-import { ValidatorFn } from '@angular/forms';
+import { ValidatorFn, Validators } from '@angular/forms';
 
 /**
  * Configuration interface for dynamic form field generation
@@ -72,3 +72,31 @@ export interface FormFieldConfig {
   defaultValue?: any;
   options?: any;
 }
+
+const fields: FormFieldConfig[] = [
+  {
+    name: 'email',
+    type: 'email',
+    label: 'Email Address',
+    validations: [Validators.required, Validators.email],
+    defaultValue: ''
+  },
+  {
+    name: 'password',
+    type: 'password',
+    label: 'Password',
+    validations: [Validators.required, Validators.minLength(8)],
+    defaultValue: ''
+  }
+];
+
+const validationMessages = {
+  email: {
+    required: 'Email is required',
+    email: 'Please enter a valid email'
+  },
+  password: {
+    required: 'Password is required',
+    minlength: 'Password must be at least 8 characters'
+  }
+};
