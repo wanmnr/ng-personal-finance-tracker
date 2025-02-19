@@ -1,7 +1,7 @@
 /**
  * @file budget1.component.ts
- * @description
  * @module BudgetModule
+ * @description Angular component for managing and displaying budget data.
  */
 
 // Approach 1: Component with Basic Feature Set
