@@ -1,6 +1,6 @@
 /**
  * @file app.config.ts
- * @module app/configuration
+ * @module appConfig
  * @description Application-wide configuration and provider setup for Angular application
  */
 
@@ -27,6 +27,11 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 
 // Application imports
 import { routes } from './app.routes';
+import {
+  ENVIRONMENT_CONFIG,
+  developmentConfig,
+  productionConfig,
+} from './core/config/environment.config';
 import { errorInterceptor } from '@core/interceptors/error3.interceptor';
 import { layoutFeature } from './layout/store/layout.state';
 import { paginationReducer } from '@shared/store/reducers/pagination.reducer';
@@ -60,6 +65,10 @@ export const appConfig: ApplicationConfig = {
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideHttpClient(withInterceptors([errorInterceptor])),
+    {
+      provide: ENVIRONMENT_CONFIG,
+      useValue: isDevMode() ? developmentConfig : productionConfig,
+    },
     provideAnimationsAsync(),
     provideToastr({
       positionClass: 'toast-bottom-right',
