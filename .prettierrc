@@ -1,5 +1,5 @@
 {
-  "printWidth": 100,
+  "printWidth": 80,
   "tabWidth": 2,
   "useTabs": false,
   "semi": true,
@@ -14,15 +14,10 @@
   "quoteProps": "as-needed",
   "embeddedLanguageFormatting": "auto",
   "proseWrap": "preserve",
+
   "overrides": [
     {
-      "files": ["*.html"],
-      "options": {
-        "parser": "angular"
-      }
-    },
-    {
-      "files": ["*.component.html"],
+      "files": "*.html",
       "options": {
         "parser": "angular"
       }
