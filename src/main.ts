@@ -8,7 +8,9 @@ if (!isDevMode()) {
   enableProdMode();
 }
 
-bootstrapApplication(AppComponent, appConfig).catch((err) => console.error(err));
+bootstrapApplication(AppComponent, appConfig).catch((err) =>
+  console.error('Error bootstrapping app:', err)
+);
 
 // Traditional Bootstrap Module
 // platformBrowserDynamic().bootstrapModule(AppModule)
