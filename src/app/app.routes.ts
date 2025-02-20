@@ -1,4 +1,8 @@
-// app.routes.ts
+/**
+ * @file app.routes.ts
+ * @module AppRouting
+ * @description Defines the application's route configuration.
+ */
 
 // Angular Core imports
 import { Routes } from '@angular/router';
@@ -12,33 +16,51 @@ import { unsavedChangesGuard } from '@core/guards/unsaved-changes.guard';
 // Routes Configuration imports
 import { layoutRoutes } from '@layout/layout.route';
 
-// Define your routes here
+/**
+ * Application-wide route definitions.
+ */
 export const routes: Routes = [
-  // Main application routes (with layout)
+  /**
+   * Main application routes with layout.
+   */
   {
     path: '',
     children: layoutRoutes,
   },
-  // Your public routes (accessible without layout)
+
+  /**
+   * Public authentication routes without layout.
+   */
   {
     path: 'auth',
     children: [
       {
         path: '',
-        loadChildren: () => import('@layout/layout.route').then((m) => m.layoutRoutes),
+        loadChildren: () =>
+          import('@layout/layout.route').then((m) => m.layoutRoutes),
       },
     ],
   },
+  /**
+   * Budget feature module.
+   */
   {
     path: 'budget',
     loadComponent: () =>
-      import('./features/budget/budget1.component').then((m) => m.BudgetComponent),
+      import('./features/budget/budget1.component').then(
+        (m) => m.BudgetComponent
+      ),
     title: 'Budget Overview',
   },
+  /**
+   * Dashboard feature module.
+   */
   {
     path: 'dashboard',
     loadComponent: () =>
-      import('./features/dashboard/dashboard1.component').then((m) => m.DashboardComponent),
+      import('./features/dashboard/dashboard1.component').then(
+        (m) => m.DashboardComponent
+      ),
     title: 'Dashboard',
     // canActivate: [authGuard]  // Only basic access
   },
@@ -58,10 +80,16 @@ export const routes: Routes = [
     title: 'Transactions'
   }
   */
+
+  /**
+   * Transaction feature module with lazy loading.
+   */
   {
     path: 'transaction',
     loadChildren: () =>
-      import('@features/transactions/transaction.component').then((m) => m.TransactionComponent),
+      import('@features/transactions/transaction.component').then(
+        (m) => m.TransactionComponent
+      ),
   },
   // {
   //   path: 'transactions',
@@ -85,7 +113,9 @@ export const routes: Routes = [
   //   }
   // }
 
-  // Fallback route
+  /**
+   * Fallback route redirects to home.
+   */
   { path: '**', redirectTo: '' },
 ];
 
