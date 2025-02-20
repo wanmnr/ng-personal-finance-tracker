@@ -1,3 +1,9 @@
+/**
+ * @file app.component.spec.ts
+ * @module AppComponentSpec
+ * @description Unit tests for the AppComponent.
+ */
+
 import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
@@ -24,6 +30,8 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, ng-personal-finance-tracker');
+    expect(compiled.querySelector('h1')?.textContent).toContain(
+      'Hello, ng-personal-finance-tracker'
+    );
   });
 });
