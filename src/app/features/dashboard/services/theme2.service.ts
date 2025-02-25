@@ -1,4 +1,8 @@
-// src/app/features/dashboard/services/theme2.service.ts
+/**
+ * @file theme2.service.ts
+ * @module ThemeService
+ * @description Manages application theme state with dark mode toggling capability
+ */
 
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
