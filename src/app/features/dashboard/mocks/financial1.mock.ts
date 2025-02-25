@@ -1,4 +1,12 @@
-// @features/dashboard/mocks/financial.mock.ts
+/**
+ * @file financial.mock.ts
+ * @module MocksFinancial
+ * @description Provides mock financial data for testing and development of the dashboard feature
+ *
+ * Contains sample data for financial metrics, transactions, budgets, and reports
+ * that reflect typical application state for development and testing purposes.
+ */
+
 import {
   FinancialMetrics,
   Transaction,
