@@ -1,6 +1,6 @@
 /**
  * @file user.service.ts
- * @module Core/Services/User
+ * @module UserService
  * @description Manages user profile data, role validation, and preference operations
  *
  * @remarks
@@ -41,9 +41,10 @@
  * ```
  */
 
-import { HttpClient } from '@angular/common/http';
 import { catchError, Observable, throwError } from 'rxjs';
+import { inject } from '@angular/core';
 import { UserProfile } from '@core/models/user.model';
+import { ApiService } from '@core/services/api.service';
 
 /**
  * User preferences configuration interface
@@ -58,7 +59,7 @@ interface UserPreferences {
 }
 
 export class UserService {
-  constructor(private http: HttpClient) {}
+  private apiService = inject(ApiService);
 
   /**
    * Retrieves user profile information
@@ -67,8 +68,8 @@ export class UserService {
    * @throws HTTP errors wrapped in Observable
    */
   getUserProfile(userId: string): Observable<UserProfile> {
-    return this.http.get<UserProfile>(`/api/users/${userId}`).pipe(
-      catchError(error => {
+    return this.apiService.get<UserProfile>(`users/${userId}`).pipe(
+      catchError((error) => {
         console.error('Error fetching user profile:', error);
         return throwError(() => error);
       })
@@ -82,7 +83,9 @@ export class UserService {
    * @returns Observable of boolean indicating role validity
    */
   validateUserRole(userId: string, role: string): Observable<boolean> {
-    return this.http.get<boolean>(`/api/users/${userId}/validate-role/${role}`);
+    return this.apiService.get<boolean>(
+      `users/${userId}/validate-role/${role}`
+    );
   }
 
   /**
@@ -92,7 +95,7 @@ export class UserService {
    * @returns Observable of the update operation
    */
   updateProfile(userId: string, data: UserProfile) {
-    return this.http.put(`/api/users/${userId}`, data);
+    return this.apiService.put(`users/${userId}`, data);
   }
 
   /**
@@ -101,6 +104,6 @@ export class UserService {
    * @returns Observable of the update operation
    */
   updatePreferences(preferences: UserPreferences) {
-    return this.http.put('/api/users/preferences', preferences);
+    return this.apiService.put('users/preferences', preferences);
   }
 }
