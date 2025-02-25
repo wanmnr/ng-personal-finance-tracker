@@ -1,11 +1,7 @@
 /**
  * @file savings.service.ts
- * @description Service responsible for managing all savings-related operations.
- * Provides methods for retrieving and updating savings metrics and goals.
- * Currently implements mock data, but designed to be easily replaced with
- * real API calls in production.
- * @author [Wan]
- * @version 1.0.0
+ * @module Dashboard/Services/Savings
+ * @description Core service for managing savings metrics and goals.
  */
 
 import { Injectable } from '@angular/core';
@@ -20,7 +16,7 @@ import { SavingsMetrics, SavingsGoal } from '@dashboard/models/savings.model';
 })
 export class SavingsService {
   /**
-   * Mock data for savings metrics
+   * Collection of predefined savings metrics categories
    * @private
    */
   private readonly mockSavingsMetrics: SavingsMetrics[] = [
@@ -59,7 +55,7 @@ export class SavingsService {
   ];
 
   /**
-   * Mock data for savings goals
+   * Collection of financial savings targets with progress tracking
    * @private
    */
   private readonly mockSavingsGoals: SavingsGoal[] = [
@@ -92,27 +88,27 @@ export class SavingsService {
   constructor() {}
 
   /**
-   * Retrieves savings metrics data
-   * @returns An Observable of SavingsMetrics array
+   * Retrieves all available savings metrics categories
+   * @returns Observable stream of savings metrics
    */
   getSavingsMetrics(): Observable<SavingsMetrics[]> {
     return of(this.mockSavingsMetrics);
   }
 
   /**
-   * Retrieves savings goals data
-   * @returns An Observable of SavingsGoal array
+   * Retrieves all user-defined savings goals
+   * @returns Observable stream of savings goals
    */
   getSavingsGoals(): Observable<SavingsGoal[]> {
     return of(this.mockSavingsGoals);
   }
 
   /**
-   * Updates a savings goal
-   * @param goalId - The ID of the goal to update
-   * @param updatedGoal - The updated goal data
-   * @returns An Observable of the updated SavingsGoal
-   * @throws Error if goal is not found
+   * Updates properties of an existing savings goal
+   * @param goalId - Target goal identifier
+   * @param updatedGoal - Goal properties to update
+   * @returns Observable of the updated goal
+   * @throws Error when goal not found
    */
   updateSavingsGoal(
     goalId: string,
@@ -128,10 +124,10 @@ export class SavingsService {
   }
 
   /**
-   * Calculates the progress percentage for a savings goal
-   * @param current - Current amount saved
+   * Computes progress percentage toward a financial target
+   * @param current - Current saved amount
    * @param target - Target amount
-   * @returns Progress percentage (capped at 100)
+   * @returns Capped percentage value (0-100)
    */
   calculateProgress(current: number, target: number): number {
     return Math.min(Math.round((current / target) * 100), 100);
