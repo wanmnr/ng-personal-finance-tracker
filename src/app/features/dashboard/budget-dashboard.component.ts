@@ -1,12 +1,19 @@
-// dashboard/budget-dashboard.component.ts
-
-/*
- * TODO:
- * - Future enhancements may include adding filters or toggles for different budget cycles and exporting budget data as reports.
- * - Additional testing should verify data accuracy, especially when handling edge cases such as over-budget scenarios or empty categories.
+/**
+ * @file dashboard/budget-dashboard.component.ts
+ * @module app/features/dashboard
+ * @description Budget overview dashboard displaying summary and category-specific progress bars
+ *
+ * Budget-Centric Dashboard Approach
+ * Displays a monthly budget overview with summary cards showing total budget,
+ * spent amount, and remaining funds, followed by category progress bars with
+ * color-coded status indicators based on spending percentages.
+ *
+ * @TODO
+ * - Add filters/toggles for different budget cycles
+ * - Enable exporting budget data as reports
+ * - Add tests for data accuracy, especially for over-budget scenarios and empty categories
  */
 
-// Budget-Centric Dashboard Approach
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCardModule } from '@angular/material/card';
@@ -36,7 +43,7 @@ import { Budget, BudgetSummary } from '@features/budget/models/budget1.model';
       <header class="mb-6">
         <h1 class="text-2xl font-bold">Budget Overview</h1>
         <p class="text-gray-600">
-          Monthly Budget Cycle: {{ currentCycle$ | async | date : 'MMMM yyyy' }}
+          Monthly Budget Cycle: {{ currentCycle$ | async | date: 'MMMM yyyy' }}
         </p>
       </header>
 
