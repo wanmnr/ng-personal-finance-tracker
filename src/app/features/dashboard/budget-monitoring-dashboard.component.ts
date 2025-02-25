@@ -1,5 +1,10 @@
-// budget-monitoring-dashboard.component.ts
-// Budget Monitoring Dashboard
+/**
+ * @file budget-monitoring-dashboard.component.ts
+ * @module BudgetMonitoring/Components
+ * @description Displays a comprehensive budget monitoring dashboard with summary cards and category-based budget tracking.
+ *
+ * Budget Monitoring Dashboard
+ */
 
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
