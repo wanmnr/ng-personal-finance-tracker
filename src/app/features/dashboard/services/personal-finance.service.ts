@@ -1,4 +1,9 @@
-// services/personal-finance.service.ts
+/**
+ * @file services/personal-finance.service.ts
+ * @module PersonalFinanceService
+ * @description Core service for personal finance budget calculations and transaction management.
+ */
+
 import { Injectable } from '@angular/core';
 import { Observable, map } from 'rxjs';
 import {
@@ -13,7 +18,14 @@ import {
   providedIn: 'root',
 })
 export class FinanceService {
-  // Calculate budget usage for a specific period
+  /**
+   * Produces a complete budget summary with spending analysis for a specified budget period
+   *
+   * @param budget - The budget configuration to analyze
+   * @param transactions - All available transactions to be filtered by period
+   * @param categories - Available expense categories
+   * @returns Comprehensive budget summary with spending metrics and category breakdown
+   */
   calculateBudgetUsage(
     budget: Budget,
     transactions: Transaction[],
@@ -57,7 +69,13 @@ export class FinanceService {
     };
   }
 
-  // Get transactions for a specific category
+  /**
+   * Filters transactions by their assigned category
+   *
+   * @param categoryId - Category identifier to filter by
+   * @param transactions - Collection of transactions to filter
+   * @returns Transactions belonging to the specified category
+   */
   getTransactionsByCategory(
     categoryId: string,
     transactions: Transaction[]
